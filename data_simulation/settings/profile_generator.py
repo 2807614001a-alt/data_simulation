@@ -181,4 +181,3 @@ if __name__ == "__main__":
         print(f"职业: {new_profile['occupation']}")
         print(f"性格标签: {new_profile['personality']['traits']}")
         print("-" * 30)
-        print("现在你可以运行 main.py (架构师Agent) 来为这个人设计房子了！")
