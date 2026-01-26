@@ -6,7 +6,6 @@ from typing_extensions import TypedDict
 
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
-# 注意：这里改用标准的 pydantic 库，确保兼容 V2
 from pydantic import BaseModel, Field
 from langgraph.graph import StateGraph, END
 from dotenv import load_dotenv
@@ -362,7 +361,7 @@ if __name__ == "__main__":
             print("\n\n🎉 Final Activity Plan Generated:")
             print(final_json)
             
-            output_file = "data/final_activity_plan.json"
+            output_file = "data/plan.json"
             with open(output_file, "w", encoding="utf-8") as f:
                 f.write(final_json)
             print(f"✅ Result saved to {output_file}")

@@ -2,18 +2,14 @@ import os
 import json
 import logging
 from pathlib import Path
-from typing import List, Optional, Dict, Any, Union
-from typing_extensions import TypedDict
-from datetime import datetime, timedelta
+from typing import List, Dict, Any, Optional
+from dotenv import load_dotenv
 
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from pydantic import BaseModel, Field
-from langgraph.graph import StateGraph, END
-from dotenv import load_dotenv
 
 # 加载环境变量
-load_dotenv()
 current_dir = Path(__file__).resolve().parent
 dotenv_path = current_dir.parent / '.env'
 load_dotenv(dotenv_path=dotenv_path)
@@ -23,111 +19,83 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 # ==========================================
-# 1. 核心提示词 (Prompts)
-# ==========================================
-
-DEVICE_OPERATE_SYS_PROMPT = """
-你是一个智能家居的底层控制系统（IoT Controller）。
-你的任务是根据用户的行为事件（Event），生成具体的设备状态变更指令（Signals）。
-
-## 输入信息
-1. **当前事件**: 用户正在做什么，持续多久。
-2. **设备当前状态**: 涉及设备的当前快照。
-3. **交互规则**: 物理世界的基本法则（如：只有打开盖子才能取东西）。
-
-## 输出要求
-生成一个 JSON 列表，包含在该事件时间段内发生的所有设备状态变更。
-- **Start Signals**: 事件开始时发生的改变（如：按下开关）。
-- **End Signals** (可选): 事件结束时发生的改变（如：随手关灯、关火）。
-- **Intermediate**: 如果事件很长，中间的状态变化。
-
-## 规则
-1. **时间戳**: 必须严格在 Event 的 start_time 和 end_time 之间。
-2. **状态一致性**: 如果设备已经是 "on"，不要重复发送 "turn_on" 指令，除非模式改变。
-3. **补全逻辑**: 如果事件是 "做饭"，隐含了 "开火 -> 烹饪 -> 关火" 的完整闭环。如果事件只是 "打开电视"，则不需要生成关闭指令。
-4. **Patch 格式**: 使用 Key-Value 列表来描述变化。
-
-## 示例
-事件: 12:00-12:30 在厨房做饭 (Stove)。
-输出:
-[
-  {{
-    "timestamp": "12:00:00", 
-    "device_id": "stove", 
-    "patch_items": [{{"key": "power", "value": "on"}}, {{"key": "mode", "value": "cook"}}], 
-    "reason": "开始做饭"
-  }},
-  {{
-    "timestamp": "12:30:00", 
-    "device_id": "stove", 
-    "patch_items": [{{"key": "power", "value": "off"}}], 
-    "reason": "做饭结束"
-  }}
-]
-"""
-
-# ==========================================
-# 2. 数据结构 (Pydantic Models)
+# 1. 定义输出数据结构 (Pydantic Models)
 # ==========================================
 
 class PatchItem(BaseModel):
     key: str = Field(description="状态属性名, e.g. 'power', 'temperature'")
-    value: str = Field(description="状态属性值, e.g. 'on', '23'. 统一使用字符串表示")
+    value: str = Field(description="状态属性值, e.g. 'on', '23'. 统一转为字符串")
 
-class DeviceSignal(BaseModel):
-    timestamp: str = Field(description="ISO格式时间，必须在事件范围内")
+class DevicePatch(BaseModel):
+    timestamp: str = Field(description="该操作发生的时间点 (ISO格式)")
     device_id: str = Field(description="设备ID")
-    patch_items: List[PatchItem] = Field(description="状态变更列表")
-    reason: str = Field(description="变更原因简述")
+    # 【修复】使用 List[PatchItem] 替代 Dict[str, Any] 避免 OpenAI 400 错误
+    patch_items: List[PatchItem] = Field(description="状态变更内容列表")
 
-    def get_patch_dict(self) -> Dict[str, Any]:
-        return {item.key: item.value for item in self.patch_items}
-
-class SignalResponse(BaseModel):
-    signals: List[DeviceSignal]
+class EventDeviceState(BaseModel):
+    patch_on_start: List[DevicePatch] = Field(description="事件开始时刻发生的设备变更")
+    patch_on_end: List[DevicePatch] = Field(description="事件结束时刻发生的设备变更")
 
 # ==========================================
-# 3. 状态管理器 (Pure Device State Machine)
+# 2. 核心提示词 (Prompt)
 # ==========================================
 
-class StateManager:
-    def __init__(self, house_details_map: Dict):
-        self.device_states = {}  # Only World State
-        
-        # 初始化设备状态
-        for device_id, details in house_details_map.items():
-            self.device_states[device_id] = details.get("current_state", {}).copy()
+DEVICE_STATE_GEN_PROMPT = """
+你是一个智能家居行为分析器。
+请根据用户的【行为事件】，推断设备应该在【开始】和【结束】时发生什么状态变化。
 
-    def get_involved_states(self, object_ids: List[str]) -> Dict:
-        """只获取当前事件涉及的设备状态"""
-        snapshot = {}
-        for oid in object_ids:
-            snapshot[oid] = self.device_states.get(oid, {})
-        return snapshot
+## 输入数据
+- **Event**: {description}
+- **Time**: {start_time} 至 {end_time}
+- **Devices**: {target_devices}
+- **Reference**: {device_details}
 
-    def apply_patch(self, device_id: str, patch: Dict):
-        """应用状态补丁"""
-        if device_id not in self.device_states:
-            self.device_states[device_id] = {}
-        
-        # 字典更新
-        self.device_states[device_id].update(patch)
+## 任务要求
+1. **Patch on Start**: 事件开始时，设备状态如何改变？(例如：打开电源、设置模式、打开门)
+2. **Patch on End**: 事件结束时，设备状态如何改变？(例如：关闭电源、关闭门)。如果行为不需要关闭(如持续运行)，则列表为空。
+3. **Timestamp**: 
+   - Start Patch 的时间戳必须是 {start_time}。
+   - End Patch 的时间戳必须是 {end_time}。
+4. **格式规则**: 
+   - 由于输出限制，请将状态变化拆解为 key-value 列表 (patch_items)。
+   - 例如：`{{"key": "power", "value": "on"}}`
 
-    def get_full_snapshot(self):
-        """获取当前所有设备的完整状态快照"""
-        # 返回深拷贝，防止日志被后续修改污染
-        return self.device_states.copy()
+## 输出示例
+Event: 做饭 (Stove)
+Time: 08:00 - 08:30
+Result:
+{{
+  "patch_on_start": [
+    {{
+      "timestamp": "08:00", 
+      "device_id": "stove", 
+      "patch_items": [
+        {{"key": "power", "value": "on"}}, 
+        {{"key": "mode", "value": "cook"}}
+      ]
+    }}
+  ],
+  "patch_on_end": [
+    {{
+      "timestamp": "08:30", 
+      "device_id": "stove", 
+      "patch_items": [
+        {{"key": "power", "value": "off"}}
+      ]
+    }}
+  ]
+}}
+"""
 
 # ==========================================
-# 4. 辅助函数
+# 3. 辅助函数
 # ==========================================
 
 def load_settings_data(project_root: Path) -> Dict[str, Any]:
     """加载配置数据"""
     settings_path = project_root / "settings"
-    data = {"house_details_map": {}, "interaction_rules": []}
+    data = {"house_details_map": {}}
 
-    # Load Details
     if (settings_path / "house_details.json").exists():
         with open(settings_path / "house_details.json", 'r', encoding='utf-8') as f:
             details_list = json.load(f)
@@ -135,136 +103,115 @@ def load_settings_data(project_root: Path) -> Dict[str, Any]:
                 item_id = item.get("furniture_id") or item.get("device_id")
                 if item_id:
                     data["house_details_map"][item_id] = item
-
-    # Load Rules
-    if (settings_path / "interaction_rules.json").exists():
-        with open(settings_path / "interaction_rules.json", 'r', encoding='utf-8') as f:
-            content = json.load(f)
-            data["interaction_rules"] = content.get("interaction_rules", [])
-            
     return data
 
+def get_device_context(target_ids: List[str], details_map: Dict) -> str:
+    """获取涉及设备的简要信息"""
+    context = []
+    for tid in target_ids:
+        if tid in details_map:
+            info = details_map[tid]
+            context.append(f"{tid} ({info.get('name', 'Unknown')}) - Supports: {info.get('support_actions', [])}")
+    return "; ".join(context)
+
+def convert_patch_to_dict(patch_obj: DevicePatch) -> Dict:
+    """【后处理】将 PatchItem 列表转回 Dict 格式，符合最终 JSON 输出要求"""
+    kv_dict = {item.key: item.value for item in patch_obj.patch_items}
+    return {
+        "timestamp": patch_obj.timestamp,
+        "device_id": patch_obj.device_id,
+        "patch": kv_dict  # 转换回 {"power": "on"}
+    }
+
 # ==========================================
-# 5. 主逻辑
+# 4. 主逻辑
 # ==========================================
 
-def run_device_simulation():
+def run_event_chain_generation():
     project_root = Path(__file__).resolve().parent.parent
     
-    # 1. 加载配置
     settings = load_settings_data(project_root)
-    if not settings["house_details_map"]:
-        logger.warning("⚠️ House Details is empty or not loaded correctly.")
-
-    state_manager = StateManager(settings["house_details_map"])
-    
-    # 2. 加载上一层生成的 Events
     events_file = project_root / "data" / "final_events_full_day.json"
     
     if not events_file.exists():
         events_file = project_root / "data" / "events.json"
         
     if not events_file.exists():
-        logger.error("❌ No events file found. Please run Layer 3 (event_decomposition.py) first.")
+        logger.error("❌ No events file found. Please run Layer 3 first.")
         return
 
     with open(events_file, 'r', encoding='utf-8') as f:
         events_list = json.load(f)
 
-    logger.info(f"🚀 Starting Device Simulation Layer for {len(events_list)} events...")
+    logger.info(f"🚀 Generating Action Event Chain for {len(events_list)} events...")
 
     # 初始化 LLM
     llm = ChatOpenAI(model="gpt-4o", temperature=0.3)
-    structured_llm = llm.with_structured_output(SignalResponse)
+    structured_llm = llm.with_structured_output(EventDeviceState)
     
-    all_signals = []
-    full_state_log = []
+    final_chain = []
 
-    # 3. 逐事件推进仿真
     for index, event in enumerate(events_list):
-        desc_short = event.get('description', '')[:20]
-        logger.info(f"--- Processing Event [{index+1}/{len(events_list)}]: {desc_short}... ---")
-        
         target_ids = event.get("target_object_ids", [])
+        is_outside = event.get("room_id") == "Outside"
+        # 简单过滤：只有明确涉及设备且非外出事件才处理
+        use_devices = len(target_ids) > 0 and not is_outside
         
-        # --- 过滤逻辑 ---
-        # 如果没有交互对象，或是在外面，不调用 LLM，也不产生状态变更日志
-        # (因为现在只关心 device update 触发的日志)
-        if not target_ids or event.get("room_id") == "Outside":
-            continue
+        event_output = {
+            "event_id": event.get("activity_id", f"evt_{index:03d}"),
+            "room_id": event.get("room_id"),
+            "start_time": event.get("start_time"),
+            "end_time": event.get("end_time"),
+            "description": event.get("description"),
+            "use_devices": use_devices,
+            "devices": target_ids,
+            "layer5_device_state": {
+                "patch_on_start": [],
+                "patch_on_end": []
+            }
+        }
 
-        # --- Step A: 准备 LLM 上下文 ---
-        current_device_snapshot = state_manager.get_involved_states(target_ids)
-        
-        # 截断规则防止 Token 溢出
-        rules_str = json.dumps(settings["interaction_rules"], ensure_ascii=False)
-        if len(rules_str) > 3000:
-            rules_str = rules_str[:3000] + "... (truncated)"
-
-        prompt = ChatPromptTemplate.from_messages([
-            ("system", DEVICE_OPERATE_SYS_PROMPT),
-            ("human", """
-            Current Event: {event_json}
-            Involved Devices Current State: {device_states_json}
-            Interaction Rules (Reference): {rules_json}
-            """)
-        ])
-        
-        chain = prompt | structured_llm
-        
-        try:
-            result = chain.invoke({
-                "event_json": json.dumps(event, ensure_ascii=False),
-                "device_states_json": json.dumps(current_device_snapshot, ensure_ascii=False),
-                "rules_json": rules_str
-            })
+        if use_devices:
+            desc_short = event.get('description', '')[:20]
+            logger.info(f"⚡ Analyzing Devices for Event [{index+1}]: {desc_short}...")
             
-            # --- Step B: 逐个 Signal 应用并记录快照 ---
-            if result.signals:
-                for signal in result.signals:
-                    patch_dict = signal.get_patch_dict()
-                    
-                    # 1. 应用变更到内存状态机
-                    state_manager.apply_patch(signal.device_id, patch_dict)
-                    
-                    # 2. 收集增量信号 (Signals)
-                    signal_record = {
-                        "timestamp": signal.timestamp,
-                        "device_id": signal.device_id,
-                        "patch": patch_dict,  
-                        "reason": signal.reason,
-                        "event_id": event.get("activity_id", "unknown")
-                    }
-                    all_signals.append(signal_record)
-                    
-                    # 3. 【关键修改】每次变更后，立即记录当前全量状态 (Snapshots)
-                    # 这样日志就是由"设备更新"驱动的，而非时间驱动
-                    log_entry = {
-                        "timestamp": signal.timestamp,  # 使用信号发生的时间
-                        "trigger_device": signal.device_id, # 标记是谁触发了这次快照
-                        "change_reason": signal.reason,
-                        "devices_state": state_manager.get_full_snapshot()
-                    }
-                    full_state_log.append(log_entry)
-                    
-                    logger.info(f"📡 Signal & Snapshot: {signal.device_id} -> {patch_dict}")
-
-        except Exception as e:
-            logger.error(f"❌ Error generating signals: {e}")
-
-    # 4. 保存结果
-    output_dir = project_root / "data"
-    
-    # 保存信号流
-    with open(output_dir / "device_signals.json", "w", encoding="utf-8") as f:
-        json.dump(all_signals, f, indent=2, ensure_ascii=False)
+            device_context = get_device_context(target_ids, settings["house_details_map"])
+            
+            prompt = ChatPromptTemplate.from_template(DEVICE_STATE_GEN_PROMPT)
+            chain = prompt | structured_llm
+            
+            try:
+                result = chain.invoke({
+                    "description": event.get("description"),
+                    "start_time": event.get("start_time"),
+                    "end_time": event.get("end_time"),
+                    "target_devices": ", ".join(target_ids),
+                    "device_details": device_context
+                })
+                
+                # 【关键修复】: 手动将 LLM 输出的 List[Item] 结构转回 Dict 结构
+                start_patches = [convert_patch_to_dict(p) for p in result.patch_on_start]
+                end_patches = [convert_patch_to_dict(p) for p in result.patch_on_end]
+                
+                event_output["layer5_device_state"] = {
+                    "patch_on_start": start_patches,
+                    "patch_on_end": end_patches
+                }
+                
+            except Exception as e:
+                logger.error(f"❌ LLM Error on event {index}: {e}")
         
-    # 保存状态机日志 (事件驱动版)
-    with open(output_dir / "simulation_state_log.json", "w", encoding="utf-8") as f:
-        json.dump(full_state_log, f, indent=2, ensure_ascii=False)
+        final_chain.append(event_output)
 
-    logger.info(f"✅ Simulation Complete. Generated {len(all_signals)} signals.")
-    logger.info(f"📂 Check 'data/device_signals.json' and 'data/simulation_state_log.json'")
+    # 输出结果
+    output_data = {"action_event_chain": final_chain}
+    output_path = project_root / "data" / "action_event_chain.json"
+    
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(output_data, f, indent=2, ensure_ascii=False)
+
+    logger.info(f"✅ Generated {len(final_chain)} event chains.")
+    logger.info(f"📂 Result saved to: {output_path}")
 
 if __name__ == "__main__":
-    run_device_simulation()
+    run_event_chain_generation()
