@@ -5,13 +5,16 @@ from pathlib import Path
 from dotenv import load_dotenv
 from typing import List, Dict
 
-from langchain_openai import ChatOpenAI
+from llm_utils import create_chat_llm
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from pydantic import BaseModel, Field
 
 # --- 环境配置 ---
 load_dotenv()
+current_dir = Path(__file__).resolve().parent
+dotenv_path = current_dir.parent / '.env'
+load_dotenv(dotenv_path=dotenv_path)
 
 # --- 1. 定义数据结构 (Schema) ---
 
@@ -100,7 +103,7 @@ def run_architect_agent_json():
     # 注入格式说明
     prompt = prompt.partial(format_instructions=parser.get_format_instructions())
 
-    llm = ChatOpenAI(model="gpt-4", temperature=0.7)
+    llm = create_chat_llm(model="gpt-4", temperature=0.7)
     chain = prompt | llm | parser
 
     print(">>> 正在生成环境状态快照...")

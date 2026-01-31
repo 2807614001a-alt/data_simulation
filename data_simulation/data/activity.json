@@ -1,0 +1,110 @@
+{
+  "activities": [
+    {
+      "activity_id": "act_001",
+      "activity_name": "Sleep",
+      "start_time": "2023-11-23T23:00:00+08:00",
+      "end_time": "2023-11-23T07:30:00+08:00",
+      "description": "刘薇在主卧的床上睡觉，保持充足的睡眠。",
+      "main_rooms": [
+        "master_bedroom"
+      ]
+    },
+    {
+      "activity_id": "act_002",
+      "activity_name": "Morning Routine",
+      "start_time": "2023-11-23T07:30:00+08:00",
+      "end_time": "2023-11-23T08:00:00+08:00",
+      "description": "起床后，刘薇在浴室进行洗漱和个人清洁，然后更衣。",
+      "main_rooms": [
+        "bathroom",
+        "master_bedroom"
+      ]
+    },
+    {
+      "activity_id": "act_003",
+      "activity_name": "Breakfast",
+      "start_time": "2023-11-23T08:00:00+08:00",
+      "end_time": "2023-11-23T08:30:00+08:00",
+      "description": "刘薇在厨房准备并享用轻食早餐。",
+      "main_rooms": [
+        "kitchen"
+      ]
+    },
+    {
+      "activity_id": "act_004",
+      "activity_name": "Commute to Work",
+      "start_time": "2023-11-23T08:30:00+08:00",
+      "end_time": "2023-11-23T09:30:00+08:00",
+      "description": "刘薇从家中出发，前往公司办公室工作。",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_005",
+      "activity_name": "Work",
+      "start_time": "2023-11-23T09:30:00+08:00",
+      "end_time": "2023-11-23T17:30:00+08:00",
+      "description": "在公司办公室进行市场分析报告编写工作。",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_006",
+      "activity_name": "Commute Home",
+      "start_time": "2023-11-23T17:30:00+08:00",
+      "end_time": "2023-11-23T18:30:00+08:00",
+      "description": "刘薇结束工作后返回家中。",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_007",
+      "activity_name": "Dinner Preparation",
+      "start_time": "2023-11-23T18:30:00+08:00",
+      "end_time": "2023-11-23T19:30:00+08:00",
+      "description": "刘薇在厨房准备低糖晚餐，并随后就餐。",
+      "main_rooms": [
+        "kitchen"
+      ]
+    },
+    {
+      "activity_id": "act_008",
+      "activity_name": "Leisure Time",
+      "start_time": "2023-11-23T19:30:00+08:00",
+      "end_time": "2023-11-23T20:30:00+08:00",
+      "description": "刘薇在客厅阅读非虚构类书籍，放松身心。",
+      "main_rooms": [
+        "living_room"
+      ]
+    },
+    {
+      "activity_id": "act_009",
+      "activity_name": "Yoga Class",
+      "start_time": "2023-11-23T20:30:00+08:00",
+      "end_time": "2023-11-23T21:30:00+08:00",
+      "description": "刘薇参加线上瑜伽课程，在客厅进行锻炼。",
+      "main_rooms": [
+        "living_room"
+      ]
+    },
+    {
+      "activity_id": "act_010",
+      "activity_name": "Evening Routine",
+      "start_time": "2023-11-23T21:30:00+08:00",
+      "end_time": "2023-11-23T22:30:00+08:00",
+      "description": "刘薇在浴室进行夜间洗漱，准备睡觉。",
+      "main_rooms": [
+        "bathroom",
+        "master_bedroom"
+      ]
+    },
+    {
+      "activity_id": "act_011",
+      "activity_name": "Relaxation",
+      "start_time": "2023-11-23T22:30:00+08:00",
+      "end_time": "2023-11-23T23:00:00+08:00",
+      "description": "刘薇在主卧使用智能音箱播放轻音乐，放松身心。",
+      "main_rooms": [
+        "master_bedroom"
+      ]
+    }
+  ]
+}

@@ -32,7 +32,6 @@ def run_script(script_name, work_dir):
     except Exception as e:
         print(f"❌ 发生未知错误: {e}")
         return False
-
 def main():
     # 获取当前这个 main.py 文件所在的绝对路径目录
     # 无论你在哪个终端路径下运行，这一行都能找到正确的文件夹
@@ -42,7 +41,7 @@ def main():
     scripts_to_run = [
         "planning.py",
         "event.py",
-        "device_operate.py"  # <--- 已修正文件名（去掉末尾的 r）
+        "device_operate.py" 
     ]
 
     print(f"📂 工作目录已锁定为: {current_base_dir}\n")
@@ -54,7 +53,6 @@ def main():
         if not success:
             print("🛑 由于上一步失败，程序终止。")
             break
-    
     print("🏁 所有任务处理完毕。")
 
 if __name__ == "__main__":

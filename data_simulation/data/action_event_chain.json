@@ -1,0 +1,1037 @@
+{
+  "action_event_chain": [
+    {
+      "event_id": "act_001",
+      "room_id": "master_bedroom",
+      "start_time": "2023-11-23T23:00:00+08:00",
+      "end_time": "2023-11-23T23:10:00+08:00",
+      "description": "刘薇进入主卧床，准备睡眠。",
+      "use_devices": true,
+      "devices": [
+        "bed_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2023-11-23T23:00:00+08:00",
+            "device_id": "bed_001",
+            "patch": {
+              "state": "occupied"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2023-11-23T23:10:00+08:00",
+            "device_id": "bed_001",
+            "patch": {
+              "state": "idle"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_001",
+      "room_id": "master_bedroom",
+      "start_time": "2023-11-23T23:10:00+08:00",
+      "end_time": "2023-11-23T07:20:00+08:00",
+      "description": "刘薇在主卧床上进行睡眠，保持身体休息。",
+      "use_devices": true,
+      "devices": [
+        "bed_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2023-11-23T23:10:00+08:00",
+            "device_id": "bed_001",
+            "patch": {
+              "status": "occupied"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2023-11-23T07:20:00+08:00",
+            "device_id": "bed_001",
+            "patch": {
+              "status": "idle"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_001",
+      "room_id": "master_bedroom",
+      "start_time": "2023-11-23T07:20:00+08:00",
+      "end_time": "2023-11-23T07:30:00+08:00",
+      "description": "刘薇从主卧床起身，完成睡眠过程。",
+      "use_devices": true,
+      "devices": [
+        "bed_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2023-11-23T07:20:00+08:00",
+            "device_id": "bed_001",
+            "patch": {
+              "state": "active"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2023-11-23T07:30:00+08:00",
+            "device_id": "bed_001",
+            "patch": {
+              "state": "idle"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_002",
+      "room_id": "bathroom",
+      "start_time": "2023-11-23T07:30:00+08:00",
+      "end_time": "2023-11-23T07:31:30+08:00",
+      "description": "刘薇从主卧室前往浴室，开始晨间活动。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_002",
+      "room_id": "bathroom",
+      "start_time": "2023-11-23T07:31:30+08:00",
+      "end_time": "2023-11-23T07:37:00+08:00",
+      "description": "刘薇使用洗手台完成刷牙和洗脸。",
+      "use_devices": true,
+      "devices": [
+        "sink_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2023-11-23T07:31:30+08:00",
+            "device_id": "sink_001",
+            "patch": {
+              "use": "on"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2023-11-23T07:37:00+08:00",
+            "device_id": "sink_001",
+            "patch": {
+              "use": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_002",
+      "room_id": "bathroom",
+      "start_time": "2023-11-23T07:37:00+08:00",
+      "end_time": "2023-11-23T07:45:00+08:00",
+      "description": "刘薇使用智能淋浴系统进行快速冲洗。",
+      "use_devices": true,
+      "devices": [
+        "smart_shower_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2023-11-23T07:37:00+08:00",
+            "device_id": "smart_shower_001",
+            "patch": {
+              "power": "on",
+              "mode": "quick_shower"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2023-11-23T07:45:00+08:00",
+            "device_id": "smart_shower_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_002",
+      "room_id": "master_bedroom",
+      "start_time": "2023-11-23T07:45:00+08:00",
+      "end_time": "2023-11-23T07:46:30+08:00",
+      "description": "刘薇从浴室回到主卧室准备更衣。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_002",
+      "room_id": "master_bedroom",
+      "start_time": "2023-11-23T07:46:30+08:00",
+      "end_time": "2023-11-23T08:00:00+08:00",
+      "description": "刘薇从衣柜取出服装并完成穿戴。",
+      "use_devices": true,
+      "devices": [
+        "wardrobe_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2023-11-23T07:46:30+08:00",
+            "device_id": "wardrobe_001",
+            "patch": {
+              "state": "open"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2023-11-23T08:00:00+08:00",
+            "device_id": "wardrobe_001",
+            "patch": {
+              "state": "close"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_003",
+      "room_id": "kitchen",
+      "start_time": "2023-11-23T08:00:00+08:00",
+      "end_time": "2023-11-23T08:03:00+08:00",
+      "description": "刘薇打开智能冰箱以取出早餐食材。",
+      "use_devices": true,
+      "devices": [
+        "smart_fridge_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2023-11-23T08:00:00+08:00",
+            "device_id": "smart_fridge_001",
+            "patch": {
+              "door": "open"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2023-11-23T08:03:00+08:00",
+            "device_id": "smart_fridge_001",
+            "patch": {
+              "door": "closed"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_003",
+      "room_id": "kitchen",
+      "start_time": "2023-11-23T08:03:00+08:00",
+      "end_time": "2023-11-23T08:10:00+08:00",
+      "description": "刘薇使用智能烤箱加热早餐。",
+      "use_devices": true,
+      "devices": [
+        "smart_oven_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2023-11-23T08:03:00+08:00",
+            "device_id": "smart_oven_001",
+            "patch": {
+              "power": "on",
+              "mode": "heat"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2023-11-23T08:10:00+08:00",
+            "device_id": "smart_oven_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_003",
+      "room_id": "kitchen",
+      "start_time": "2023-11-23T08:10:00+08:00",
+      "end_time": "2023-11-23T08:12:00+08:00",
+      "description": "刘薇在餐桌上放置准备好的早餐。",
+      "use_devices": true,
+      "devices": [
+        "dining_table_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2023-11-23T08:10:00+08:00",
+            "device_id": "dining_table_001",
+            "patch": {
+              "status": "in_use"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2023-11-23T08:12:00+08:00",
+            "device_id": "dining_table_001",
+            "patch": {
+              "status": "idle"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_003",
+      "room_id": "kitchen",
+      "start_time": "2023-11-23T08:12:00+08:00",
+      "end_time": "2023-11-23T08:25:00+08:00",
+      "description": "刘薇享用早餐并整理思绪。",
+      "use_devices": true,
+      "devices": [
+        "chairs_001",
+        "dining_table_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2023-11-23T08:12:00+08:00",
+            "device_id": "chairs_001",
+            "patch": {
+              "state": "sit"
+            }
+          },
+          {
+            "timestamp": "2023-11-23T08:12:00+08:00",
+            "device_id": "dining_table_001",
+            "patch": {
+              "state": "place_item"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2023-11-23T08:25:00+08:00",
+            "device_id": "chairs_001",
+            "patch": {
+              "state": "stand_up"
+            }
+          },
+          {
+            "timestamp": "2023-11-23T08:25:00+08:00",
+            "device_id": "dining_table_001",
+            "patch": {
+              "state": "clean"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_003",
+      "room_id": "kitchen",
+      "start_time": "2023-11-23T08:25:00+08:00",
+      "end_time": "2023-11-23T08:30:00+08:00",
+      "description": "刘薇清理餐具并将其放入洗碗机。",
+      "use_devices": true,
+      "devices": [
+        "dishwasher_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2023-11-23T08:25:00+08:00",
+            "device_id": "dishwasher_001",
+            "patch": {
+              "power": "on",
+              "mode": "normal"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2023-11-23T08:30:00+08:00",
+            "device_id": "dishwasher_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_004",
+      "room_id": "Outside",
+      "start_time": "2023-11-23T08:30:00+08:00",
+      "end_time": "2023-11-23T09:30:00+08:00",
+      "description": "刘薇从家中出发，前往公司办公室工作。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_005",
+      "room_id": "Outside",
+      "start_time": "2023-11-23T09:30:00+08:00",
+      "end_time": "2023-11-23T17:30:00+08:00",
+      "description": "刘薇在公司办公室进行市场分析工作。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_006",
+      "room_id": "Outside",
+      "start_time": "2023-11-23T17:30:00+08:00",
+      "end_time": "2023-11-23T18:30:00+08:00",
+      "description": "刘薇结束工作后返回家中。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_007",
+      "room_id": "kitchen",
+      "start_time": "2023-11-23T18:30:00+08:00",
+      "end_time": "2023-11-23T18:35:00+08:00",
+      "description": "刘薇从橱柜中取出食材。",
+      "use_devices": true,
+      "devices": [
+        "cabinets_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2023-11-23T18:30:00+08:00",
+            "device_id": "cabinets_001",
+            "patch": {
+              "state": "open"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2023-11-23T18:35:00+08:00",
+            "device_id": "cabinets_001",
+            "patch": {
+              "state": "closed"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_007",
+      "room_id": "kitchen",
+      "start_time": "2023-11-23T18:35:00+08:00",
+      "end_time": "2023-11-23T18:40:00+08:00",
+      "description": "刘薇使用智能冰箱取出冷藏的配料。",
+      "use_devices": true,
+      "devices": [
+        "smart_fridge_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2023-11-23T18:35:00+08:00",
+            "device_id": "smart_fridge_001",
+            "patch": {
+              "door": "open"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2023-11-23T18:40:00+08:00",
+            "device_id": "smart_fridge_001",
+            "patch": {
+              "door": "closed"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_007",
+      "room_id": "kitchen",
+      "start_time": "2023-11-23T18:40:00+08:00",
+      "end_time": "2023-11-23T18:50:00+08:00",
+      "description": "刘薇在餐桌上准备食材。",
+      "use_devices": true,
+      "devices": [
+        "dining_table_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2023-11-23T18:40:00+08:00",
+            "device_id": "dining_table_001",
+            "patch": {
+              "status": "in_use"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2023-11-23T18:50:00+08:00",
+            "device_id": "dining_table_001",
+            "patch": {
+              "status": "cleaned"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_007",
+      "room_id": "kitchen",
+      "start_time": "2023-11-23T18:50:00+08:00",
+      "end_time": "2023-11-23T19:10:00+08:00",
+      "description": "刘薇使用智能烤箱进行烹饪。",
+      "use_devices": true,
+      "devices": [
+        "smart_oven_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2023-11-23T18:50:00+08:00",
+            "device_id": "smart_oven_001",
+            "patch": {
+              "power": "on",
+              "mode": "cook"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2023-11-23T19:10:00+08:00",
+            "device_id": "smart_oven_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_007",
+      "room_id": "kitchen",
+      "start_time": "2023-11-23T19:10:00+08:00",
+      "end_time": "2023-11-23T19:30:00+08:00",
+      "description": "刘薇在餐桌上享用低糖晚餐。",
+      "use_devices": true,
+      "devices": [
+        "dining_table_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2023-11-23T19:10:00+08:00",
+            "device_id": "dining_table_001",
+            "patch": {
+              "place_item": "on"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2023-11-23T19:30:00+08:00",
+            "device_id": "dining_table_001",
+            "patch": {
+              "clean": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_008",
+      "room_id": "living_room",
+      "start_time": "2023-11-23T19:30:00+08:00",
+      "end_time": "2023-11-23T19:31:00+08:00",
+      "description": "刘薇从厨房移动到客厅，为休闲活动做准备。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_008",
+      "room_id": "living_room",
+      "start_time": "2023-11-23T19:31:00+08:00",
+      "end_time": "2023-11-23T20:00:00+08:00",
+      "description": "刘薇坐下在沙发上，打开书籍开始阅读。",
+      "use_devices": true,
+      "devices": [
+        "sofa_001",
+        "bookshelf_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2023-11-23T19:31:00+08:00",
+            "device_id": "sofa_001",
+            "patch": {
+              "sit": "on"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2023-11-23T20:00:00+08:00",
+            "device_id": "sofa_001",
+            "patch": {
+              "sit": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_008",
+      "room_id": "living_room",
+      "start_time": "2023-11-23T20:00:00+08:00",
+      "end_time": "2023-11-23T20:15:00+08:00",
+      "description": "刘薇短暂休息，放松心情，感受环境的舒适。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_008",
+      "room_id": "living_room",
+      "start_time": "2023-11-23T20:15:00+08:00",
+      "end_time": "2023-11-23T20:30:00+08:00",
+      "description": "刘薇继续阅读书籍并完成章节内容。",
+      "use_devices": true,
+      "devices": [
+        "sofa_001",
+        "bookshelf_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2023-11-23T20:15:00+08:00",
+            "device_id": "sofa_001",
+            "patch": {
+              "state": "sit"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2023-11-23T20:30:00+08:00",
+            "device_id": "sofa_001",
+            "patch": {
+              "state": "idle"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_009",
+      "room_id": "living_room",
+      "start_time": "2023-11-23T20:30:00+08:00",
+      "end_time": "2023-11-23T20:32:00+08:00",
+      "description": "刘薇移动至客厅，为瑜伽课程做准备。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_009",
+      "room_id": "living_room",
+      "start_time": "2023-11-23T20:32:00+08:00",
+      "end_time": "2023-11-23T20:35:00+08:00",
+      "description": "刘薇启动智能电视并准备进入瑜伽课程视频。",
+      "use_devices": true,
+      "devices": [
+        "smart_tv_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2023-11-23T20:32:00+08:00",
+            "device_id": "smart_tv_001",
+            "patch": {
+              "power": "on",
+              "mode": "watch_movie"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2023-11-23T20:35:00+08:00",
+            "device_id": "smart_tv_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_009",
+      "room_id": "living_room",
+      "start_time": "2023-11-23T20:35:00+08:00",
+      "end_time": "2023-11-23T20:38:00+08:00",
+      "description": "刘薇在客厅铺设瑜伽垫，并准备开始练习。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_009",
+      "room_id": "living_room",
+      "start_time": "2023-11-23T20:38:00+08:00",
+      "end_time": "2023-11-23T21:25:00+08:00",
+      "description": "刘薇跟随视频进行瑜伽动作练习。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_009",
+      "room_id": "living_room",
+      "start_time": "2023-11-23T21:25:00+08:00",
+      "end_time": "2023-11-23T21:30:00+08:00",
+      "description": "刘薇关闭智能电视并收拾瑜伽垫。",
+      "use_devices": true,
+      "devices": [
+        "smart_tv_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2023-11-23T21:25:00+08:00",
+            "device_id": "smart_tv_001",
+            "patch": {
+              "power": "on"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2023-11-23T21:30:00+08:00",
+            "device_id": "smart_tv_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_010",
+      "room_id": "bathroom",
+      "start_time": "2023-11-23T21:30:00+08:00",
+      "end_time": "2023-11-23T21:31:00+08:00",
+      "description": "刘薇从客厅移动至浴室，准备进行夜间洗漱。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_010",
+      "room_id": "bathroom",
+      "start_time": "2023-11-23T21:31:00+08:00",
+      "end_time": "2023-11-23T21:44:00+08:00",
+      "description": "刘薇使用洗手台清洁面部并刷牙。",
+      "use_devices": true,
+      "devices": [
+        "sink_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2023-11-23T21:31:00+08:00",
+            "device_id": "sink_001",
+            "patch": {
+              "use": "on"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2023-11-23T21:44:00+08:00",
+            "device_id": "sink_001",
+            "patch": {
+              "use": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_010",
+      "room_id": "bathroom",
+      "start_time": "2023-11-23T21:44:00+08:00",
+      "end_time": "2023-11-23T21:47:00+08:00",
+      "description": "刘薇将毛巾挂回晾衣架。",
+      "use_devices": true,
+      "devices": [
+        "laundry_rack_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2023-11-23T21:44:00+08:00",
+            "device_id": "laundry_rack_001",
+            "patch": {
+              "state": "active"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2023-11-23T21:47:00+08:00",
+            "device_id": "laundry_rack_001",
+            "patch": {
+              "state": "idle"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_010",
+      "room_id": "master_bedroom",
+      "start_time": "2023-11-23T21:47:00+08:00",
+      "end_time": "2023-11-23T21:49:00+08:00",
+      "description": "刘薇从浴室移动至主卧，准备上床休息。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_010",
+      "room_id": "master_bedroom",
+      "start_time": "2023-11-23T21:49:00+08:00",
+      "end_time": "2023-11-23T21:59:00+08:00",
+      "description": "刘薇关闭智能灯并拉上窗帘，准备睡觉。",
+      "use_devices": true,
+      "devices": [
+        "smart_light_001",
+        "blackout_curtain_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2023-11-23T21:49:00+08:00",
+            "device_id": "smart_light_001",
+            "patch": {
+              "power": "on"
+            }
+          },
+          {
+            "timestamp": "2023-11-23T21:49:00+08:00",
+            "device_id": "blackout_curtain_001",
+            "patch": {
+              "state": "open"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2023-11-23T21:59:00+08:00",
+            "device_id": "smart_light_001",
+            "patch": {
+              "power": "off"
+            }
+          },
+          {
+            "timestamp": "2023-11-23T21:59:00+08:00",
+            "device_id": "blackout_curtain_001",
+            "patch": {
+              "state": "close"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_010",
+      "room_id": "master_bedroom",
+      "start_time": "2023-11-23T21:59:00+08:00",
+      "end_time": "2023-11-23T22:30:00+08:00",
+      "description": "刘薇躺在床上，放松并逐渐进入睡眠状态。",
+      "use_devices": true,
+      "devices": [
+        "bed_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2023-11-23T21:59:00+08:00",
+            "device_id": "bed_001",
+            "patch": {
+              "mode": "sleep"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2023-11-23T22:30:00+08:00",
+            "device_id": "bed_001",
+            "patch": {
+              "mode": "standby"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_011",
+      "room_id": "master_bedroom",
+      "start_time": "2023-11-23T22:30:00+08:00",
+      "end_time": "2023-11-23T22:32:00+08:00",
+      "description": "刘薇打开智能音箱，设置播放轻音乐。",
+      "use_devices": true,
+      "devices": [
+        "smart_speaker_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2023-11-23T22:30:00+08:00",
+            "device_id": "smart_speaker_001",
+            "patch": {
+              "power": "on",
+              "play_music": "on"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2023-11-23T22:32:00+08:00",
+            "device_id": "smart_speaker_001",
+            "patch": {
+              "play_music": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_011",
+      "room_id": "master_bedroom",
+      "start_time": "2023-11-23T22:32:00+08:00",
+      "end_time": "2023-11-23T22:58:00+08:00",
+      "description": "刘薇坐在床上，闭目聆听轻音乐，放松心情。",
+      "use_devices": true,
+      "devices": [
+        "bed_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2023-11-23T22:32:00+08:00",
+            "device_id": "bed_001",
+            "patch": {
+              "status": "occupied"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2023-11-23T22:58:00+08:00",
+            "device_id": "bed_001",
+            "patch": {
+              "status": "idle"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_011",
+      "room_id": "master_bedroom",
+      "start_time": "2023-11-23T22:58:00+08:00",
+      "end_time": "2023-11-23T23:00:00+08:00",
+      "description": "刘薇关闭智能音箱，结束音乐播放。",
+      "use_devices": true,
+      "devices": [
+        "smart_speaker_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2023-11-23T22:58:00+08:00",
+            "device_id": "smart_speaker_001",
+            "patch": {
+              "power": "on",
+              "playback": "start"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2023-11-23T23:00:00+08:00",
+            "device_id": "smart_speaker_001",
+            "patch": {
+              "power": "off",
+              "playback": "stop"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

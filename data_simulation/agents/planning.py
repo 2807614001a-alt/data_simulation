@@ -1,10 +1,10 @@
 import os
 import json
+import sys
 from pathlib import Path
 from typing import List, Optional, Dict
 from typing_extensions import TypedDict
 
-from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from pydantic import BaseModel, Field
 from langgraph.graph import StateGraph, END
@@ -14,6 +14,10 @@ load_dotenv()
 current_dir = Path(__file__).resolve().parent
 dotenv_path = current_dir.parent / '.env'
 load_dotenv(dotenv_path=dotenv_path)
+project_root = current_dir.parent
+if str(project_root) not in sys.path:
+    sys.path.insert(0, str(project_root))
+from settings.llm_utils import create_chat_llm
 # ==========================================
 # 1. 提示词常量定义
 # ==========================================
@@ -243,7 +247,7 @@ class AgentState(TypedDict):
 # ==========================================
 
 # 初始化 LLM
-llm = ChatOpenAI(model="gpt-4o", temperature=0.7)
+llm = create_chat_llm(model="gpt-4o", temperature=0.7)
 
 def generate_node(state: AgentState):
     print("\n🚀 [Step 1] Generating Initial Plan...")
@@ -361,7 +365,9 @@ if __name__ == "__main__":
             print("\n\n🎉 Final Activity Plan Generated:")
             print(final_json)
             
-            output_file = "data/plan.json"
+            project_root = Path(__file__).resolve().parent.parent
+            output_file = project_root / "data" / "activity.json"
+            output_file.parent.mkdir(parents=True, exist_ok=True)
             with open(output_file, "w", encoding="utf-8") as f:
                 f.write(final_json)
             print(f"✅ Result saved to {output_file}")

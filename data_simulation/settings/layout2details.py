@@ -1,11 +1,13 @@
 import json
 import os
 import sys
+import threading
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from dotenv import load_dotenv
 from typing import List, Dict, Any, Union, Optional
 
-from langchain_openai import ChatOpenAI
+from llm_utils import create_chat_llm
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from pydantic import BaseModel, Field
@@ -56,6 +58,32 @@ class RoomItemsDetail(BaseModel):
 # ==========================================
 # 2. 辅助函数
 # ==========================================
+
+_thread_local = threading.local()
+
+def get_max_workers(total: int, env_name: str = "MAX_WORKERS", default: int = 4) -> int:
+    """
+    鏍规嵁鏁版嵁閲忎笌鐜鍙橀噺鍐冲畾骞惰搴?
+    """
+    if total <= 1:
+        return 1
+    env_value = os.getenv(env_name)
+    if env_value:
+        try:
+            value = int(env_value)
+            if value > 0:
+                return min(value, total)
+        except ValueError:
+            pass
+    cpu_count = os.cpu_count() or default
+    return min(total, max(1, min(8, cpu_count)))
+
+def get_thread_llm():
+    llm = getattr(_thread_local, "llm", None)
+    if llm is None:
+        llm = create_chat_llm(model="gpt-4", temperature=0.7)
+        _thread_local.llm = llm
+    return llm
 
 def load_json_file(filename):
     path = os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
@@ -175,7 +203,7 @@ def main():
     profile_str = json.dumps(profile, ensure_ascii=False)
     
     # 2. 初始化模型
-    llm = ChatOpenAI(model="gpt-4", temperature=0.7)
+    llm = get_thread_llm()
 
     # 3. 数据标准化 (解决 List vs Dict 报错的核心逻辑)
     # 我们将数据统一转换为 [(room_id, room_data), ...] 的列表形式
@@ -211,12 +239,27 @@ def main():
     
     print("\n>>> 2. 开始逐个房间细化物品状态...")
     
-    for room_id, room_data in rooms_to_process:
-        # 再次确保 data 是字典
+    room_items_list = list(rooms_to_process)
+    max_workers = get_max_workers(len(room_items_list))
+
+    def _worker(item):
+        room_id, room_data = item
         if isinstance(room_data, dict):
-            # 调用处理函数
-            room_items = process_single_room(llm, profile_str, room_id, room_data)
-            all_items_flat_list.extend(room_items)
+            room_items = process_single_room(get_thread_llm(), profile_str, room_id, room_data)
+            return room_id, room_items
+        return room_id, []
+
+    if max_workers > 1:
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            for _, room_items in executor.map(_worker, room_items_list):
+                all_items_flat_list.extend(room_items)
+    else:
+        for room_id, room_data in room_items_list:
+            # ?????? data ?????
+            if isinstance(room_data, dict):
+                # ?????????
+                room_items = process_single_room(llm, profile_str, room_id, room_data)
+                all_items_flat_list.extend(room_items)
 
     # 5. 保存结果
     print(f"\n>>> 3. 处理完成，共生成 {len(all_items_flat_list)} 个物品详情。")

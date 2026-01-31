@@ -1,0 +1,642 @@
+[
+  {
+    "furniture_id": "sofa_001",
+    "name": "沙发",
+    "room": "living_room",
+    "support_actions": [
+      "sit",
+      "lie_down",
+      "stand_up",
+      "get_up"
+    ],
+    "comfort_level": 0.85,
+    "current_state": {
+      "temperature": 24,
+      "items_on": [
+        "cushion",
+        "blanket"
+      ]
+    }
+  },
+  {
+    "furniture_id": "coffee_table_001",
+    "name": "茶几",
+    "room": "living_room",
+    "support_actions": [
+      "place_item",
+      "remove_item",
+      "move_to"
+    ],
+    "comfort_level": 0.6,
+    "current_state": {
+      "temperature": 24,
+      "items_on": [
+        "book",
+        "cup"
+      ]
+    }
+  },
+  {
+    "furniture_id": "tv_stand_001",
+    "name": "电视柜",
+    "room": "living_room",
+    "support_actions": [
+      "open_drawer",
+      "close_drawer",
+      "place_item",
+      "remove_item"
+    ],
+    "comfort_level": 0.5,
+    "current_state": {
+      "temperature": 24,
+      "items_on": [
+        "remote_control",
+        "photo_frame"
+      ]
+    }
+  },
+  {
+    "furniture_id": "bookshelf_001",
+    "name": "书架",
+    "room": "living_room",
+    "support_actions": [
+      "place_item",
+      "remove_item"
+    ],
+    "comfort_level": 0.7,
+    "current_state": {
+      "temperature": 24,
+      "items_on": [
+        "books",
+        "decorative_objects"
+      ]
+    }
+  },
+  {
+    "furniture_id": "shoe_cabinet_001",
+    "name": "鞋柜",
+    "room": "living_room",
+    "support_actions": [
+      "open_door",
+      "close_door",
+      "place_item",
+      "remove_item"
+    ],
+    "comfort_level": 0.5,
+    "current_state": {
+      "temperature": 24,
+      "items_on": []
+    }
+  },
+  {
+    "furniture_id": "trash_can_001",
+    "name": "垃圾桶",
+    "room": "living_room",
+    "support_actions": [
+      "open_lid",
+      "close_lid",
+      "empty"
+    ],
+    "comfort_level": 0.3,
+    "current_state": {
+      "temperature": 24,
+      "items_on": []
+    }
+  },
+  {
+    "device_id": "smart_tv_001",
+    "name": "智能电视",
+    "room": "living_room",
+    "support_actions": [
+      "turn_on",
+      "turn_off",
+      "watch_movie",
+      "play_game",
+      "stream_music"
+    ],
+    "current_state": {
+      "power": "off",
+      "temperature_set": null,
+      "mode": null,
+      "fan_speed": null
+    }
+  },
+  {
+    "device_id": "sound_system_001",
+    "name": "音响系统",
+    "room": "living_room",
+    "support_actions": [
+      "turn_on",
+      "turn_off",
+      "play_music",
+      "adjust_volume"
+    ],
+    "current_state": {
+      "power": "off",
+      "temperature_set": null,
+      "mode": null,
+      "fan_speed": null
+    }
+  },
+  {
+    "device_id": "light_001",
+    "name": "智能灯",
+    "room": "living_room",
+    "support_actions": [
+      "turn_on",
+      "turn_off",
+      "adjust_brightness",
+      "set_color"
+    ],
+    "current_state": {
+      "power": "off",
+      "temperature_set": null,
+      "mode": null,
+      "fan_speed": null
+    }
+  },
+  {
+    "device_id": "robot_vacuum_001",
+    "name": "扫地机器人",
+    "room": "living_room",
+    "support_actions": [
+      "turn_on",
+      "turn_off",
+      "start_cleaning",
+      "return_to_dock",
+      "pause"
+    ],
+    "current_state": {
+      "power": "off",
+      "temperature_set": null,
+      "mode": "standby",
+      "fan_speed": "medium"
+    }
+  },
+  {
+    "furniture_id": "bed_001",
+    "name": "主卧床",
+    "room": "master_bedroom",
+    "support_actions": [
+      "lie_down",
+      "get_up",
+      "sleep",
+      "make_bed"
+    ],
+    "comfort_level": 0.95,
+    "current_state": {
+      "temperature": 24,
+      "items_on": []
+    }
+  },
+  {
+    "furniture_id": "wardrobe_001",
+    "name": "衣柜",
+    "room": "master_bedroom",
+    "support_actions": [
+      "open",
+      "close",
+      "store_clothes",
+      "retrieve_clothes"
+    ],
+    "comfort_level": 0.8,
+    "current_state": {
+      "temperature": 24,
+      "items_on": []
+    }
+  },
+  {
+    "furniture_id": "nightstand_001",
+    "name": "床头柜",
+    "room": "master_bedroom",
+    "support_actions": [
+      "place_item",
+      "remove_item"
+    ],
+    "comfort_level": 0.85,
+    "current_state": {
+      "temperature": 24,
+      "items_on": [
+        "lamp",
+        "book"
+      ]
+    }
+  },
+  {
+    "furniture_id": "blackout_curtain_001",
+    "name": "遮光窗帘",
+    "room": "master_bedroom",
+    "support_actions": [
+      "open",
+      "close"
+    ],
+    "comfort_level": 0.9,
+    "current_state": {
+      "temperature": 24,
+      "items_on": []
+    }
+  },
+  {
+    "device_id": "smart_light_001",
+    "name": "智能灯",
+    "room": "master_bedroom",
+    "support_actions": [
+      "turn_on",
+      "turn_off",
+      "set_brightness",
+      "set_color"
+    ],
+    "current_state": {
+      "power": "off",
+      "temperature_set": null,
+      "mode": null,
+      "fan_speed": null
+    }
+  },
+  {
+    "device_id": "air_purifier_001",
+    "name": "空气净化器",
+    "room": "master_bedroom",
+    "support_actions": [
+      "turn_on",
+      "turn_off",
+      "set_mode",
+      "set_fan_speed"
+    ],
+    "current_state": {
+      "power": "off",
+      "temperature_set": null,
+      "mode": "auto",
+      "fan_speed": "medium"
+    }
+  },
+  {
+    "device_id": "smart_speaker_001",
+    "name": "智能音箱",
+    "room": "master_bedroom",
+    "support_actions": [
+      "play_music",
+      "pause_music",
+      "turn_on",
+      "turn_off",
+      "set_volume",
+      "ask_question"
+    ],
+    "current_state": {
+      "power": "off",
+      "temperature_set": null,
+      "mode": null,
+      "fan_speed": null
+    }
+  },
+  {
+    "furniture_id": "desk_001",
+    "name": "书桌",
+    "room": "study_room",
+    "support_actions": [
+      "place_item",
+      "remove_item",
+      "clean"
+    ],
+    "comfort_level": 0.7,
+    "current_state": {
+      "temperature": 24,
+      "items_on": [
+        "laptop",
+        "notebook",
+        "pen"
+      ]
+    }
+  },
+  {
+    "furniture_id": "ergonomic_chair_001",
+    "name": "人体工学椅",
+    "room": "study_room",
+    "support_actions": [
+      "sit",
+      "stand_up",
+      "adjust_height",
+      "adjust_recline"
+    ],
+    "comfort_level": 0.9,
+    "current_state": {
+      "temperature": 24,
+      "items_on": []
+    }
+  },
+  {
+    "furniture_id": "bookshelf_002",
+    "name": "书架",
+    "room": "study_room",
+    "support_actions": [
+      "place_item",
+      "remove_item",
+      "organize"
+    ],
+    "comfort_level": 0.8,
+    "current_state": {
+      "temperature": 24,
+      "items_on": [
+        "book",
+        "magazine",
+        "decorative_item"
+      ]
+    }
+  },
+  {
+    "device_id": "gaming_pc_001",
+    "name": "游戏电脑",
+    "room": "study_room",
+    "support_actions": [
+      "turn_on",
+      "turn_off",
+      "restart",
+      "run_program"
+    ],
+    "current_state": {
+      "power": "off",
+      "temperature_set": null,
+      "mode": null,
+      "fan_speed": null
+    }
+  },
+  {
+    "device_id": "dual_monitor_001",
+    "name": "双显示器",
+    "room": "study_room",
+    "support_actions": [
+      "turn_on",
+      "turn_off",
+      "adjust_brightness",
+      "switch_input"
+    ],
+    "current_state": {
+      "power": "off",
+      "temperature_set": null,
+      "mode": null,
+      "fan_speed": null
+    }
+  },
+  {
+    "device_id": "smart_light_002",
+    "name": "智能灯",
+    "room": "study_room",
+    "support_actions": [
+      "turn_on",
+      "turn_off",
+      "adjust_brightness",
+      "set_color"
+    ],
+    "current_state": {
+      "power": "off",
+      "temperature_set": null,
+      "mode": "normal",
+      "fan_speed": null
+    }
+  },
+  {
+    "furniture_id": "dining_table_001",
+    "name": "餐桌",
+    "room": "kitchen",
+    "support_actions": [
+      "place_item",
+      "remove_item",
+      "clean"
+    ],
+    "comfort_level": 0.8,
+    "current_state": {
+      "temperature": 22.5,
+      "items_on": [
+        "fruit_bowl",
+        "placemats"
+      ]
+    }
+  },
+  {
+    "furniture_id": "chairs_001",
+    "name": "餐椅",
+    "room": "kitchen",
+    "support_actions": [
+      "sit",
+      "stand_up",
+      "move"
+    ],
+    "comfort_level": 0.7,
+    "current_state": {
+      "temperature": 22.5,
+      "items_on": []
+    }
+  },
+  {
+    "furniture_id": "cabinets_001",
+    "name": "橱柜",
+    "room": "kitchen",
+    "support_actions": [
+      "open",
+      "close",
+      "store_item",
+      "remove_item"
+    ],
+    "comfort_level": 0.0,
+    "current_state": {
+      "temperature": 22.5,
+      "items_on": []
+    }
+  },
+  {
+    "device_id": "smart_fridge_001",
+    "name": "智能冰箱",
+    "room": "kitchen",
+    "support_actions": [
+      "turn_on",
+      "turn_off",
+      "open",
+      "close",
+      "set_temp",
+      "add_item",
+      "remove_item",
+      "check_inventory"
+    ],
+    "current_state": {
+      "power": "on",
+      "temperature_set": 4,
+      "mode": "normal",
+      "fan_speed": null
+    }
+  },
+  {
+    "device_id": "smart_oven_001",
+    "name": "智能烤箱",
+    "room": "kitchen",
+    "support_actions": [
+      "turn_on",
+      "turn_off",
+      "set_temp",
+      "start",
+      "stop",
+      "open",
+      "close"
+    ],
+    "current_state": {
+      "power": "off",
+      "temperature_set": null,
+      "mode": null,
+      "fan_speed": null
+    }
+  },
+  {
+    "device_id": "dishwasher_001",
+    "name": "洗碗机",
+    "room": "kitchen",
+    "support_actions": [
+      "turn_on",
+      "turn_off",
+      "start",
+      "stop",
+      "open",
+      "close",
+      "set_mode"
+    ],
+    "current_state": {
+      "power": "off",
+      "temperature_set": null,
+      "mode": null,
+      "fan_speed": null
+    }
+  },
+  {
+    "device_id": "coffee_maker_001",
+    "name": "咖啡机",
+    "room": "kitchen",
+    "support_actions": [
+      "turn_on",
+      "turn_off",
+      "brew",
+      "clean",
+      "set_mode"
+    ],
+    "current_state": {
+      "power": "off",
+      "temperature_set": null,
+      "mode": "manual",
+      "fan_speed": null
+    }
+  },
+  {
+    "device_id": "trash_can_001",
+    "name": "垃圾桶",
+    "room": "kitchen",
+    "support_actions": [
+      "open",
+      "close",
+      "empty"
+    ],
+    "current_state": {
+      "power": "off",
+      "temperature_set": null,
+      "mode": null,
+      "fan_speed": null
+    }
+  },
+  {
+    "furniture_id": "sink_001",
+    "name": "洗手台",
+    "room": "bathroom",
+    "support_actions": [
+      "use",
+      "clean",
+      "place_item",
+      "remove_item"
+    ],
+    "comfort_level": 0.5,
+    "current_state": {
+      "temperature": 22.0,
+      "items_on": [
+        "toothbrush",
+        "soap_dispenser"
+      ]
+    }
+  },
+  {
+    "furniture_id": "cabinet_002",
+    "name": "浴室柜",
+    "room": "bathroom",
+    "support_actions": [
+      "open",
+      "close",
+      "store_item",
+      "remove_item"
+    ],
+    "comfort_level": 0.3,
+    "current_state": {
+      "temperature": 22.0,
+      "items_on": []
+    }
+  },
+  {
+    "furniture_id": "mirror_001",
+    "name": "浴室镜",
+    "room": "bathroom",
+    "support_actions": [
+      "clean",
+      "use"
+    ],
+    "comfort_level": 0.4,
+    "current_state": {
+      "temperature": 22.0,
+      "items_on": []
+    }
+  },
+  {
+    "furniture_id": "laundry_rack_001",
+    "name": "晾衣架",
+    "room": "bathroom",
+    "support_actions": [
+      "hang_item",
+      "remove_item",
+      "fold"
+    ],
+    "comfort_level": 0.2,
+    "current_state": {
+      "temperature": 22.0,
+      "items_on": [
+        "towel"
+      ]
+    }
+  },
+  {
+    "device_id": "washing_machine_001",
+    "name": "洗衣机",
+    "room": "bathroom",
+    "support_actions": [
+      "turn_on",
+      "turn_off",
+      "set_mode",
+      "start_cycle",
+      "stop_cycle"
+    ],
+    "current_state": {
+      "power": "off",
+      "temperature_set": null,
+      "mode": null,
+      "fan_speed": null
+    }
+  },
+  {
+    "device_id": "smart_shower_001",
+    "name": "智能淋浴系统",
+    "room": "bathroom",
+    "support_actions": [
+      "turn_on",
+      "turn_off",
+      "set_temp",
+      "set_mode"
+    ],
+    "current_state": {
+      "power": "off",
+      "temperature_set": 24,
+      "mode": "standard",
+      "fan_speed": null
+    }
+  }
+]

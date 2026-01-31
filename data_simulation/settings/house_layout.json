@@ -1,0 +1,109 @@
+{
+  "living_room": {
+    "room_type": "客厅",
+    "area_sqm": 30,
+    "furniture": [
+      "sofa_001",
+      "coffee_table_001",
+      "tv_stand_001",
+      "bookshelf_001",
+      "shoe_cabinet_001",
+      "trash_can_001"
+    ],
+    "devices": [
+      "smart_tv_001",
+      "sound_system_001",
+      "light_001",
+      "robot_vacuum_001"
+    ],
+    "environment_state": {
+      "temperature": 22,
+      "humidity": 0.5,
+      "light_level": 0.8,
+      "noise_level": 0.2
+    }
+  },
+  "master_bedroom": {
+    "room_type": "主卧",
+    "area_sqm": 20,
+    "furniture": [
+      "bed_001",
+      "wardrobe_001",
+      "nightstand_001",
+      "blackout_curtain_001"
+    ],
+    "devices": [
+      "smart_light_001",
+      "air_purifier_001",
+      "smart_speaker_001"
+    ],
+    "environment_state": {
+      "temperature": 20,
+      "humidity": 0.4,
+      "light_level": 0.1,
+      "noise_level": 0.1
+    }
+  },
+  "study_room": {
+    "room_type": "书房",
+    "area_sqm": 15,
+    "furniture": [
+      "desk_001",
+      "ergonomic_chair_001",
+      "bookshelf_002"
+    ],
+    "devices": [
+      "gaming_pc_001",
+      "dual_monitor_001",
+      "smart_light_002"
+    ],
+    "environment_state": {
+      "temperature": 22,
+      "humidity": 0.5,
+      "light_level": 0.7,
+      "noise_level": 0.3
+    }
+  },
+  "kitchen": {
+    "room_type": "厨房",
+    "area_sqm": 12,
+    "furniture": [
+      "dining_table_001",
+      "chairs_001",
+      "cabinets_001"
+    ],
+    "devices": [
+      "smart_fridge_001",
+      "smart_oven_001",
+      "dishwasher_001",
+      "coffee_maker_001",
+      "trash_can_001"
+    ],
+    "environment_state": {
+      "temperature": 23,
+      "humidity": 0.6,
+      "light_level": 0.9,
+      "noise_level": 0.1
+    }
+  },
+  "bathroom": {
+    "room_type": "浴室",
+    "area_sqm": 8,
+    "furniture": [
+      "sink_001",
+      "cabinet_002",
+      "mirror_001",
+      "laundry_rack_001"
+    ],
+    "devices": [
+      "washing_machine_001",
+      "smart_shower_001"
+    ],
+    "environment_state": {
+      "temperature": 24,
+      "humidity": 0.7,
+      "light_level": 0.8,
+      "noise_level": 0.2
+    }
+  }
+}

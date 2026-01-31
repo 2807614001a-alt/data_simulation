@@ -2,16 +2,17 @@ import json
 import os
 import sys
 import time
+import threading
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import List, Dict, Any, Union, Optional
-from dotenv import load_dotenv
 
-from langchain_openai import ChatOpenAI
+from llm_utils import create_chat_llm
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from pydantic import BaseModel, Field
+from dotenv import load_dotenv
 
-# --- 环境配置 ---
 load_dotenv()
 current_dir = Path(__file__).resolve().parent
 dotenv_path = current_dir.parent / '.env'
@@ -48,6 +49,32 @@ class InteractionRule(BaseModel):
 # ==========================================
 # 2. 辅助函数
 # ==========================================
+
+_thread_local = threading.local()
+
+def get_max_workers(total: int, env_name: str = "MAX_WORKERS", default: int = 4) -> int:
+    """
+    鏍规嵁鏁版嵁閲忎笌鐜鍙橀噺鍐冲畾骞惰搴?
+    """
+    if total <= 1:
+        return 1
+    env_value = os.getenv(env_name)
+    if env_value:
+        try:
+            value = int(env_value)
+            if value > 0:
+                return min(value, total)
+        except ValueError:
+            pass
+    cpu_count = os.cpu_count() or default
+    return min(total, max(1, min(8, cpu_count)))
+
+def get_thread_llm():
+    llm = getattr(_thread_local, "llm", None)
+    if llm is None:
+        llm = create_chat_llm(model="gpt-4", temperature=0.7)
+        _thread_local.llm = llm
+    return llm
 
 def load_json_file(filename):
     path = os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
@@ -159,23 +186,35 @@ def main():
     print(f"    共识别出 {total_actions} 个唯一动作。")
     
     # 3. 初始化 LLM
-    llm = ChatOpenAI(model="gpt-4", temperature=0.7)
+    llm = get_thread_llm()
     
     # 4. 逐个生成 (Loop)
     all_rules = []
     print("\n>>> [2/3] 开始逐个生成规则逻辑...")
     
-    for i, (action, objects) in enumerate(aggregated_map.items(), 1):
-        # 调用处理函数
-        rule_data = process_single_action_rule(llm, action, objects)
-        
-        if rule_data:
-            all_rules.append(rule_data)
-            
-        # 可选：防止触发 API 速率限制，每处理几个动作停顿一下
-        # if i % 5 == 0: time.sleep(1)
+    action_items = list(aggregated_map.items())
+    max_workers = get_max_workers(len(action_items))
 
-    # 5. 保存
+    def _worker(item):
+        action, objects = item
+        return process_single_action_rule(get_thread_llm(), action, objects)
+
+    if max_workers > 1:
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            for rule_data in executor.map(_worker, action_items):
+                if rule_data:
+                    all_rules.append(rule_data)
+    else:
+        for i, (action, objects) in enumerate(action_items, 1):
+            # ?????????
+            rule_data = process_single_action_rule(llm, action, objects)
+            
+            if rule_data:
+                all_rules.append(rule_data)
+                
+            # ??????????? API ?????????????????????????
+            # if i % 5 == 0: time.sleep(1)
+
     print(f"\n>>> [3/3] 全部完成。共生成 {len(all_rules)} 条规则。")
     save_json_file(all_rules)
 

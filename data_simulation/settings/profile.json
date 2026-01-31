@@ -1,0 +1,87 @@
+{
+  "user_id": "user_001",
+  "name": "刘薇",
+  "age": 28,
+  "gender": "female",
+  "occupation": "市场分析师",
+  "personality": {
+    "big_five": {
+      "openness": 0.78,
+      "conscientiousness": 0.85,
+      "extraversion": 0.62,
+      "agreeableness": 0.67,
+      "neuroticism": 0.54
+    },
+    "traits": [
+      "爱好数据整理",
+      "偏好中性家居风格",
+      "对嘈杂环境较敏感",
+      "注重细节",
+      "有时情绪易波动"
+    ]
+  },
+  "values": {
+    "work_life_balance": 0.65,
+    "health_consciousness": 0.8,
+    "social_interaction": 0.55,
+    "personal_growth": 0.9,
+    "financial_security": 0.75
+  },
+  "routines": {
+    "sleep_schedule": {
+      "weekday_bedtime": "23:00",
+      "weekday_wakeup": "07:30",
+      "weekend_bedtime": "00:30",
+      "weekend_wakeup": "09:30"
+    },
+    "meal_habits": {
+      "breakfast_time": "08:00",
+      "lunch_time": "12:30",
+      "dinner_time": "19:00",
+      "cooking_frequency": 0.4,
+      "diet_preference": [
+        "低糖",
+        "偏好轻食"
+      ]
+    },
+    "exercise": {
+      "frequency": "3次/周",
+      "preferred_time": "晚上",
+      "type": [
+        "瑜伽",
+        "室内单车"
+      ]
+    },
+    "weekly_schedule": {
+      "monday": {
+        "activity": "数据分析报告编写",
+        "time": "09:30-17:30",
+        "location": "公司办公室",
+        "frequency": "每周"
+      },
+      "wednesday": {
+        "activity": "线上瑜伽课程",
+        "time": "20:00-21:00",
+        "location": "家中客厅",
+        "frequency": "每周"
+      },
+      "saturday": {
+        "activity": "手冲咖啡练习",
+        "time": "10:00-11:00",
+        "location": "家中厨房",
+        "frequency": "每周"
+      }
+    }
+  },
+  "preferences": {
+    "entertainment": [
+      "阅读非虚构类书籍",
+      "看悬疑类电影"
+    ],
+    "music_genre": [
+      "轻音乐",
+      "爵士"
+    ],
+    "home_temperature": 24
+  }
+}

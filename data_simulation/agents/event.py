@@ -1,12 +1,12 @@
 import os
 import json
 import logging
+import sys
 from pathlib import Path
 from datetime import datetime
 from typing import List, Optional, Dict, Any
 from typing_extensions import TypedDict
 
-from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from pydantic import BaseModel, Field
 from langgraph.graph import StateGraph, END
@@ -16,6 +16,10 @@ load_dotenv()
 current_dir = Path(__file__).resolve().parent
 dotenv_path = current_dir.parent / '.env'
 load_dotenv(dotenv_path=dotenv_path)
+project_root = current_dir.parent
+if str(project_root) not in sys.path:
+    sys.path.insert(0, str(project_root))
+from settings.llm_utils import create_chat_llm
 # 配置日志
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -251,7 +255,7 @@ class EventState(TypedDict):
     validation_result: Optional[ValidationResult]
     revision_count: int
 
-llm = ChatOpenAI(model="gpt-4o", temperature=0.7)
+llm = create_chat_llm(model="gpt-4o", temperature=0.7)
 
 def generate_events_node(state: EventState):
     activity_name = state['current_activity'].get('activity_name', 'Unknown')

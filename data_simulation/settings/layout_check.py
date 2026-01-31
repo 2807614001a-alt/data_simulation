@@ -6,7 +6,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from typing import List, Dict, Any
 
-from langchain_openai import ChatOpenAI
+from llm_utils import create_chat_llm
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from pydantic import BaseModel, Field
@@ -71,7 +71,7 @@ def run_logic_fixer_agent():
     layout_str = json.dumps(layout, ensure_ascii=False)
 
     # 2. 初始化 LLM (使用 GPT-4 保证逻辑推理能力)
-    llm = ChatOpenAI(model="gpt-4", temperature=0.3) # 低温，由发散转为严谨
+    llm = create_chat_llm(model="gpt-4", temperature=0.3) # 低温，由发散转为严谨
     parser = JsonOutputParser(pydantic_object=HouseSnapshot)
 
     # 3. 定义“找茬” Prompt
