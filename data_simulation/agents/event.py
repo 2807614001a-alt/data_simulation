@@ -104,14 +104,22 @@ EVENT_VALIDATION_PROMPT_TEMPLATE = """
 {events_json}
 
 ## 验证维度
-1. **物理可供性**: 物品是否存在？功能是否支持？未在环境数据中标记的房间id，是否成功将除室外一律标记为outside外？
-2. **时间完整性**: 总时间是否匹配？无缝衔接？
-3. **行为逻辑**: 顺序是否合理？房间切换是否有 Move？
-4. **性格一致性**: 是否违背性格设定？
+1. **房间合法性 (强校验)**:
+   - `room_id` 必须出现在环境数据的房间列表中，否则判定不通过。
+   - `room_id = "Outside"` 时，`target_object_ids` 必须为空，`action_type` 必须为 "outside"。
+2. **物品归属 (强校验)**:
+   - `target_object_ids` 必须全部属于对应 `room_id` 的家具/设备清单。
+   - 任一物品不在该房间，判定为不通过，并指出具体物品与房间。
+3. **物理可供性**: 物品是否存在且支持该动作（参考 support_actions）。
+4. **时间完整性 (强校验)**:
+   - 子事件时间必须无缝衔接、无重叠、无空洞。
+   - 子事件总时长必须严格覆盖父 Activity 时间段。
+5. **行为逻辑**: 顺序是否合理？房间切换是否有 Move？
+6. **性格一致性**: 是否违背性格设定？
 
 ## 返回结果
 - Pass: is_valid: true
-- Fail: is_valid: false, 并说明 correction_content。
+- Fail: is_valid: false, 并在 correction_content 中列出“必须修正”的具体点（房间/物品/时间/动作）。
 """
 
 EVENT_CORRECTION_PROMPT_TEMPLATE = """
@@ -134,9 +142,13 @@ EVENT_CORRECTION_PROMPT_TEMPLATE = """
 
 ## 修正指令
 1. 定位错误。
-2. 查找资源 (替代物品)。
-3. 调整时间。
-4. 保持风格。
+2. **房间/物品修正 (强制)**:
+   - 如果 `room_id` 不在环境数据中，必须改为合法房间或 "Outside"。
+   - 如果改为 "Outside"，`target_object_ids` 必须清空，`action_type` 设为 "outside"。
+   - 如果 `target_object_ids` 含有不在该房间的物品，必须替换为该房间内的合法物品；若无合适物品，改为 `target_object_ids = []` 并调整描述为非物品交互事件。
+3. **时间修正 (强制)**：确保子事件无重叠、无空洞，且严格覆盖父活动时段。
+4. **行为逻辑**：房间切换补充 Move 事件，保持时序合理。
+5. **保持风格**：尽量保持原有叙事风格与性格一致性。
 """
 
 # ==========================================
@@ -168,7 +180,7 @@ def load_settings_data(project_root: Path) -> Dict[str, Any]:
     加载 settings 文件夹下的配置
     """
     settings_path = project_root / "settings"
-    print(f"📂 Loading settings from: {settings_path}")
+    print(f" Loading settings from: {settings_path}")
 
     data = {
         "profile_json": "{}",
@@ -257,9 +269,31 @@ class EventState(TypedDict):
 
 llm = create_chat_llm(model="gpt-4o", temperature=0.7)
 
+
+def _sanitize_events(events: List[EventItem], full_layout: Dict) -> None:
+    room_item_map = {}
+    for room_id, room_data in full_layout.items():
+        furniture_ids = room_data.get("furniture", [])
+        device_ids = room_data.get("devices", [])
+        room_item_map[room_id] = set(furniture_ids + device_ids)
+
+    for evt in events:
+        room_id = evt.room_id
+        if room_id == "Outside":
+            evt.target_object_ids = []
+            evt.action_type = "outside"
+            continue
+        if room_id not in room_item_map:
+            evt.room_id = "Outside"
+            evt.target_object_ids = []
+            evt.action_type = "outside"
+            continue
+        valid_ids = room_item_map[room_id]
+        evt.target_object_ids = [obj_id for obj_id in evt.target_object_ids if obj_id in valid_ids]
+
 def generate_events_node(state: EventState):
     activity_name = state['current_activity'].get('activity_name', 'Unknown')
-    logger.info(f"🎬 [Step 1] Decomposing Activity: {activity_name} ...")
+    logger.info(f" [Step 1] Decomposing Activity: {activity_name} ...")
     
     # 1. 裁剪上下文
     target_rooms = state["current_activity"].get("main_rooms", [])
@@ -287,6 +321,8 @@ def generate_events_node(state: EventState):
         "context_size": 5,
         "previous_events_context": prev_events_str
     })
+    _sanitize_events(result.events, state["full_layout"])
+
     
     return {
         "current_events": result,
@@ -295,7 +331,7 @@ def generate_events_node(state: EventState):
     }
 
 def validate_events_node(state: EventState):
-    logger.info("🔍 [Step 2] Validating Events...")
+    logger.info(" [Step 2] Validating Events...")
     prompt = ChatPromptTemplate.from_template(EVENT_VALIDATION_PROMPT_TEMPLATE)
     structured_llm = llm.with_structured_output(ValidationResult)
     chain = prompt | structured_llm
@@ -319,7 +355,7 @@ def validate_events_node(state: EventState):
     return {"validation_result": result}
 
 def correct_events_node(state: EventState):
-    logger.info(f"🛠️ [Step 3] Correcting Events (Attempt {state['revision_count'] + 1})...")
+    logger.info(f"️ [Step 3] Correcting Events (Attempt {state['revision_count'] + 1})...")
     prompt = ChatPromptTemplate.from_template(EVENT_CORRECTION_PROMPT_TEMPLATE)
     structured_llm = llm.with_structured_output(EventSequence)
     chain = prompt | structured_llm
@@ -365,7 +401,7 @@ app = workflow.compile()
 # 5. 主程序运行 (批量处理 Loop)
 # ==========================================
 
-def run_batch_processing():
+def run_batch_processing(activities_list: Optional[List[Dict]] = None):
     project_root = Path(__file__).resolve().parent.parent
     
     # 1. 加载 Settings
@@ -374,34 +410,30 @@ def run_batch_processing():
         logger.warning("⚠️ House Details is empty!")
 
     # 2. 加载 Activity Data
-    activity_file = project_root / "data" / "activity.json"
-    if not activity_file.exists():
-        logger.error(f"❌ Activity file not found: {activity_file}")
-        return
+    if activities_list is None:
+        activity_file = project_root / "data" / "activity.json"
+        if not activity_file.exists():
+            logger.error(f"❌ Activity file not found: {activity_file}")
+            return
+    
+        with open(activity_file, 'r', encoding='utf-8') as f:
+            activity_data = json.load(f)
+            activities_list = activity_data.get("activities", [])
 
-    with open(activity_file, 'r', encoding='utf-8') as f:
-        activity_data = json.load(f)
-        activities_list = activity_data.get("activities", [])
-
-    print(f"\n🚀 Starting Batch Processing for {len(activities_list)} activities...\n")
+    print(f"\n Starting Batch Processing for {len(activities_list)} activities...\n")
 
     all_generated_events = []
     # 使用 buffer 保持上下文连贯，但避免 token 爆炸
     context_events_buffer = [] 
 
-    # 设定一个模拟日期，补全 JSON 中的 "HH:MM" 格式
-    sim_date = "2026-01-26" 
-
     for index, activity in enumerate(activities_list):
         print(f"--- Processing [{index+1}/{len(activities_list)}]: {activity['activity_name']} ---")
         
-        # 【数据预处理】：补全时间格式为 ISO
-        # 假设 activity.json 里只有 "06:30"，我们将其补全为 "2026-01-26T06:30:00"
-        # 这样 LLM 就会严格遵循这个日期生成 Event
-        if len(activity["start_time"]) == 5: # "HH:MM"
-             activity["start_time"] = f"{sim_date}T{activity['start_time']}:00"
+        # 【数据预处理】：如果仅有 "HH:MM"，不强行写死日期；依赖上游活动已包含 ISO 日期
+        if len(activity["start_time"]) == 5:  # "HH:MM"
+            activity["start_time"] = f"{activity['start_time']}:00"
         if len(activity["end_time"]) == 5:
-             activity["end_time"] = f"{sim_date}T{activity['end_time']}:00"
+            activity["end_time"] = f"{activity['end_time']}:00"
 
         # 初始化 State
         state = {
@@ -441,8 +473,8 @@ def run_batch_processing():
     with open(output_file, "w", encoding="utf-8") as f:
         json.dump(all_generated_events, f, indent=2, ensure_ascii=False)
     
-    print(f"\n🎉 All done! Total {len(all_generated_events)} events generated.")
-    print(f"📁 Result saved to: {output_file}")
+    print(f"\n All done! Total {len(all_generated_events)} events generated.")
+    print(f" Result saved to: {output_file}")
 
 if __name__ == "__main__":
     run_batch_processing()

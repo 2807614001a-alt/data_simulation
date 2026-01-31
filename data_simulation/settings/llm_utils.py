@@ -14,6 +14,11 @@ def _normalize_base_url(raw_url: Optional[str]) -> Optional[str]:
     return f"{url}/v1"
 
 
+def _use_base_url() -> bool:
+    raw = os.getenv("OPENAI_USE_BASE_URL", "").strip().lower()
+    return raw in {"1", "true", "yes", "y", "on"}
+
+
 def _resolve_model(default_model: str) -> str:
     env_model = os.getenv("OPENAI_MODEL")
     return env_model.strip() if env_model else default_model
@@ -147,9 +152,13 @@ def create_chat_llm(
 ):
     base_url = kwargs.pop("base_url", None)
     if base_url is None:
-        base_url = _normalize_base_url(
-            os.getenv("OPENAI_BASE_URL") or os.getenv("OPENAI_API_BASE")
-        )
+        if _use_base_url():
+            base_url = _normalize_base_url(
+                os.getenv("OPENAI_BASE_URL") or os.getenv("OPENAI_API_BASE")
+            )
+        else:
+            # Force official endpoint unless explicitly opted into custom base_url.
+            base_url = "https://api.openai.com/v1"
     kwargs.setdefault("use_responses_api", False)
     return LenientChatOpenAI(
         model=_resolve_model(model),

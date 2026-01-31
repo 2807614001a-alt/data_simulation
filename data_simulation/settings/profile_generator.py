@@ -6,7 +6,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from typing import List, Dict, Optional
 
-from langchain_openai import ChatOpenAI
+from llm_utils import create_chat_llm
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from pydantic import BaseModel, Field
@@ -98,7 +98,7 @@ def generate_profile(seed_instruction: str = None):
     """
     
     # 初始化模型
-    llm = ChatOpenAI(model="gpt-4", temperature=0.8) # 稍微调高温度以增加多样性
+    llm = create_chat_llm(model="gpt-4", temperature=0.8) # 稍微调高温度以增加多样性
     parser = JsonOutputParser(pydantic_object=UserProfile)
 
     # 默认指令
@@ -145,12 +145,16 @@ def generate_profile(seed_instruction: str = None):
 
     chain = prompt | llm | parser
 
-    print(f"--- 正在生成人物画像: [{seed_instruction}] ---")
+    print("[INFO] Generating profile...")
     try:
-        profile_data = chain.invoke({"seed_instruction": seed_instruction})
-        return profile_data
+        profile = chain.invoke({"seed_instruction": seed_instruction})
+        if isinstance(profile, dict):
+            return UserProfile.model_validate(profile).model_dump()
+        if isinstance(profile, UserProfile):
+            return profile.model_dump()
+        raise ValueError(f"Unexpected profile type: {type(profile).__name__}")
     except Exception as e:
-        print(f"生成失败: {e}")
+        print(f"[ERROR] Profile generation failed: {e}")
         return None
 
 # ==========================================
@@ -181,3 +185,6 @@ if __name__ == "__main__":
         print(f"职业: {new_profile['occupation']}")
         print(f"性格标签: {new_profile['personality']['traits']}")
         print("-" * 30)
+    else:
+        print("[ERROR] profile.json generation failed. Exiting.")
+        sys.exit(1)

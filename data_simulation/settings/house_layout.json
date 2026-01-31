@@ -7,14 +7,16 @@
       "coffee_table_001",
       "tv_stand_001",
       "bookshelf_001",
+      "rug_001",
       "shoe_cabinet_001",
-      "trash_can_001"
+      "laundry_rack_001"
     ],
     "devices": [
       "smart_tv_001",
       "sound_system_001",
-      "light_001",
-      "robot_vacuum_001"
+      "smart_light_001",
+      "air_purifier_001",
+      "vacuum_cleaner_001"
     ],
     "environment_state": {
       "temperature": 22,
@@ -30,17 +32,19 @@
       "bed_001",
       "wardrobe_001",
       "nightstand_001",
+      "curtain_001",
+      "rug_002",
       "blackout_curtain_001"
     ],
     "devices": [
-      "smart_light_001",
-      "air_purifier_001",
-      "smart_speaker_001"
+      "smart_light_002",
+      "smart_speaker_001",
+      "air_purifier_002"
     ],
     "environment_state": {
       "temperature": 20,
-      "humidity": 0.4,
-      "light_level": 0.1,
+      "humidity": 0.6,
+      "light_level": 0.2,
       "noise_level": 0.1
     }
   },
@@ -50,18 +54,20 @@
     "furniture": [
       "desk_001",
       "ergonomic_chair_001",
-      "bookshelf_002"
+      "bookshelf_002",
+      "organizer_box_001",
+      "coffee_set_001"
     ],
     "devices": [
-      "gaming_pc_001",
       "dual_monitor_001",
-      "smart_light_002"
+      "desktop_pc_001",
+      "smart_light_003"
     ],
     "environment_state": {
       "temperature": 22,
       "humidity": 0.5,
       "light_level": 0.7,
-      "noise_level": 0.3
+      "noise_level": 0.1
     }
   },
   "kitchen": {
@@ -69,19 +75,19 @@
     "area_sqm": 12,
     "furniture": [
       "dining_table_001",
-      "chairs_001",
-      "cabinets_001"
-    ],
-    "devices": [
-      "smart_fridge_001",
-      "smart_oven_001",
-      "dishwasher_001",
-      "coffee_maker_001",
+      "kitchen_cabinet_001",
+      "dish_rack_001",
       "trash_can_001"
     ],
+    "devices": [
+      "refrigerator_001",
+      "microwave_001",
+      "smart_light_004",
+      "smart_coffee_machine_001"
+    ],
     "environment_state": {
-      "temperature": 23,
-      "humidity": 0.6,
+      "temperature": 24,
+      "humidity": 0.4,
       "light_level": 0.9,
       "noise_level": 0.1
     }
@@ -91,19 +97,20 @@
     "area_sqm": 8,
     "furniture": [
       "sink_001",
-      "cabinet_002",
       "mirror_001",
-      "laundry_rack_001"
+      "cabinet_001",
+      "laundry_rack_002"
     ],
     "devices": [
       "washing_machine_001",
-      "smart_shower_001"
+      "smart_light_005",
+      "smart_heater_001"
     ],
     "environment_state": {
       "temperature": 24,
       "humidity": 0.7,
-      "light_level": 0.8,
-      "noise_level": 0.2
+      "light_level": 0.6,
+      "noise_level": 0.1
     }
   }
 }

@@ -3,79 +3,37 @@
     {
       "action": "sit",
       "applicable_objects": [
-        "人体工学椅",
         "沙发",
-        "餐椅"
+        "人体工学椅"
       ],
       "preconditions": [
         {
           "type": "location",
           "value": "same_room",
           "object": null,
-          "max_meters": 5
+          "max_meters": null
         },
         {
           "type": "object_state",
           "value": "unoccupied",
-          "object": null,
+          "object": "沙发",
+          "max_meters": null
+        },
+        {
+          "type": "object_state",
+          "value": "unoccupied",
+          "object": "人体工学椅",
           "max_meters": null
         }
       ],
       "effects": [
-        {
-          "type": "user_state",
-          "attribute": "energy_level",
-          "value": null,
-          "delta": 5,
-          "per_minute": true
-        },
-        {
-          "type": "user_state",
-          "attribute": "stress",
-          "value": null,
-          "delta": -2,
-          "per_minute": false
-        },
         {
           "type": "object_state",
           "attribute": "state",
           "value": "occupied",
           "delta": null,
           "per_minute": false
-        }
-      ],
-      "duration_minutes": {
-        "min": 1,
-        "max": 60
-      }
-    },
-    {
-      "action": "lie_down",
-      "applicable_objects": [
-        "主卧床",
-        "沙发"
-      ],
-      "preconditions": [
-        {
-          "type": "location",
-          "value": "same_room",
-          "object": null,
-          "max_meters": null
         },
-        {
-          "type": "object_state",
-          "value": "available",
-          "object": "主卧床",
-          "max_meters": null
-        },
-        {
-          "type": "object_state",
-          "value": "available",
-          "object": "沙发",
-          "max_meters": null
-        }
-      ],
-      "effects": [
         {
           "type": "user_state",
           "attribute": "energy_level",
@@ -91,24 +49,23 @@
           "per_minute": false
         },
         {
-          "type": "object_state",
-          "attribute": "state",
-          "value": "occupied",
-          "delta": null,
+          "type": "user_state",
+          "attribute": "hygiene",
+          "value": null,
+          "delta": -1,
           "per_minute": false
         }
       ],
       "duration_minutes": {
-        "min": 2,
+        "min": 1,
         "max": 30
       }
     },
     {
-      "action": "stand_up",
+      "action": "lie_down",
       "applicable_objects": [
-        "人体工学椅",
         "沙发",
-        "餐椅"
+        "床"
       ],
       "preconditions": [
         {
@@ -119,20 +76,14 @@
         },
         {
           "type": "object_state",
-          "value": "occupied",
-          "object": "人体工学椅",
-          "max_meters": null
-        },
-        {
-          "type": "object_state",
-          "value": "occupied",
+          "value": "unoccupied",
           "object": "沙发",
           "max_meters": null
         },
         {
           "type": "object_state",
-          "value": "occupied",
-          "object": "餐椅",
+          "value": "unoccupied",
+          "object": "床",
           "max_meters": null
         }
       ],
@@ -141,14 +92,64 @@
           "type": "user_state",
           "attribute": "energy_level",
           "value": null,
-          "delta": -1,
+          "delta": 5,
+          "per_minute": true
+        },
+        {
+          "type": "user_state",
+          "attribute": "stress",
+          "value": null,
+          "delta": -3,
+          "per_minute": true
+        },
+        {
+          "type": "object_state",
+          "attribute": "state",
+          "value": "occupied",
+          "delta": null,
+          "per_minute": false
+        }
+      ],
+      "duration_minutes": {
+        "min": 5,
+        "max": 30
+      }
+    },
+    {
+      "action": "stand_up",
+      "applicable_objects": [
+        "沙发",
+        "人体工学椅"
+      ],
+      "preconditions": [
+        {
+          "type": "location",
+          "value": "same_room"
+        },
+        {
+          "type": "object_state",
+          "value": "occupied",
+          "object": "沙发"
+        },
+        {
+          "type": "object_state",
+          "value": "occupied",
+          "object": "人体工学椅"
+        }
+      ],
+      "effects": [
+        {
+          "type": "user_state",
+          "attribute": "energy_level",
+          "delta": 2,
+          "value": null,
           "per_minute": false
         },
         {
           "type": "user_state",
-          "attribute": "hygiene",
+          "attribute": "stress",
+          "delta": -1,
           "value": null,
-          "delta": -0.5,
           "per_minute": false
         },
         {
@@ -167,8 +168,8 @@
     {
       "action": "get_up",
       "applicable_objects": [
-        "主卧床",
-        "沙发"
+        "沙发",
+        "床"
       ],
       "preconditions": [
         {
@@ -180,13 +181,13 @@
         {
           "type": "object_state",
           "value": "occupied",
-          "object": "主卧床",
+          "object": "沙发",
           "max_meters": null
         },
         {
           "type": "object_state",
           "value": "occupied",
-          "object": "沙发",
+          "object": "床",
           "max_meters": null
         }
       ],
@@ -200,16 +201,9 @@
         },
         {
           "type": "user_state",
-          "attribute": "hygiene",
-          "value": null,
-          "delta": -1,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
           "attribute": "stress",
           "value": null,
-          "delta": -3,
+          "delta": -2,
           "per_minute": false
         },
         {
@@ -228,14 +222,12 @@
     {
       "action": "place_item",
       "applicable_objects": [
-        "茶几",
         "餐桌",
-        "电视柜",
         "书架",
-        "洗手台",
-        "床头柜",
-        "鞋柜",
-        "书桌"
+        "茶几",
+        "电视柜",
+        "书桌",
+        "咖啡具"
       ],
       "preconditions": [
         {
@@ -246,31 +238,24 @@
         },
         {
           "type": "object_state",
-          "value": "unoccupied",
-          "object": null,
+          "value": "available",
+          "object": "target_surface",
           "max_meters": null
         }
       ],
       "effects": [
         {
+          "type": "user_state",
+          "attribute": "energy_level",
+          "value": null,
+          "delta": -5,
+          "per_minute": false
+        },
+        {
           "type": "object_state",
           "attribute": "state",
           "value": "occupied",
           "delta": null,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "energy_level",
-          "value": null,
-          "delta": -2,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "stress",
-          "value": null,
-          "delta": -1,
           "per_minute": false
         }
       ],
@@ -282,18 +267,14 @@
     {
       "action": "remove_item",
       "applicable_objects": [
-        "橱柜",
-        "浴室柜",
-        "晾衣架",
-        "茶几",
-        "智能冰箱",
         "餐桌",
-        "电视柜",
         "书架",
-        "洗手台",
-        "床头柜",
-        "鞋柜",
-        "书桌"
+        "茶几",
+        "电视柜",
+        "书桌",
+        "收纳盒",
+        "咖啡具",
+        "厨房橱柜"
       ],
       "preconditions": [
         {
@@ -304,7 +285,7 @@
         },
         {
           "type": "object_state",
-          "value": "accessible",
+          "value": "removable",
           "object": null,
           "max_meters": null
         }
@@ -314,7 +295,7 @@
           "type": "user_state",
           "attribute": "energy_level",
           "value": null,
-          "delta": -2,
+          "delta": -5,
           "per_minute": false
         },
         {
@@ -331,56 +312,15 @@
       }
     },
     {
-      "action": "move_to",
+      "action": "clean",
       "applicable_objects": [
-        "茶几"
-      ],
-      "preconditions": [
-        {
-          "type": "location",
-          "value": "same_room",
-          "object": null,
-          "max_meters": 5
-        },
-        {
-          "type": "object_state",
-          "value": "accessible",
-          "object": "茶几",
-          "max_meters": null
-        }
-      ],
-      "effects": [
-        {
-          "type": "user_state",
-          "attribute": "energy_level",
-          "value": null,
-          "delta": -2,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "stress",
-          "value": null,
-          "delta": -1,
-          "per_minute": false
-        },
-        {
-          "type": "object_state",
-          "attribute": "occupied",
-          "value": true,
-          "delta": null,
-          "per_minute": false
-        }
-      ],
-      "duration_minutes": {
-        "min": 1,
-        "max": 3
-      }
-    },
-    {
-      "action": "open_drawer",
-      "applicable_objects": [
-        "电视柜"
+        "餐桌",
+        "茶几",
+        "洗手池",
+        "书桌",
+        "镜子",
+        "咖啡具",
+        "地毯"
       ],
       "preconditions": [
         {
@@ -391,280 +331,12 @@
         },
         {
           "type": "object_state",
-          "value": "closed",
-          "object": "电视柜",
-          "max_meters": null
-        }
-      ],
-      "effects": [
-        {
-          "type": "object_state",
-          "attribute": "state",
-          "value": "open",
-          "delta": null,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "energy_level",
-          "value": null,
-          "delta": -1,
-          "per_minute": false
-        }
-      ],
-      "duration_minutes": {
-        "min": 0.5,
-        "max": 1
-      }
-    },
-    {
-      "action": "close_drawer",
-      "applicable_objects": [
-        "电视柜"
-      ],
-      "preconditions": [
-        {
-          "type": "location",
-          "value": "same_room",
-          "object": null,
-          "max_meters": 5
-        },
-        {
-          "type": "object_state",
-          "value": "open",
-          "object": "电视柜",
-          "max_meters": null
-        }
-      ],
-      "effects": [
-        {
-          "type": "object_state",
-          "attribute": "state",
-          "value": "closed",
-          "delta": null,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "energy_level",
-          "value": null,
-          "delta": -0.5,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "stress",
-          "value": null,
-          "delta": -0.2,
-          "per_minute": false
-        }
-      ],
-      "duration_minutes": {
-        "min": 0.1,
-        "max": 0.3
-      }
-    },
-    {
-      "action": "open_door",
-      "applicable_objects": [
-        "鞋柜"
-      ],
-      "preconditions": [
-        {
-          "type": "location",
-          "value": "same_room",
+          "value": "dirty",
           "object": null,
           "max_meters": null
-        },
-        {
-          "type": "object_state",
-          "value": "closed",
-          "object": "鞋柜",
-          "max_meters": null
         }
       ],
       "effects": [
-        {
-          "type": "object_state",
-          "attribute": "state",
-          "value": "open",
-          "delta": null,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "energy_level",
-          "value": null,
-          "delta": -1,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "stress",
-          "value": null,
-          "delta": -0.5,
-          "per_minute": false
-        }
-      ],
-      "duration_minutes": {
-        "min": 0.1,
-        "max": 0.5
-      }
-    },
-    {
-      "action": "close_door",
-      "applicable_objects": [
-        "鞋柜"
-      ],
-      "preconditions": [
-        {
-          "type": "location",
-          "value": "same_room",
-          "object": null,
-          "max_meters": null
-        },
-        {
-          "type": "object_state",
-          "value": "open",
-          "object": "鞋柜",
-          "max_meters": null
-        }
-      ],
-      "effects": [
-        {
-          "type": "object_state",
-          "attribute": "state",
-          "value": "closed",
-          "delta": null,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "energy_level",
-          "value": null,
-          "delta": -1,
-          "per_minute": false
-        }
-      ],
-      "duration_minutes": {
-        "min": 0.5,
-        "max": 1
-      }
-    },
-    {
-      "action": "open_lid",
-      "applicable_objects": [
-        "垃圾桶"
-      ],
-      "preconditions": [
-        {
-          "type": "location",
-          "value": "same_room",
-          "object": null,
-          "max_meters": 5
-        },
-        {
-          "type": "object_state",
-          "value": "closed",
-          "object": "垃圾桶",
-          "max_meters": null
-        }
-      ],
-      "effects": [
-        {
-          "type": "object_state",
-          "attribute": "state",
-          "value": "open",
-          "delta": null,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "energy_level",
-          "value": null,
-          "delta": -0.5,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "hygiene",
-          "value": null,
-          "delta": -0.1,
-          "per_minute": false
-        }
-      ],
-      "duration_minutes": {
-        "min": 0.1,
-        "max": 0.3
-      }
-    },
-    {
-      "action": "close_lid",
-      "applicable_objects": [
-        "垃圾桶"
-      ],
-      "preconditions": [
-        {
-          "type": "location",
-          "value": "same_room",
-          "object": null,
-          "max_meters": null
-        },
-        {
-          "type": "object_state",
-          "value": "open",
-          "object": "垃圾桶",
-          "max_meters": null
-        }
-      ],
-      "effects": [
-        {
-          "type": "object_state",
-          "attribute": "state",
-          "value": "closed",
-          "delta": null,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "hygiene",
-          "value": null,
-          "delta": -0.1,
-          "per_minute": false
-        }
-      ],
-      "duration_minutes": {
-        "min": 0.1,
-        "max": 0.2
-      }
-    },
-    {
-      "action": "empty",
-      "applicable_objects": [
-        "垃圾桶"
-      ],
-      "preconditions": [
-        {
-          "type": "location",
-          "value": "same_room",
-          "object": null,
-          "max_meters": null
-        },
-        {
-          "type": "object_state",
-          "value": "full",
-          "object": "垃圾桶",
-          "max_meters": null
-        }
-      ],
-      "effects": [
-        {
-          "type": "object_state",
-          "attribute": "state",
-          "value": "empty",
-          "delta": null,
-          "per_minute": false
-        },
         {
           "type": "user_state",
           "attribute": "energy_level",
@@ -685,30 +357,77 @@
           "value": null,
           "delta": -3,
           "per_minute": false
+        },
+        {
+          "type": "object_state",
+          "attribute": "state",
+          "value": "clean",
+          "delta": null,
+          "per_minute": false
         }
       ],
       "duration_minutes": {
         "min": 2,
-        "max": 5
+        "max": 15
       }
     },
     {
-      "action": "turn_on",
+      "action": "organize",
       "applicable_objects": [
-        "智能淋浴系统",
-        "音响系统",
-        "空气净化器",
-        "咖啡机",
-        "智能冰箱",
-        "智能电视",
-        "扫地机器人",
-        "智能烤箱",
-        "智能灯",
-        "洗碗机",
-        "游戏电脑",
-        "智能音箱",
-        "双显示器",
-        "洗衣机"
+        "书架",
+        "电视柜"
+      ],
+      "preconditions": [
+        {
+          "type": "location",
+          "value": "same_room"
+        },
+        {
+          "type": "object_state",
+          "value": "disorganized",
+          "object": "书架"
+        },
+        {
+          "type": "object_state",
+          "value": "disorganized",
+          "object": "电视柜"
+        }
+      ],
+      "effects": [
+        {
+          "type": "user_state",
+          "attribute": "energy_level",
+          "delta": -15,
+          "per_minute": false
+        },
+        {
+          "type": "user_state",
+          "attribute": "stress",
+          "delta": -10,
+          "per_minute": false
+        },
+        {
+          "type": "object_state",
+          "attribute": "state",
+          "value": "organized",
+          "object": "书架"
+        },
+        {
+          "type": "object_state",
+          "attribute": "state",
+          "value": "organized",
+          "object": "电视柜"
+        }
+      ],
+      "duration_minutes": {
+        "min": 10,
+        "max": 30
+      }
+    },
+    {
+      "action": "walk_on",
+      "applicable_objects": [
+        "地毯"
       ],
       "preconditions": [
         {
@@ -716,6 +435,303 @@
           "value": "same_room",
           "object": null,
           "max_meters": null
+        },
+        {
+          "type": "object_state",
+          "value": "clean",
+          "object": "地毯",
+          "max_meters": null
+        }
+      ],
+      "effects": [
+        {
+          "type": "user_state",
+          "attribute": "hygiene",
+          "value": null,
+          "delta": -0.1,
+          "per_minute": false
+        },
+        {
+          "type": "user_state",
+          "attribute": "stress",
+          "value": null,
+          "delta": -0.2,
+          "per_minute": false
+        },
+        {
+          "type": "object_state",
+          "attribute": "state",
+          "value": "slightly_used",
+          "delta": null,
+          "per_minute": false
+        }
+      ],
+      "duration_minutes": {
+        "min": 0.5,
+        "max": 2
+      }
+    },
+    {
+      "action": "open",
+      "applicable_objects": [
+        "垃圾桶",
+        "冰箱",
+        "床头柜",
+        "窗帘",
+        "微波炉",
+        "浴室柜",
+        "收纳盒",
+        "鞋柜",
+        "衣柜",
+        "遮光窗帘",
+        "厨房橱柜"
+      ],
+      "preconditions": [
+        {
+          "type": "location",
+          "value": "same_room"
+        },
+        {
+          "type": "object_state",
+          "value": "closed",
+          "object": null
+        }
+      ],
+      "effects": [
+        {
+          "type": "object_state",
+          "attribute": "state",
+          "value": "open",
+          "delta": null,
+          "per_minute": false
+        },
+        {
+          "type": "user_state",
+          "attribute": "stress",
+          "value": null,
+          "delta": -0.1,
+          "per_minute": false
+        },
+        {
+          "type": "user_state",
+          "attribute": "energy_level",
+          "value": null,
+          "delta": -0.05,
+          "per_minute": false
+        }
+      ],
+      "duration_minutes": {
+        "min": 0.5,
+        "max": 2
+      }
+    },
+    {
+      "action": "close",
+      "applicable_objects": [
+        "垃圾桶",
+        "冰箱",
+        "床头柜",
+        "窗帘",
+        "微波炉",
+        "浴室柜",
+        "收纳盒",
+        "鞋柜",
+        "衣柜",
+        "遮光窗帘",
+        "厨房橱柜"
+      ],
+      "preconditions": [
+        {
+          "type": "location",
+          "value": "same_room",
+          "object": null,
+          "max_meters": 3
+        },
+        {
+          "type": "object_state",
+          "value": "open",
+          "object": null,
+          "max_meters": null
+        }
+      ],
+      "effects": [
+        {
+          "type": "object_state",
+          "attribute": "state",
+          "value": "closed",
+          "delta": null,
+          "per_minute": false
+        },
+        {
+          "type": "user_state",
+          "attribute": "energy_level",
+          "value": null,
+          "delta": -1,
+          "per_minute": false
+        },
+        {
+          "type": "user_state",
+          "attribute": "stress",
+          "value": null,
+          "delta": -0.5,
+          "per_minute": false
+        }
+      ],
+      "duration_minutes": {
+        "min": 0.5,
+        "max": 2
+      }
+    },
+    {
+      "action": "store_shoes",
+      "applicable_objects": [
+        "鞋柜"
+      ],
+      "preconditions": [
+        {
+          "type": "location",
+          "value": "same_room",
+          "object": null,
+          "max_meters": null
+        },
+        {
+          "type": "object_state",
+          "value": "open",
+          "object": "鞋柜",
+          "max_meters": null
+        }
+      ],
+      "effects": [
+        {
+          "type": "object_state",
+          "attribute": "state",
+          "value": "occupied",
+          "delta": null,
+          "per_minute": false
+        },
+        {
+          "type": "user_state",
+          "attribute": "energy_level",
+          "value": null,
+          "delta": -2,
+          "per_minute": false
+        },
+        {
+          "type": "user_state",
+          "attribute": "hygiene",
+          "value": null,
+          "delta": -1,
+          "per_minute": false
+        }
+      ],
+      "duration_minutes": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "action": "hang_clothes",
+      "applicable_objects": [
+        "晾衣架"
+      ],
+      "preconditions": [
+        {
+          "type": "location",
+          "value": "same_room",
+          "object": null,
+          "max_meters": null
+        },
+        {
+          "type": "object_state",
+          "value": "available",
+          "object": "晾衣架",
+          "max_meters": null
+        }
+      ],
+      "effects": [
+        {
+          "type": "user_state",
+          "attribute": "energy_level",
+          "value": null,
+          "delta": -2,
+          "per_minute": false
+        },
+        {
+          "type": "object_state",
+          "attribute": "state",
+          "value": "occupied",
+          "delta": null,
+          "per_minute": false
+        }
+      ],
+      "duration_minutes": {
+        "min": 5,
+        "max": 10
+      }
+    },
+    {
+      "action": "remove_clothes",
+      "applicable_objects": [
+        "晾衣架"
+      ],
+      "preconditions": [
+        {
+          "type": "location",
+          "value": "same_room",
+          "object": null,
+          "max_meters": null
+        },
+        {
+          "type": "object_state",
+          "value": "has_clothes",
+          "object": "晾衣架",
+          "max_meters": null
+        }
+      ],
+      "effects": [
+        {
+          "type": "object_state",
+          "attribute": "state",
+          "value": "empty",
+          "delta": null,
+          "per_minute": false
+        },
+        {
+          "type": "user_state",
+          "attribute": "energy_level",
+          "value": null,
+          "delta": -2,
+          "per_minute": false
+        }
+      ],
+      "duration_minutes": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "action": "turn_on",
+      "applicable_objects": [
+        "冰箱",
+        "智能音箱",
+        "音响系统",
+        "智能吸尘器",
+        "智能灯",
+        "智能电视",
+        "智能咖啡机",
+        "双显示器",
+        "台式电脑",
+        "微波炉",
+        "空气净化器",
+        "洗衣机",
+        "智能浴霸"
+      ],
+      "preconditions": [
+        {
+          "type": "location",
+          "value": "same_room",
+          "object": null,
+          "max_meters": 5
         },
         {
           "type": "object_state",
@@ -738,44 +754,36 @@
           "value": null,
           "delta": -1,
           "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "stress",
-          "value": null,
-          "delta": -2,
-          "per_minute": false
         }
       ],
       "duration_minutes": {
-        "min": 0.5,
-        "max": 1
+        "min": 0.1,
+        "max": 0.5
       }
     },
     {
       "action": "turn_off",
       "applicable_objects": [
-        "智能淋浴系统",
-        "音响系统",
-        "空气净化器",
-        "咖啡机",
-        "智能冰箱",
-        "智能电视",
-        "扫地机器人",
-        "智能烤箱",
-        "智能灯",
-        "洗碗机",
-        "游戏电脑",
+        "冰箱",
         "智能音箱",
+        "音响系统",
+        "智能吸尘器",
+        "智能灯",
+        "智能电视",
+        "智能咖啡机",
         "双显示器",
-        "洗衣机"
+        "台式电脑",
+        "微波炉",
+        "空气净化器",
+        "洗衣机",
+        "智能浴霸"
       ],
       "preconditions": [
         {
           "type": "location",
           "value": "same_room",
           "object": null,
-          "max_meters": null
+          "max_meters": 10
         },
         {
           "type": "object_state",
@@ -797,6 +805,13 @@
           "attribute": "energy_level",
           "value": null,
           "delta": 1,
+          "per_minute": false
+        },
+        {
+          "type": "user_state",
+          "attribute": "stress",
+          "value": null,
+          "delta": -0.5,
           "per_minute": false
         }
       ],
@@ -829,22 +844,22 @@
           "type": "user_state",
           "attribute": "stress",
           "value": null,
-          "delta": -15,
+          "delta": -10,
           "per_minute": false
         },
         {
           "type": "user_state",
           "attribute": "energy_level",
           "value": null,
-          "delta": -10,
-          "per_minute": false
+          "delta": -5,
+          "per_minute": true
         },
         {
           "type": "user_state",
           "attribute": "hunger",
           "value": null,
-          "delta": 5,
-          "per_minute": false
+          "delta": 3,
+          "per_minute": true
         },
         {
           "type": "object_state",
@@ -883,22 +898,22 @@
           "type": "user_state",
           "attribute": "stress",
           "value": null,
-          "delta": -10,
+          "delta": -5,
           "per_minute": false
         },
         {
           "type": "user_state",
           "attribute": "energy_level",
           "value": null,
-          "delta": -5,
-          "per_minute": true
+          "delta": -2,
+          "per_minute": false
         },
         {
           "type": "user_state",
           "attribute": "hunger",
           "value": null,
-          "delta": 2,
-          "per_minute": true
+          "delta": 1,
+          "per_minute": false
         },
         {
           "type": "object_state",
@@ -930,59 +945,11 @@
           "value": "on",
           "object": "智能电视",
           "max_meters": null
-        }
-      ],
-      "effects": [
-        {
-          "type": "user_state",
-          "attribute": "stress",
-          "value": null,
-          "delta": -2,
-          "per_minute": false
         },
         {
-          "type": "user_state",
-          "attribute": "energy_level",
-          "value": null,
-          "delta": -1,
-          "per_minute": true
-        },
-        {
-          "type": "object_state",
-          "attribute": "state",
-          "value": "occupied",
-          "delta": null,
-          "per_minute": false
-        }
-      ],
-      "duration_minutes": {
-        "min": 5,
-        "max": 120
-      }
-    },
-    {
-      "action": "play_music",
-      "applicable_objects": [
-        "音响系统",
-        "智能音箱"
-      ],
-      "preconditions": [
-        {
-          "type": "location",
-          "value": "same_room",
+          "type": "time_constraint",
+          "value": "any",
           "object": null,
-          "max_meters": null
-        },
-        {
-          "type": "object_state",
-          "value": "on",
-          "object": "音响系统",
-          "max_meters": null
-        },
-        {
-          "type": "object_state",
-          "value": "on",
-          "object": "智能音箱",
           "max_meters": null
         }
       ],
@@ -995,28 +962,22 @@
           "per_minute": true
         },
         {
-          "type": "user_state",
-          "attribute": "energy_level",
-          "value": null,
-          "delta": 2,
-          "per_minute": true
-        },
-        {
           "type": "object_state",
           "attribute": "state",
-          "value": "playing",
+          "value": "occupied",
           "delta": null,
           "per_minute": false
         }
       ],
       "duration_minutes": {
-        "min": 1,
-        "max": 240
+        "min": 5,
+        "max": 180
       }
     },
     {
-      "action": "adjust_volume",
+      "action": "play_music",
       "applicable_objects": [
+        "智能音箱",
         "音响系统"
       ],
       "preconditions": [
@@ -1029,6 +990,52 @@
         {
           "type": "object_state",
           "value": "on",
+          "object": "智能音箱",
+          "max_meters": null
+        },
+        {
+          "type": "object_state",
+          "value": "on",
+          "object": "音响系统",
+          "max_meters": null
+        }
+      ],
+      "effects": [
+        {
+          "type": "user_state",
+          "attribute": "stress",
+          "value": null,
+          "delta": -5,
+          "per_minute": true
+        },
+        {
+          "type": "object_state",
+          "attribute": "state",
+          "value": "occupied",
+          "delta": null,
+          "per_minute": false
+        }
+      ],
+      "duration_minutes": {
+        "min": 1,
+        "max": 180
+      }
+    },
+    {
+      "action": "adjust_volume",
+      "applicable_objects": [
+        "音响系统"
+      ],
+      "preconditions": [
+        {
+          "type": "location",
+          "value": "same_room",
+          "object": null,
+          "max_meters": 5
+        },
+        {
+          "type": "object_state",
+          "value": "on",
           "object": "音响系统",
           "max_meters": null
         }
@@ -1036,22 +1043,29 @@
       "effects": [
         {
           "type": "object_state",
-          "attribute": "volume_level",
+          "attribute": "volume",
           "value": null,
           "delta": 1,
+          "per_minute": false
+        },
+        {
+          "type": "object_state",
+          "attribute": "volume",
+          "value": null,
+          "delta": -1,
           "per_minute": false
         },
         {
           "type": "user_state",
           "attribute": "stress",
           "value": null,
-          "delta": -0.5,
+          "delta": -0.1,
           "per_minute": false
         }
       ],
       "duration_minutes": {
-        "min": 0.5,
-        "max": 2
+        "min": 0.1,
+        "max": 0.5
       }
     },
     {
@@ -1082,34 +1096,27 @@
       ],
       "effects": [
         {
-          "type": "object_state",
-          "attribute": "brightness",
-          "value": null,
-          "delta": 10,
-          "per_minute": false
-        },
-        {
-          "type": "object_state",
-          "attribute": "brightness",
-          "value": null,
-          "delta": -10,
-          "per_minute": false
-        },
-        {
           "type": "user_state",
           "attribute": "stress",
           "value": null,
-          "delta": -0.5,
+          "delta": -0.1,
+          "per_minute": false
+        },
+        {
+          "type": "object_state",
+          "attribute": "brightness_level",
+          "value": null,
+          "delta": 10,
           "per_minute": false
         }
       ],
       "duration_minutes": {
-        "min": 0.5,
-        "max": 1
+        "min": 1,
+        "max": 2
       }
     },
     {
-      "action": "set_color",
+      "action": "change_color",
       "applicable_objects": [
         "智能灯"
       ],
@@ -1131,7 +1138,7 @@
         {
           "type": "object_state",
           "attribute": "color",
-          "value": null,
+          "value": "new_color",
           "delta": null,
           "per_minute": false
         },
@@ -1144,26 +1151,73 @@
         }
       ],
       "duration_minutes": {
-        "min": 0.1,
-        "max": 0.5
+        "min": 0.5,
+        "max": 1
       }
     },
     {
-      "action": "start_cleaning",
+      "action": "set_mode",
       "applicable_objects": [
-        "扫地机器人"
+        "洗衣机",
+        "空气净化器"
       ],
       "preconditions": [
         {
           "type": "location",
           "value": "same_room",
           "object": null,
-          "max_meters": 10
+          "max_meters": 5
         },
         {
           "type": "object_state",
           "value": "on",
-          "object": "扫地机器人",
+          "object": "洗衣机",
+          "max_meters": null
+        },
+        {
+          "type": "object_state",
+          "value": "on",
+          "object": "空气净化器",
+          "max_meters": null
+        }
+      ],
+      "effects": [
+        {
+          "type": "object_state",
+          "attribute": "mode",
+          "value": "updated",
+          "delta": null,
+          "per_minute": false
+        },
+        {
+          "type": "user_state",
+          "attribute": "stress",
+          "value": null,
+          "delta": -2,
+          "per_minute": false
+        }
+      ],
+      "duration_minutes": {
+        "min": 0.5,
+        "max": 2
+      }
+    },
+    {
+      "action": "adjust_fan_speed",
+      "applicable_objects": [
+        "空气净化器"
+      ],
+      "preconditions": [
+        {
+          "type": "location",
+          "value": "same_room",
+          "object": null,
+          "max_meters": 5
+        },
+        {
+          "type": "object_state",
+          "value": "on",
+          "object": "空气净化器",
           "max_meters": null
         }
       ],
@@ -1172,44 +1226,84 @@
           "type": "user_state",
           "attribute": "stress",
           "value": null,
-          "delta": -5,
+          "delta": -1,
           "per_minute": false
         },
         {
           "type": "object_state",
+          "attribute": "fan_speed",
+          "value": "adjusted",
+          "delta": null,
+          "per_minute": false
+        }
+      ],
+      "duration_minutes": {
+        "min": 0.5,
+        "max": 2
+      }
+    },
+    {
+      "action": "start_cleaning",
+      "applicable_objects": [
+        "智能吸尘器"
+      ],
+      "preconditions": [
+        {
+          "type": "location",
+          "value": "same_room",
+          "object": null,
+          "max_meters": null
+        },
+        {
+          "type": "object_state",
+          "value": "idle",
+          "object": "智能吸尘器",
+          "max_meters": null
+        }
+      ],
+      "effects": [
+        {
+          "type": "user_state",
+          "attribute": "stress",
+          "value": null,
+          "delta": -0.2,
+          "per_minute": true
+        },
+        {
+          "type": "object_state",
           "attribute": "state",
-          "value": "occupied",
+          "value": "cleaning",
           "delta": null,
           "per_minute": false
         },
         {
           "type": "object_state",
-          "attribute": "battery_level",
+          "attribute": "battery",
           "value": null,
-          "delta": -1,
+          "delta": -0.5,
           "per_minute": true
         }
       ],
       "duration_minutes": {
-        "min": 5,
-        "max": 30
+        "min": 10,
+        "max": 60
       }
     },
     {
       "action": "return_to_dock",
       "applicable_objects": [
-        "扫地机器人"
+        "智能吸尘器"
       ],
       "preconditions": [
         {
           "type": "object_state",
           "value": "on",
-          "object": "扫地机器人"
+          "object": "智能吸尘器"
         },
         {
           "type": "location",
           "value": "same_room",
-          "object": "扫地机器人",
+          "object": null,
           "max_meters": 10
         }
       ],
@@ -1217,16 +1311,16 @@
         {
           "type": "object_state",
           "attribute": "state",
-          "value": "docking",
+          "value": "docked",
           "delta": null,
           "per_minute": false
         },
         {
-          "type": "object_state",
-          "attribute": "battery_level",
+          "type": "user_state",
+          "attribute": "stress",
           "value": null,
-          "delta": 5,
-          "per_minute": true
+          "delta": -2,
+          "per_minute": false
         }
       ],
       "duration_minutes": {
@@ -1237,19 +1331,26 @@
     {
       "action": "pause",
       "applicable_objects": [
-        "扫地机器人"
+        "洗衣机",
+        "智能吸尘器"
       ],
       "preconditions": [
         {
           "type": "location",
           "value": "same_room",
           "object": null,
-          "max_meters": 5
+          "max_meters": null
         },
         {
           "type": "object_state",
-          "value": "cleaning",
-          "object": "扫地机器人",
+          "value": "running",
+          "object": "洗衣机",
+          "max_meters": null
+        },
+        {
+          "type": "object_state",
+          "value": "running",
+          "object": "智能吸尘器",
           "max_meters": null
         }
       ],
@@ -1260,288 +1361,18 @@
           "value": "paused",
           "delta": null,
           "per_minute": false
+        },
+        {
+          "type": "user_state",
+          "attribute": "stress",
+          "value": null,
+          "delta": -1,
+          "per_minute": false
         }
       ],
       "duration_minutes": {
         "min": 0,
         "max": 1
-      }
-    },
-    {
-      "action": "sleep",
-      "applicable_objects": [
-        "主卧床"
-      ],
-      "preconditions": [
-        {
-          "type": "location",
-          "value": "same_room",
-          "object": null,
-          "max_meters": null
-        },
-        {
-          "type": "object_state",
-          "value": "unoccupied",
-          "object": "主卧床",
-          "max_meters": null
-        }
-      ],
-      "effects": [
-        {
-          "type": "user_state",
-          "attribute": "energy_level",
-          "value": null,
-          "delta": 20,
-          "per_minute": true
-        },
-        {
-          "type": "user_state",
-          "attribute": "stress",
-          "value": null,
-          "delta": -10,
-          "per_minute": true
-        },
-        {
-          "type": "object_state",
-          "attribute": "state",
-          "value": "occupied",
-          "delta": null,
-          "per_minute": false
-        }
-      ],
-      "duration_minutes": {
-        "min": 30,
-        "max": 480
-      }
-    },
-    {
-      "action": "make_bed",
-      "applicable_objects": [
-        "主卧床"
-      ],
-      "preconditions": [
-        {
-          "type": "location",
-          "value": "same_room",
-          "object": null,
-          "max_meters": null
-        },
-        {
-          "type": "object_state",
-          "value": "unmade",
-          "object": "主卧床",
-          "max_meters": null
-        }
-      ],
-      "effects": [
-        {
-          "type": "object_state",
-          "attribute": "state",
-          "value": "made",
-          "delta": null,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "energy_level",
-          "value": null,
-          "delta": -5,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "stress",
-          "value": null,
-          "delta": -2,
-          "per_minute": false
-        }
-      ],
-      "duration_minutes": {
-        "min": 3,
-        "max": 8
-      }
-    },
-    {
-      "action": "open",
-      "applicable_objects": [
-        "橱柜",
-        "智能冰箱",
-        "智能烤箱",
-        "衣柜",
-        "洗碗机",
-        "浴室柜",
-        "垃圾桶",
-        "遮光窗帘"
-      ],
-      "preconditions": [
-        {
-          "type": "location",
-          "value": "same_room",
-          "object": null,
-          "max_meters": 5
-        },
-        {
-          "type": "object_state",
-          "value": "closed",
-          "object": null,
-          "max_meters": null
-        }
-      ],
-      "effects": [
-        {
-          "type": "object_state",
-          "attribute": "state",
-          "value": "open",
-          "delta": null,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "energy_level",
-          "value": null,
-          "delta": -1,
-          "per_minute": false
-        }
-      ],
-      "duration_minutes": {
-        "min": 0.1,
-        "max": 1
-      }
-    },
-    {
-      "action": "close",
-      "applicable_objects": [
-        "橱柜",
-        "智能冰箱",
-        "智能烤箱",
-        "衣柜",
-        "洗碗机",
-        "浴室柜",
-        "垃圾桶",
-        "遮光窗帘"
-      ],
-      "preconditions": [
-        {
-          "type": "location",
-          "value": "same_room",
-          "object": null,
-          "max_meters": 5
-        },
-        {
-          "type": "object_state",
-          "value": "open",
-          "object": null,
-          "max_meters": null
-        }
-      ],
-      "effects": [
-        {
-          "type": "object_state",
-          "attribute": "state",
-          "value": "closed",
-          "delta": null,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "energy_level",
-          "value": null,
-          "delta": -1,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "stress",
-          "value": null,
-          "delta": -0.5,
-          "per_minute": false
-        }
-      ],
-      "duration_minutes": {
-        "min": 0.5,
-        "max": 2
-      }
-    },
-    {
-      "action": "store_clothes",
-      "applicable_objects": [
-        "衣柜"
-      ],
-      "preconditions": [
-        {
-          "type": "location",
-          "value": "same_room"
-        },
-        {
-          "type": "object_state",
-          "value": "open",
-          "object": "衣柜"
-        }
-      ],
-      "effects": [
-        {
-          "type": "user_state",
-          "attribute": "stress",
-          "delta": -1,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "energy_level",
-          "delta": -2,
-          "per_minute": false
-        },
-        {
-          "type": "object_state",
-          "attribute": "state",
-          "value": "occupied",
-          "delta": null,
-          "per_minute": false
-        }
-      ],
-      "duration_minutes": {
-        "min": 1,
-        "max": 3
-      }
-    },
-    {
-      "action": "retrieve_clothes",
-      "applicable_objects": [
-        "衣柜"
-      ],
-      "preconditions": [
-        {
-          "type": "location",
-          "value": "same_room",
-          "object": null,
-          "max_meters": null
-        },
-        {
-          "type": "object_state",
-          "value": "open",
-          "object": "衣柜",
-          "max_meters": null
-        }
-      ],
-      "effects": [
-        {
-          "type": "user_state",
-          "attribute": "energy_level",
-          "value": null,
-          "delta": -1,
-          "per_minute": false
-        },
-        {
-          "type": "object_state",
-          "attribute": "state",
-          "value": "occupied",
-          "delta": null,
-          "per_minute": false
-        }
-      ],
-      "duration_minutes": {
-        "min": 1,
-        "max": 2
       }
     },
     {
@@ -1575,103 +1406,19 @@
           "type": "user_state",
           "attribute": "stress",
           "value": null,
-          "delta": -1,
-          "per_minute": false
-        }
-      ],
-      "duration_minutes": {
-        "min": 0.1,
-        "max": 0.5
-      }
-    },
-    {
-      "action": "set_mode",
-      "applicable_objects": [
-        "智能淋浴系统",
-        "空气净化器",
-        "咖啡机",
-        "洗碗机",
-        "洗衣机"
-      ],
-      "preconditions": [
-        {
-          "type": "location",
-          "value": "same_room",
-          "object": null,
-          "max_meters": 5
-        },
-        {
-          "type": "object_state",
-          "value": "on",
-          "object": null,
-          "max_meters": null
-        }
-      ],
-      "effects": [
-        {
-          "type": "user_state",
-          "attribute": "energy_level",
-          "value": null,
-          "delta": -1,
-          "per_minute": true
-        },
-        {
-          "type": "object_state",
-          "attribute": "mode",
-          "value": "set",
-          "delta": null,
-          "per_minute": false
-        }
-      ],
-      "duration_minutes": {
-        "min": 1,
-        "max": 5
-      }
-    },
-    {
-      "action": "set_fan_speed",
-      "applicable_objects": [
-        "空气净化器"
-      ],
-      "preconditions": [
-        {
-          "type": "location",
-          "value": "same_room",
-          "object": null,
-          "max_meters": null
-        },
-        {
-          "type": "object_state",
-          "value": "on",
-          "object": "空气净化器",
-          "max_meters": null
-        }
-      ],
-      "effects": [
-        {
-          "type": "user_state",
-          "attribute": "stress",
-          "value": null,
           "delta": -2,
-          "per_minute": false
-        },
-        {
-          "type": "object_state",
-          "attribute": "fan_speed",
-          "value": "adjusted",
-          "delta": null,
           "per_minute": false
         }
       ],
       "duration_minutes": {
         "min": 0.5,
-        "max": 1
+        "max": 2
       }
     },
     {
-      "action": "pause_music",
+      "action": "set_color",
       "applicable_objects": [
-        "智能音箱"
+        "智能灯"
       ],
       "preconditions": [
         {
@@ -1682,16 +1429,16 @@
         },
         {
           "type": "object_state",
-          "value": "playing",
-          "object": "智能音箱",
+          "value": "on",
+          "object": "智能灯",
           "max_meters": null
         }
       ],
       "effects": [
         {
           "type": "object_state",
-          "attribute": "state",
-          "value": "paused",
+          "attribute": "color",
+          "value": "new_color",
           "delta": null,
           "per_minute": false
         },
@@ -1699,7 +1446,7 @@
           "type": "user_state",
           "attribute": "stress",
           "value": null,
-          "delta": -2,
+          "delta": -0.5,
           "per_minute": false
         }
       ],
@@ -1730,7 +1477,7 @@
       "effects": [
         {
           "type": "object_state",
-          "attribute": "volume",
+          "attribute": "volume_level",
           "value": null,
           "delta": 1,
           "per_minute": false
@@ -1739,7 +1486,7 @@
           "type": "user_state",
           "attribute": "stress",
           "value": null,
-          "delta": -0.2,
+          "delta": -0.1,
           "per_minute": false
         }
       ],
@@ -1789,13 +1536,10 @@
       }
     },
     {
-      "action": "clean",
+      "action": "set_fan_speed",
       "applicable_objects": [
-        "咖啡机",
-        "餐桌",
-        "洗手台",
-        "书桌",
-        "浴室镜"
+        "智能浴霸",
+        "空气净化器"
       ],
       "preconditions": [
         {
@@ -1806,49 +1550,50 @@
         },
         {
           "type": "object_state",
-          "value": "dirty",
-          "object": null,
+          "value": "on",
+          "object": "智能浴霸",
+          "max_meters": null
+        },
+        {
+          "type": "object_state",
+          "value": "on",
+          "object": "空气净化器",
           "max_meters": null
         }
       ],
       "effects": [
         {
-          "type": "user_state",
-          "attribute": "energy_level",
-          "value": null,
-          "delta": -5,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "hygiene",
-          "value": null,
-          "delta": -2,
+          "type": "object_state",
+          "attribute": "fan_speed",
+          "value": "adjusted",
+          "delta": null,
           "per_minute": false
         },
         {
           "type": "user_state",
           "attribute": "stress",
           "value": null,
-          "delta": -3,
+          "delta": -1,
           "per_minute": false
         },
         {
-          "type": "object_state",
-          "attribute": "state",
-          "value": "clean",
-          "delta": null,
-          "per_minute": false
+          "type": "user_state",
+          "attribute": "hygiene",
+          "value": null,
+          "delta": 0.5,
+          "per_minute": true
         }
       ],
       "duration_minutes": {
-        "min": 3,
-        "max": 15
+        "min": 0.5,
+        "max": 1
       }
     },
     {
       "action": "adjust_height",
       "applicable_objects": [
+        "书桌",
+        "晾衣架",
         "人体工学椅"
       ],
       "preconditions": [
@@ -1860,7 +1605,59 @@
         },
         {
           "type": "object_state",
-          "value": "idle",
+          "value": "adjustable",
+          "object": "书桌",
+          "max_meters": null
+        },
+        {
+          "type": "object_state",
+          "value": "adjustable",
+          "object": "晾衣架",
+          "max_meters": null
+        },
+        {
+          "type": "object_state",
+          "value": "adjustable",
+          "object": "人体工学椅",
+          "max_meters": null
+        }
+      ],
+      "effects": [
+        {
+          "type": "user_state",
+          "attribute": "energy_level",
+          "value": null,
+          "delta": -2,
+          "per_minute": false
+        },
+        {
+          "type": "object_state",
+          "attribute": "state",
+          "value": "adjusted",
+          "delta": null,
+          "per_minute": false
+        }
+      ],
+      "duration_minutes": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "action": "adjust_tilt",
+      "applicable_objects": [
+        "人体工学椅"
+      ],
+      "preconditions": [
+        {
+          "type": "location",
+          "value": "same_room",
+          "object": null,
+          "max_meters": 2
+        },
+        {
+          "type": "object_state",
+          "value": "unoccupied",
           "object": "人体工学椅",
           "max_meters": null
         }
@@ -1868,8 +1665,52 @@
       "effects": [
         {
           "type": "object_state",
-          "attribute": "height",
-          "value": "adjusted",
+          "attribute": "tilt_angle",
+          "value": null,
+          "delta": 5,
+          "per_minute": false
+        },
+        {
+          "type": "user_state",
+          "attribute": "comfort_level",
+          "value": null,
+          "delta": 2,
+          "per_minute": false
+        },
+        {
+          "type": "user_state",
+          "attribute": "stress",
+          "value": null,
+          "delta": -1,
+          "per_minute": false
+        }
+      ],
+      "duration_minutes": {
+        "min": 0.5,
+        "max": 1
+      }
+    },
+    {
+      "action": "place_book",
+      "applicable_objects": [
+        "书架"
+      ],
+      "preconditions": [
+        {
+          "type": "location",
+          "value": "same_room"
+        },
+        {
+          "type": "object_state",
+          "value": "not_full",
+          "object": "书架"
+        }
+      ],
+      "effects": [
+        {
+          "type": "object_state",
+          "attribute": "state",
+          "value": "occupied",
           "delta": null,
           "per_minute": false
         },
@@ -1889,26 +1730,26 @@
         }
       ],
       "duration_minutes": {
-        "min": 1,
-        "max": 3
+        "min": 0.5,
+        "max": 2
       }
     },
     {
-      "action": "adjust_recline",
+      "action": "remove_book",
       "applicable_objects": [
-        "人体工学椅"
+        "书架"
       ],
       "preconditions": [
         {
           "type": "location",
           "value": "same_room",
           "object": null,
-          "max_meters": 5
+          "max_meters": null
         },
         {
           "type": "object_state",
-          "value": "unoccupied",
-          "object": "人体工学椅",
+          "value": "occupied",
+          "object": "书架",
           "max_meters": null
         }
       ],
@@ -1916,15 +1757,15 @@
         {
           "type": "object_state",
           "attribute": "state",
-          "value": "adjusted",
+          "value": "unoccupied",
           "delta": null,
           "per_minute": false
         },
         {
           "type": "user_state",
-          "attribute": "comfort_level",
+          "attribute": "energy_level",
           "value": null,
-          "delta": 5,
+          "delta": -5,
           "per_minute": false
         },
         {
@@ -1941,9 +1782,10 @@
       }
     },
     {
-      "action": "organize",
+      "action": "store_item",
       "applicable_objects": [
-        "书架"
+        "收纳盒",
+        "厨房橱柜"
       ],
       "preconditions": [
         {
@@ -1954,8 +1796,14 @@
         },
         {
           "type": "object_state",
-          "value": "messy",
-          "object": "书架",
+          "value": "open",
+          "object": "收纳盒",
+          "max_meters": null
+        },
+        {
+          "type": "object_state",
+          "value": "open",
+          "object": "厨房橱柜",
           "max_meters": null
         }
       ],
@@ -1964,33 +1812,27 @@
           "type": "user_state",
           "attribute": "energy_level",
           "value": null,
-          "delta": -10,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "stress",
-          "value": null,
-          "delta": -5,
+          "delta": -1,
           "per_minute": false
         },
         {
           "type": "object_state",
           "attribute": "state",
-          "value": "organized",
+          "value": "occupied",
           "delta": null,
           "per_minute": false
         }
       ],
       "duration_minutes": {
-        "min": 10,
-        "max": 30
+        "min": 1,
+        "max": 3
       }
     },
     {
-      "action": "restart",
+      "action": "brew_coffee",
       "applicable_objects": [
-        "游戏电脑"
+        "智能咖啡机",
+        "咖啡具"
       ],
       "preconditions": [
         {
@@ -2001,8 +1843,114 @@
         },
         {
           "type": "object_state",
+          "value": "ready",
+          "object": "智能咖啡机",
+          "max_meters": null
+        },
+        {
+          "type": "object_state",
+          "value": "contains_coffee_grounds",
+          "object": "咖啡具",
+          "max_meters": null
+        },
+        {
+          "type": "object_state",
+          "value": "contains_water",
+          "object": "智能咖啡机",
+          "max_meters": null
+        }
+      ],
+      "effects": [
+        {
+          "type": "object_state",
+          "attribute": "state",
+          "value": "brewing",
+          "delta": null,
+          "per_minute": false
+        },
+        {
+          "type": "user_state",
+          "attribute": "energy_level",
+          "value": null,
+          "delta": 10,
+          "per_minute": false
+        },
+        {
+          "type": "object_state",
+          "attribute": "state",
+          "value": "idle",
+          "delta": null,
+          "per_minute": false
+        }
+      ],
+      "duration_minutes": {
+        "min": 2,
+        "max": 5
+      }
+    },
+    {
+      "action": "adjust_angle",
+      "applicable_objects": [
+        "镜子",
+        "双显示器"
+      ],
+      "preconditions": [
+        {
+          "type": "location",
+          "value": "same_room",
+          "object": null,
+          "max_meters": 3
+        },
+        {
+          "type": "object_state",
+          "value": "stable",
+          "object": "镜子",
+          "max_meters": null
+        },
+        {
+          "type": "object_state",
+          "value": "stable",
+          "object": "双显示器",
+          "max_meters": null
+        }
+      ],
+      "effects": [
+        {
+          "type": "user_state",
+          "attribute": "stress",
+          "value": null,
+          "delta": -0.1,
+          "per_minute": false
+        },
+        {
+          "type": "object_state",
+          "attribute": "angle",
+          "value": "adjusted",
+          "delta": null,
+          "per_minute": false
+        }
+      ],
+      "duration_minutes": {
+        "min": 1,
+        "max": 5
+      }
+    },
+    {
+      "action": "restart",
+      "applicable_objects": [
+        "台式电脑"
+      ],
+      "preconditions": [
+        {
+          "type": "location",
+          "value": "same_room",
+          "object": null,
+          "max_meters": 5
+        },
+        {
+          "type": "object_state",
           "value": "on",
-          "object": "游戏电脑",
+          "object": "台式电脑",
           "max_meters": null
         }
       ],
@@ -2025,283 +1973,19 @@
           "type": "user_state",
           "attribute": "stress",
           "value": null,
-          "delta": -2,
+          "delta": -5,
           "per_minute": false
         }
       ],
       "duration_minutes": {
-        "min": 1,
-        "max": 2
+        "min": 2,
+        "max": 5
       }
     },
     {
       "action": "run_program",
       "applicable_objects": [
-        "游戏电脑"
-      ],
-      "preconditions": [
-        {
-          "type": "location",
-          "value": "same_room"
-        },
-        {
-          "type": "object_state",
-          "value": "on",
-          "object": "游戏电脑"
-        }
-      ],
-      "effects": [
-        {
-          "type": "user_state",
-          "attribute": "energy_level",
-          "delta": -5,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "stress",
-          "delta": -10,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "hunger",
-          "delta": 2,
-          "per_minute": true
-        },
-        {
-          "type": "object_state",
-          "attribute": "state",
-          "value": "occupied",
-          "delta": null,
-          "per_minute": false
-        }
-      ],
-      "duration_minutes": {
-        "min": 10,
-        "max": 120
-      }
-    },
-    {
-      "action": "switch_input",
-      "applicable_objects": [
-        "双显示器"
-      ],
-      "preconditions": [
-        {
-          "type": "location",
-          "value": "same_room",
-          "object": null,
-          "max_meters": null
-        },
-        {
-          "type": "object_state",
-          "value": "on",
-          "object": "双显示器",
-          "max_meters": null
-        }
-      ],
-      "effects": [
-        {
-          "type": "object_state",
-          "attribute": "input_source",
-          "value": "switched",
-          "delta": null,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "stress",
-          "value": null,
-          "delta": -1,
-          "per_minute": false
-        }
-      ],
-      "duration_minutes": {
-        "min": 0.5,
-        "max": 1
-      }
-    },
-    {
-      "action": "move",
-      "applicable_objects": [
-        "餐椅"
-      ],
-      "preconditions": [
-        {
-          "type": "location",
-          "value": "same_room",
-          "object": null,
-          "max_meters": null
-        },
-        {
-          "type": "object_state",
-          "value": "unoccupied",
-          "object": "餐椅",
-          "max_meters": null
-        }
-      ],
-      "effects": [
-        {
-          "type": "user_state",
-          "attribute": "energy_level",
-          "value": null,
-          "delta": -2,
-          "per_minute": false
-        },
-        {
-          "type": "object_state",
-          "attribute": "position",
-          "value": "new_position",
-          "delta": null,
-          "per_minute": false
-        }
-      ],
-      "duration_minutes": {
-        "min": 1,
-        "max": 3
-      }
-    },
-    {
-      "action": "store_item",
-      "applicable_objects": [
-        "浴室柜",
-        "橱柜"
-      ],
-      "preconditions": [
-        {
-          "type": "location",
-          "value": "same_room",
-          "object": null,
-          "max_meters": null
-        },
-        {
-          "type": "object_state",
-          "value": "open",
-          "object": "浴室柜",
-          "max_meters": null
-        },
-        {
-          "type": "object_state",
-          "value": "open",
-          "object": "橱柜",
-          "max_meters": null
-        }
-      ],
-      "effects": [
-        {
-          "type": "user_state",
-          "attribute": "energy_level",
-          "value": null,
-          "delta": -2,
-          "per_minute": false
-        },
-        {
-          "type": "object_state",
-          "attribute": "state",
-          "value": "occupied",
-          "delta": null,
-          "per_minute": false
-        }
-      ],
-      "duration_minutes": {
-        "min": 1,
-        "max": 3
-      }
-    },
-    {
-      "action": "set_temp",
-      "applicable_objects": [
-        "智能淋浴系统",
-        "智能冰箱",
-        "智能烤箱"
-      ],
-      "preconditions": [
-        {
-          "type": "location",
-          "value": "same_room",
-          "object": null,
-          "max_meters": null
-        },
-        {
-          "type": "object_state",
-          "value": "on",
-          "object": "智能淋浴系统",
-          "max_meters": null
-        },
-        {
-          "type": "object_state",
-          "value": "on",
-          "object": "智能冰箱",
-          "max_meters": null
-        },
-        {
-          "type": "object_state",
-          "value": "on",
-          "object": "智能烤箱",
-          "max_meters": null
-        }
-      ],
-      "effects": [
-        {
-          "type": "object_state",
-          "attribute": "temperature",
-          "value": null,
-          "delta": 5,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "stress",
-          "value": null,
-          "delta": -2,
-          "per_minute": false
-        }
-      ],
-      "duration_minutes": {
-        "min": 1,
-        "max": 5
-      }
-    },
-    {
-      "action": "add_item",
-      "applicable_objects": [
-        "智能冰箱"
-      ],
-      "preconditions": [
-        {
-          "type": "location",
-          "value": "same_room"
-        },
-        {
-          "type": "object_state",
-          "value": "open",
-          "object": "智能冰箱"
-        }
-      ],
-      "effects": [
-        {
-          "type": "user_state",
-          "attribute": "energy_level",
-          "delta": -1,
-          "per_minute": false
-        },
-        {
-          "type": "object_state",
-          "attribute": "state",
-          "value": "occupied",
-          "object": "智能冰箱"
-        }
-      ],
-      "duration_minutes": {
-        "min": 1,
-        "max": 3
-      }
-    },
-    {
-      "action": "check_inventory",
-      "applicable_objects": [
-        "智能冰箱"
+        "台式电脑"
       ],
       "preconditions": [
         {
@@ -2312,125 +1996,71 @@
         },
         {
           "type": "object_state",
-          "value": "closed",
-          "object": "智能冰箱",
+          "value": "on",
+          "object": "台式电脑",
           "max_meters": null
         }
       ],
       "effects": [
         {
           "type": "user_state",
+          "attribute": "stress",
+          "value": null,
+          "delta": -5,
+          "per_minute": false
+        },
+        {
+          "type": "object_state",
+          "attribute": "state",
+          "value": "running_program",
+          "delta": null,
+          "per_minute": false
+        },
+        {
+          "type": "user_state",
           "attribute": "energy_level",
           "value": null,
           "delta": -1,
-          "per_minute": false
+          "per_minute": true
+        }
+      ],
+      "duration_minutes": {
+        "min": 1,
+        "max": 120
+      }
+    },
+    {
+      "action": "place_dish",
+      "applicable_objects": [
+        "碗架"
+      ],
+      "preconditions": [
+        {
+          "type": "location",
+          "value": "same_room",
+          "object": null,
+          "max_meters": null
         },
+        {
+          "type": "object_state",
+          "value": "available",
+          "object": "碗架",
+          "max_meters": null
+        }
+      ],
+      "effects": [
         {
           "type": "object_state",
           "attribute": "state",
           "value": "occupied",
           "delta": null,
           "per_minute": false
-        }
-      ],
-      "duration_minutes": {
-        "min": 1,
-        "max": 3
-      }
-    },
-    {
-      "action": "start",
-      "applicable_objects": [
-        "洗碗机",
-        "智能烤箱"
-      ],
-      "preconditions": [
-        {
-          "type": "location",
-          "value": "same_room",
-          "object": null,
-          "max_meters": null
-        },
-        {
-          "type": "object_state",
-          "value": "ready",
-          "object": "洗碗机",
-          "max_meters": null
-        },
-        {
-          "type": "object_state",
-          "value": "ready",
-          "object": "智能烤箱",
-          "max_meters": null
-        }
-      ],
-      "effects": [
-        {
-          "type": "object_state",
-          "attribute": "state",
-          "value": "on",
-          "delta": null,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "stress",
-          "value": null,
-          "delta": -1,
-          "per_minute": false
-        }
-      ],
-      "duration_minutes": {
-        "min": 0.5,
-        "max": 1
-      }
-    },
-    {
-      "action": "stop",
-      "applicable_objects": [
-        "洗碗机",
-        "智能烤箱"
-      ],
-      "preconditions": [
-        {
-          "type": "location",
-          "value": "same_room",
-          "object": null,
-          "max_meters": null
-        },
-        {
-          "type": "object_state",
-          "value": "on",
-          "object": "洗碗机",
-          "max_meters": null
-        },
-        {
-          "type": "object_state",
-          "value": "on",
-          "object": "智能烤箱",
-          "max_meters": null
-        }
-      ],
-      "effects": [
-        {
-          "type": "object_state",
-          "attribute": "state",
-          "value": "off",
-          "delta": null,
-          "per_minute": false
         },
         {
           "type": "user_state",
           "attribute": "energy_level",
           "value": null,
           "delta": -1,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "stress",
-          "value": null,
-          "delta": -0.5,
           "per_minute": false
         }
       ],
@@ -2440,9 +2070,9 @@
       }
     },
     {
-      "action": "brew",
+      "action": "remove_dish",
       "applicable_objects": [
-        "咖啡机"
+        "碗架"
       ],
       "preconditions": [
         {
@@ -2453,105 +2083,43 @@
         },
         {
           "type": "object_state",
-          "value": "off",
-          "object": "咖啡机",
+          "value": "occupied",
+          "object": "碗架",
           "max_meters": null
-        },
-        {
-          "type": "object_state",
-          "value": "water_filled",
-          "object": "咖啡机",
-          "max_meters": null
-        },
-        {
-          "type": "object_state",
-          "value": "coffee_grounds_loaded",
-          "object": "咖啡机",
-          "max_meters": null
-        }
-      ],
-      "effects": [
-        {
-          "type": "object_state",
-          "attribute": "state",
-          "value": "brewing",
-          "delta": null,
-          "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "energy_level",
-          "value": null,
-          "delta": 5,
-          "per_minute": false
-        },
-        {
-          "type": "object_state",
-          "attribute": "state",
-          "value": "idle",
-          "delta": null,
-          "per_minute": false
-        }
-      ],
-      "duration_minutes": {
-        "min": 2,
-        "max": 5
-      }
-    },
-    {
-      "action": "use",
-      "applicable_objects": [
-        "洗手台",
-        "浴室镜"
-      ],
-      "preconditions": [
-        {
-          "type": "location",
-          "value": "same_room"
-        },
-        {
-          "type": "object_state",
-          "value": "available",
-          "object": "洗手台"
-        },
-        {
-          "type": "object_state",
-          "value": "available",
-          "object": "浴室镜"
         }
       ],
       "effects": [
         {
           "type": "user_state",
-          "attribute": "hygiene",
-          "delta": 10,
+          "attribute": "energy_level",
           "value": null,
+          "delta": -5,
+          "per_minute": false
+        },
+        {
+          "type": "object_state",
+          "attribute": "state",
+          "value": "empty",
+          "delta": null,
           "per_minute": false
         },
         {
           "type": "user_state",
           "attribute": "stress",
-          "delta": -2,
           "value": null,
-          "per_minute": false
-        },
-        {
-          "type": "object_state",
-          "attribute": "state",
-          "value": "occupied",
-          "delta": null,
+          "delta": -2,
           "per_minute": false
         }
       ],
       "duration_minutes": {
         "min": 1,
-        "max": 5
+        "max": 3
       }
     },
     {
-      "action": "hang_item",
+      "action": "dry_dish",
       "applicable_objects": [
-        "晾衣架"
+        "碗架"
       ],
       "preconditions": [
         {
@@ -2562,8 +2130,8 @@
         },
         {
           "type": "object_state",
-          "value": "available",
-          "object": "晾衣架",
+          "value": "clean",
+          "object": "碗架",
           "max_meters": null
         }
       ],
@@ -2572,7 +2140,7 @@
           "type": "user_state",
           "attribute": "energy_level",
           "value": null,
-          "delta": -2,
+          "delta": -3,
           "per_minute": false
         },
         {
@@ -2596,9 +2164,63 @@
       }
     },
     {
-      "action": "fold",
+      "action": "empty_trash",
       "applicable_objects": [
-        "晾衣架"
+        "垃圾桶"
+      ],
+      "preconditions": [
+        {
+          "type": "location",
+          "value": "same_room",
+          "object": null,
+          "max_meters": null
+        },
+        {
+          "type": "object_state",
+          "value": "full",
+          "object": "垃圾桶",
+          "max_meters": null
+        }
+      ],
+      "effects": [
+        {
+          "type": "object_state",
+          "attribute": "state",
+          "value": "empty",
+          "delta": null,
+          "per_minute": false
+        },
+        {
+          "type": "user_state",
+          "attribute": "energy_level",
+          "value": null,
+          "delta": -3,
+          "per_minute": false
+        },
+        {
+          "type": "user_state",
+          "attribute": "hygiene",
+          "value": null,
+          "delta": -1,
+          "per_minute": false
+        },
+        {
+          "type": "user_state",
+          "attribute": "stress",
+          "value": null,
+          "delta": -2,
+          "per_minute": false
+        }
+      ],
+      "duration_minutes": {
+        "min": 2,
+        "max": 5
+      }
+    },
+    {
+      "action": "throw_trash",
+      "applicable_objects": [
+        "垃圾桶"
       ],
       "preconditions": [
         {
@@ -2610,23 +2232,117 @@
         {
           "type": "object_state",
           "value": "open",
-          "object": "晾衣架",
+          "object": "垃圾桶",
+          "max_meters": null
+        }
+      ],
+      "effects": [
+        {
+          "type": "user_state",
+          "attribute": "hygiene",
+          "value": null,
+          "delta": -1,
+          "per_minute": false
+        },
+        {
+          "type": "object_state",
+          "attribute": "state",
+          "value": "occupied",
+          "delta": null,
+          "per_minute": false
+        }
+      ],
+      "duration_minutes": {
+        "min": 0.5,
+        "max": 2
+      }
+    },
+    {
+      "action": "set_temp",
+      "applicable_objects": [
+        "智能浴霸",
+        "冰箱"
+      ],
+      "preconditions": [
+        {
+          "type": "location",
+          "value": "same_room",
+          "object": null,
+          "max_meters": 5
+        },
+        {
+          "type": "object_state",
+          "value": "on",
+          "object": "智能浴霸",
+          "max_meters": null
+        },
+        {
+          "type": "object_state",
+          "value": "on",
+          "object": "冰箱",
           "max_meters": null
         }
       ],
       "effects": [
         {
           "type": "object_state",
-          "attribute": "state",
-          "value": "folded",
-          "delta": null,
+          "attribute": "temperature",
+          "value": null,
+          "delta": -5,
           "per_minute": false
         },
         {
           "type": "user_state",
-          "attribute": "energy_level",
+          "attribute": "comfort",
           "value": null,
-          "delta": -2,
+          "delta": 2,
+          "per_minute": false
+        }
+      ],
+      "duration_minutes": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "action": "set_timer",
+      "applicable_objects": [
+        "洗衣机",
+        "智能咖啡机",
+        "微波炉"
+      ],
+      "preconditions": [
+        {
+          "type": "location",
+          "value": "same_room",
+          "object": null,
+          "max_meters": null
+        },
+        {
+          "type": "object_state",
+          "value": "on",
+          "object": "洗衣机",
+          "max_meters": null
+        },
+        {
+          "type": "object_state",
+          "value": "on",
+          "object": "智能咖啡机",
+          "max_meters": null
+        },
+        {
+          "type": "object_state",
+          "value": "on",
+          "object": "微波炉",
+          "max_meters": null
+        }
+      ],
+      "effects": [
+        {
+          "type": "object_state",
+          "attribute": "timer_set",
+          "value": true,
+          "delta": null,
           "per_minute": false
         },
         {
@@ -2638,12 +2354,207 @@
         }
       ],
       "duration_minutes": {
+        "min": 0.5,
+        "max": 1
+      }
+    },
+    {
+      "action": "heat_food",
+      "applicable_objects": [
+        "微波炉"
+      ],
+      "preconditions": [
+        {
+          "type": "location",
+          "value": "same_room",
+          "object": null,
+          "max_meters": null
+        },
+        {
+          "type": "object_state",
+          "value": "closed",
+          "object": "微波炉",
+          "max_meters": null
+        },
+        {
+          "type": "object_state",
+          "value": "plugged_in",
+          "object": "微波炉",
+          "max_meters": null
+        }
+      ],
+      "effects": [
+        {
+          "type": "object_state",
+          "attribute": "state",
+          "value": "occupied",
+          "delta": null,
+          "per_minute": false
+        },
+        {
+          "type": "user_state",
+          "attribute": "hunger",
+          "value": null,
+          "delta": -10,
+          "per_minute": false
+        },
+        {
+          "type": "object_state",
+          "attribute": "state",
+          "value": "idle",
+          "delta": null,
+          "per_minute": false
+        },
+        {
+          "type": "user_state",
+          "attribute": "energy_level",
+          "value": null,
+          "delta": 5,
+          "per_minute": false
+        }
+      ],
+      "duration_minutes": {
+        "min": 1,
+        "max": 5
+      }
+    },
+    {
+      "action": "use",
+      "applicable_objects": [
+        "洗手池"
+      ],
+      "preconditions": [
+        {
+          "type": "location",
+          "value": "same_room",
+          "object": null,
+          "max_meters": null
+        },
+        {
+          "type": "object_state",
+          "value": "available",
+          "object": "洗手池",
+          "max_meters": null
+        }
+      ],
+      "effects": [
+        {
+          "type": "user_state",
+          "attribute": "hygiene",
+          "value": null,
+          "delta": 10,
+          "per_minute": false
+        },
+        {
+          "type": "user_state",
+          "attribute": "energy_level",
+          "value": null,
+          "delta": -1,
+          "per_minute": false
+        },
+        {
+          "type": "object_state",
+          "attribute": "state",
+          "value": "occupied",
+          "delta": null,
+          "per_minute": false
+        }
+      ],
+      "duration_minutes": {
         "min": 1,
         "max": 3
       }
     },
     {
-      "action": "start_cycle",
+      "action": "store_items",
+      "applicable_objects": [
+        "浴室柜",
+        "洗手池"
+      ],
+      "preconditions": [
+        {
+          "type": "location",
+          "value": "same_room",
+          "object": null,
+          "max_meters": 5
+        },
+        {
+          "type": "object_state",
+          "value": "open",
+          "object": "浴室柜",
+          "max_meters": null
+        }
+      ],
+      "effects": [
+        {
+          "type": "object_state",
+          "attribute": "state",
+          "value": "occupied",
+          "delta": null,
+          "per_minute": false
+        },
+        {
+          "type": "user_state",
+          "attribute": "energy_level",
+          "value": null,
+          "delta": -3,
+          "per_minute": false
+        }
+      ],
+      "duration_minutes": {
+        "min": 1,
+        "max": 3
+      }
+    },
+    {
+      "action": "look_at",
+      "applicable_objects": [
+        "镜子"
+      ],
+      "preconditions": [
+        {
+          "type": "location",
+          "value": "same_room",
+          "object": null,
+          "max_meters": null
+        },
+        {
+          "type": "object_state",
+          "value": "clean",
+          "object": "镜子",
+          "max_meters": null
+        }
+      ],
+      "effects": [
+        {
+          "type": "user_state",
+          "attribute": "hygiene",
+          "value": null,
+          "delta": 0.1,
+          "per_minute": false
+        },
+        {
+          "type": "user_state",
+          "attribute": "stress",
+          "value": null,
+          "delta": -0.05,
+          "per_minute": false
+        },
+        {
+          "type": "object_state",
+          "attribute": "state",
+          "value": "occupied",
+          "delta": null,
+          "per_minute": false
+        }
+      ],
+      "duration_minutes": {
+        "min": 0.1,
+        "max": 1
+      }
+    },
+    {
+      "action": "start_wash",
       "applicable_objects": [
         "洗衣机"
       ],
@@ -2662,70 +2573,37 @@
         },
         {
           "type": "object_state",
-          "value": "powered_on",
+          "value": "ready",
           "object": "洗衣机",
           "max_meters": null
         }
       ],
       "effects": [
+        {
+          "type": "object_state",
+          "attribute": "state",
+          "value": "on",
+          "delta": null,
+          "per_minute": false
+        },
+        {
+          "type": "user_state",
+          "attribute": "energy_level",
+          "value": null,
+          "delta": -1,
+          "per_minute": false
+        },
         {
           "type": "object_state",
           "attribute": "state",
           "value": "occupied",
           "delta": null,
           "per_minute": false
-        },
-        {
-          "type": "user_state",
-          "attribute": "stress",
-          "value": null,
-          "delta": -2,
-          "per_minute": false
         }
       ],
       "duration_minutes": {
         "min": 30,
-        "max": 90
-      }
-    },
-    {
-      "action": "stop_cycle",
-      "applicable_objects": [
-        "洗衣机"
-      ],
-      "preconditions": [
-        {
-          "type": "location",
-          "value": "same_room",
-          "object": null,
-          "max_meters": null
-        },
-        {
-          "type": "object_state",
-          "value": "on",
-          "object": "洗衣机",
-          "max_meters": null
-        }
-      ],
-      "effects": [
-        {
-          "type": "object_state",
-          "attribute": "state",
-          "value": "off",
-          "delta": null,
-          "per_minute": null
-        },
-        {
-          "type": "user_state",
-          "attribute": "stress",
-          "value": null,
-          "delta": -1,
-          "per_minute": false
-        }
-      ],
-      "duration_minutes": {
-        "min": 0.5,
-        "max": 1
+        "max": 60
       }
     }
   ]

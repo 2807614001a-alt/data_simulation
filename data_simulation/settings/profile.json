@@ -1,86 +1,94 @@
 {
   "user_id": "user_001",
-  "name": "刘薇",
-  "age": 28,
-  "gender": "female",
-  "occupation": "市场分析师",
+  "name": "张文昊",
+  "age": 29,
+  "gender": "male",
+  "occupation": "互联网产品经理（专注于用户体验设计）",
   "personality": {
     "big_five": {
-      "openness": 0.78,
-      "conscientiousness": 0.85,
-      "extraversion": 0.62,
-      "agreeableness": 0.67,
-      "neuroticism": 0.54
+      "openness": 0.85,
+      "conscientiousness": 0.75,
+      "extraversion": 0.65,
+      "agreeableness": 0.55,
+      "neuroticism": 0.45
     },
     "traits": [
-      "爱好数据整理",
-      "偏好中性家居风格",
-      "对嘈杂环境较敏感",
       "注重细节",
-      "有时情绪易波动"
+      "科技迷",
+      "偏好多样性",
+      "较强适应力",
+      "略微社交疲惫"
     ]
   },
   "values": {
-    "work_life_balance": 0.65,
-    "health_consciousness": 0.8,
-    "social_interaction": 0.55,
-    "personal_growth": 0.9,
+    "work_life_balance": 0.7,
+    "health_consciousness": 0.6,
+    "social_interaction": 0.5,
+    "personal_growth": 0.8,
     "financial_security": 0.75
   },
   "routines": {
     "sleep_schedule": {
-      "weekday_bedtime": "23:00",
+      "weekday_bedtime": "23:30",
       "weekday_wakeup": "07:30",
       "weekend_bedtime": "00:30",
-      "weekend_wakeup": "09:30"
+      "weekend_wakeup": "09:00"
     },
     "meal_habits": {
       "breakfast_time": "08:00",
       "lunch_time": "12:30",
-      "dinner_time": "19:00",
-      "cooking_frequency": 0.4,
+      "dinner_time": "19:30",
+      "cooking_frequency": 0.3,
       "diet_preference": [
         "低糖",
-        "偏好轻食"
+        "偏好中式快手餐"
       ]
     },
     "exercise": {
       "frequency": "3次/周",
       "preferred_time": "晚上",
       "type": [
-        "瑜伽",
-        "室内单车"
+        "跑步",
+        "核心力量训练"
       ]
     },
     "weekly_schedule": {
       "monday": {
-        "activity": "数据分析报告编写",
-        "time": "09:30-17:30",
-        "location": "公司办公室",
-        "frequency": "每周"
+        "activity": "团队会议",
+        "time": "10:00-11:30",
+        "location": "公司会议室",
+        "frequency": "每周一次"
       },
       "wednesday": {
-        "activity": "线上瑜伽课程",
-        "time": "20:00-21:00",
-        "location": "家中客厅",
-        "frequency": "每周"
+        "activity": "健身房锻炼",
+        "time": "19:00-20:30",
+        "location": "小区附近健身房",
+        "frequency": "每周一次"
       },
-      "saturday": {
-        "activity": "手冲咖啡练习",
-        "time": "10:00-11:00",
-        "location": "家中厨房",
-        "frequency": "每周"
+      "friday": {
+        "activity": "聚餐或看电影",
+        "time": "20:00-23:00",
+        "location": "上海市中心",
+        "frequency": "每周一次"
+      },
+      "sunday": {
+        "activity": "手冲咖啡和阅读",
+        "time": "10:00-12:00",
+        "location": "自家阳台",
+        "frequency": "每周一次"
       }
     }
   },
   "preferences": {
     "entertainment": [
-      "阅读非虚构类书籍",
-      "看悬疑类电影"
+      "手游竞技",
+      "科幻电影",
+      "阅读网络小说"
     ],
     "music_genre": [
+      "电子乐",
       "轻音乐",
-      "爵士"
+      "流行"
     ],
     "home_temperature": 24
   }
