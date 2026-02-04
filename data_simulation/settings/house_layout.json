@@ -8,18 +8,17 @@
       "tv_stand_001",
       "bookshelf_001",
       "rug_001",
-      "shoe_cabinet_001",
-      "laundry_rack_001"
+      "shoe_cabinet_001"
     ],
     "devices": [
       "smart_tv_001",
       "sound_system_001",
-      "smart_light_001",
+      "light_002",
       "air_purifier_001",
-      "vacuum_cleaner_001"
+      "robot_vacuum_001"
     ],
     "environment_state": {
-      "temperature": 22,
+      "temperature": 24,
       "humidity": 0.5,
       "light_level": 0.8,
       "noise_level": 0.2
@@ -32,19 +31,19 @@
       "bed_001",
       "wardrobe_001",
       "nightstand_001",
-      "curtain_001",
-      "rug_002",
-      "blackout_curtain_001"
+      "rug_002"
     ],
     "devices": [
-      "smart_light_002",
-      "smart_speaker_001",
-      "air_purifier_002"
+      "smart_light_001",
+      "blackout_curtain_001",
+      "air_conditioner_001",
+      "white_noise_machine_001",
+      "robot_vacuum_002"
     ],
     "environment_state": {
-      "temperature": 20,
-      "humidity": 0.6,
-      "light_level": 0.2,
+      "temperature": 22,
+      "humidity": 0.4,
+      "light_level": 0.1,
       "noise_level": 0.1
     }
   },
@@ -55,16 +54,17 @@
       "desk_001",
       "ergonomic_chair_001",
       "bookshelf_002",
-      "organizer_box_001",
-      "coffee_set_001"
+      "organizer_box_001"
     ],
     "devices": [
       "dual_monitor_001",
       "desktop_pc_001",
-      "smart_light_003"
+      "smart_light_002",
+      "printer_001",
+      "air_purifier_002"
     ],
     "environment_state": {
-      "temperature": 22,
+      "temperature": 23,
       "humidity": 0.5,
       "light_level": 0.7,
       "noise_level": 0.1
@@ -74,22 +74,23 @@
     "room_type": "厨房",
     "area_sqm": 12,
     "furniture": [
-      "dining_table_001",
       "kitchen_cabinet_001",
-      "dish_rack_001",
+      "dining_table_001",
+      "chairs_001",
       "trash_can_001"
     ],
     "devices": [
-      "refrigerator_001",
+      "smart_fridge_001",
       "microwave_001",
-      "smart_light_004",
-      "smart_coffee_machine_001"
+      "dishwasher_001",
+      "water_purifier_001",
+      "coffee_machine_001"
     ],
     "environment_state": {
-      "temperature": 24,
-      "humidity": 0.4,
+      "temperature": 25,
+      "humidity": 0.6,
       "light_level": 0.9,
-      "noise_level": 0.1
+      "noise_level": 0.3
     }
   },
   "bathroom": {
@@ -99,18 +100,18 @@
       "sink_001",
       "mirror_001",
       "cabinet_001",
-      "laundry_rack_002"
+      "laundry_rack_001"
     ],
     "devices": [
-      "washing_machine_001",
-      "smart_light_005",
-      "smart_heater_001"
+      "smart_washing_machine_001",
+      "water_heater_001",
+      "smart_light_003"
     ],
     "environment_state": {
-      "temperature": 24,
+      "temperature": 26,
       "humidity": 0.7,
-      "light_level": 0.6,
-      "noise_level": 0.1
+      "light_level": 0.8,
+      "noise_level": 0.2
     }
   }
 }

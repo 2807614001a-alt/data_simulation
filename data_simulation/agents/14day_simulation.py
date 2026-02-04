@@ -16,6 +16,7 @@ if str(project_root) not in sys.path:
 import planning
 import event
 import device_operate
+import evaluator
 
 load_dotenv()
 dotenv_path = project_root / ".env"
@@ -30,6 +31,9 @@ RUN_EVENTS = os.getenv("SIM_RUN_EVENTS", "1") != "0"
 NORMAL_WEIGHT = float(os.getenv("SIM_NORMAL_WEIGHT", "0.7"))
 PERTURBED_WEIGHT = float(os.getenv("SIM_PERTURBED_WEIGHT", "0.2"))
 CRISIS_WEIGHT = float(os.getenv("SIM_CRISIS_WEIGHT", "0.1"))
+RANDOM_EVENT_MEAN = float(os.getenv("SIM_RANDOM_EVENT_MEAN", "1.0"))
+RANDOM_EVENT_STD = float(os.getenv("SIM_RANDOM_EVENT_STD", "0.5"))
+RANDOM_EVENT_MAX = int(os.getenv("SIM_RANDOM_EVENT_MAX", "3"))
 
 
 def _ensure_dir(path: Path) -> None:
@@ -40,6 +44,10 @@ def _write_json(path: Path, payload: Dict) -> None:
     _ensure_dir(path)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(payload, f, indent=2, ensure_ascii=False)
+
+def _write_simulation_context(day_index: int, payload: Dict) -> None:
+    _write_json(DATA_DIR / "simulation_context.json", payload)
+    _write_json(DATA_DIR / f"simulation_context_day{day_index}.json", payload)
 
 
 def _pick_state() -> str:
@@ -54,16 +62,36 @@ def _build_simulation_context(
     previous_day_snapshot: Optional[Dict],
     day_start_time: str,
     day_end_time: str,
+    event_config: Optional[Dict],
+    agent_state: Optional[Dict],
+    agent_state_stage: str,
 ) -> Dict[str, Optional[str]]:
     day_of_week = current_date.strftime("%A")
     day_type = "weekend" if day_of_week in {"Saturday", "Sunday"} else "workday"
 
     simulation_state = _pick_state()
-    force_day1_state = os.getenv("SIM_FORCE_DAY1_STATE", "Crisis").strip()
+    force_day1_state = os.getenv("SIM_FORCE_DAY1_STATE", "").strip()
     if force_day1_state:
         simulation_state = force_day1_state
     random_event = ""
     emergency_event = ""
+    random_event_count = 0
+    emergency_event_count = 0
+
+    def _sample_event_count(kind: str) -> int:
+        cfg = (event_config or {}).get(kind) or {}
+        mean = float(cfg.get("mean", RANDOM_EVENT_MEAN))
+        std = float(cfg.get("std", RANDOM_EVENT_STD))
+        max_count = int(cfg.get("max", RANDOM_EVENT_MAX))
+        count = int(round(random.gauss(mean, std)))
+        if count < 0:
+            return 0
+        return min(count, max_count)
+
+    if simulation_state == "Perturbed":
+        random_event_count = _sample_event_count("perturbed")
+    elif simulation_state == "Crisis":
+        emergency_event_count = _sample_event_count("crisis")
 
     return {
         "current_date": current_date.isoformat(),
@@ -72,10 +100,14 @@ def _build_simulation_context(
         "simulation_state": simulation_state,
         "previous_day_summary": previous_day_summary or "N/A",
         "previous_day_snapshot": previous_day_snapshot or {},
+        "agent_state": agent_state or {},
+        "agent_state_stage": agent_state_stage,
         "day_start_time": day_start_time,
         "day_end_time": day_end_time,
         "random_event": random_event,
         "emergency_event": emergency_event,
+        "random_event_count": random_event_count,
+        "emergency_event_count": emergency_event_count,
     }
 
 
@@ -104,6 +136,26 @@ def _get_sleep_cutoff(activities: List[Dict]) -> Optional[datetime]:
             except Exception:
                 return None
     return None
+
+
+def _get_day_time_window(profile: Dict, current_date: date) -> Tuple[datetime, datetime]:
+    routines = profile.get("routines", {})
+    sleep_schedule = routines.get("sleep_schedule", {})
+    day_of_week = current_date.strftime("%A")
+    day_type = "weekend" if day_of_week in {"Saturday", "Sunday"} else "workday"
+
+    if day_type == "workday":
+        wake_str = sleep_schedule.get("weekday_wakeup", "07:00")
+        bed_str = sleep_schedule.get("weekday_bedtime", "23:30")
+    else:
+        wake_str = sleep_schedule.get("weekend_wakeup", "08:30")
+        bed_str = sleep_schedule.get("weekend_bedtime", "00:30")
+
+    wake_time = datetime.combine(current_date, datetime.strptime(wake_str, "%H:%M").time())
+    bed_time = datetime.combine(current_date, datetime.strptime(bed_str, "%H:%M").time())
+    if bed_time <= wake_time:
+        bed_time = bed_time + timedelta(days=1)
+    return wake_time, bed_time
 
 
 def _align_and_slice_activities(
@@ -197,6 +249,66 @@ def _update_physiology_state(previous_state: Dict[str, float], previous_day_summ
     hunger = max(0.0, min(1.0, hunger))
     return {"fatigue": fatigue, "hunger": hunger}
 
+def _init_agent_state(previous_day_summary: str, previous_day_snapshot: Dict) -> Dict[str, object]:
+    physiology = (previous_day_snapshot or {}).get("physiology", {})
+    fatigue = float(physiology.get("fatigue", 0.3))
+    hunger = float(physiology.get("hunger", 0.3))
+
+    energy = max(0.0, min(1.0, 1.0 - fatigue))
+    stress = 0.3
+    mood = "neutral"
+    health = "ok"
+
+    summary = previous_day_summary or ""
+    if "熬夜" in summary or "睡眠不足" in summary:
+        energy = max(0.0, energy - 0.2)
+        mood = "tired"
+    if "生病" in summary or "感冒" in summary or "头晕" in summary:
+        health = "unwell"
+        mood = "low"
+        stress += 0.2
+    if "跌倒" in summary or "危机" in summary:
+        health = "unwell"
+        stress += 0.3
+
+    return {
+        "mood": mood,
+        "energy": round(energy, 2),
+        "stress": round(min(1.0, stress), 2),
+        "hunger": round(min(1.0, hunger), 2),
+        "health": health,
+        "notes": ""
+    }
+
+def _update_agent_state_from_activities(agent_state: Dict[str, object], activities: List[Dict]) -> Dict[str, object]:
+    state = dict(agent_state or {})
+    energy = float(state.get("energy", 0.5))
+    stress = float(state.get("stress", 0.3))
+    mood = state.get("mood", "neutral")
+    health = state.get("health", "ok")
+
+    for act in activities:
+        name = act.get("activity_name", "")
+        desc = act.get("description", "")
+        text = f"{name} {desc}"
+        if "睡眠" in text:
+            energy = min(1.0, energy + 0.2)
+        if "高强度" in text or "加班" in text:
+            stress = min(1.0, stress + 0.2)
+        if "休息" in text or "放松" in text:
+            stress = max(0.0, stress - 0.1)
+        if "事件：" in text or "突发" in text or "危机" in text:
+            stress = min(1.0, stress + 0.2)
+        if "感冒" in text or "头晕" in text or "不适" in text:
+            health = "unwell"
+            mood = "low"
+
+    state["energy"] = round(max(0.0, min(1.0, energy)), 2)
+    state["stress"] = round(max(0.0, min(1.0, stress)), 2)
+    state["mood"] = mood
+    state["health"] = health
+    return state
+
 
 def run_multi_day_simulation() -> None:
     seed = os.getenv("SIM_RANDOM_SEED")
@@ -209,26 +321,32 @@ def run_multi_day_simulation() -> None:
         base_date = date.today()
 
     profile_json = planning.load_profile_json()
+    try:
+        profile_data = json.loads(profile_json)
+    except Exception:
+        profile_data = {}
+    event_config = profile_data.get("random_event_config") or {}
     previous_day_summary = "N/A"
     previous_day_snapshot: Dict = {}
     physiology_state = {"fatigue": 0.3, "hunger": 0.3}
-    previous_day_end_time = datetime.combine(base_date, datetime.min.time())
 
     for day_index in range(1, DAYS + 1):
         current_date = base_date + timedelta(days=day_index - 1)
-        day_start_time = datetime.combine(current_date, datetime.min.time())
-        day_end_limit = datetime.combine(current_date, datetime.max.time()).replace(microsecond=0)
+        day_start_time, day_end_limit = _get_day_time_window(profile_data, current_date)
 
+        agent_state = _init_agent_state(previous_day_summary, previous_day_snapshot)
         simulation_context = _build_simulation_context(
             current_date,
             previous_day_summary,
             previous_day_snapshot,
             _format_iso(day_start_time),
             _format_iso(day_end_limit),
+            event_config,
+            agent_state,
+            "start",
         )
 
-        _write_json(DATA_DIR / "simulation_context.json", simulation_context)
-        _write_json(DATA_DIR / f"simulation_context_day{day_index}.json", simulation_context)
+        _write_simulation_context(day_index, simulation_context)
 
         activity_plan = planning.run_planning(simulation_context=simulation_context)
         if not activity_plan:
@@ -246,6 +364,13 @@ def run_multi_day_simulation() -> None:
         _write_json(DATA_DIR / "activity.json", activity_plan)
         _write_json(DATA_DIR / f"activity_day{day_index}.json", activity_plan)
 
+        simulation_context["agent_state"] = _update_agent_state_from_activities(
+            simulation_context.get("agent_state", {}),
+            aligned_activities,
+        )
+        simulation_context["agent_state_stage"] = "after_planning"
+        _write_simulation_context(day_index, simulation_context)
+
         if RUN_EVENTS:
             event.run_batch_processing(activity_plan.get("activities", []))
             _copy_json(DATA_DIR / "events.json", DATA_DIR / f"events_day{day_index}.json")
@@ -255,6 +380,8 @@ def run_multi_day_simulation() -> None:
                 DATA_DIR / "action_event_chain.json",
                 DATA_DIR / f"action_event_chain_day{day_index}.json",
             )
+            simulation_context["agent_state_stage"] = "after_events"
+            _write_simulation_context(day_index, simulation_context)
 
         activities = activity_plan.get("activities", [])
         if activities:
@@ -272,9 +399,14 @@ def run_multi_day_simulation() -> None:
             previous_day_snapshot = {"agent_location": "Unknown", "device_states": {}}
         physiology_state = _update_physiology_state(physiology_state, previous_day_summary)
         previous_day_snapshot["physiology"] = physiology_state
-        previous_day_end_time = day_end_time
 
         print(f"[OK] Day {day_index} completed.")
+
+    if os.getenv("SIM_RUN_EVALUATION", "1") != "0":
+        try:
+            evaluator.main()
+        except Exception as exc:
+            print(f"[WARN] Evaluation failed: {exc}")
 
 
 if __name__ == "__main__":

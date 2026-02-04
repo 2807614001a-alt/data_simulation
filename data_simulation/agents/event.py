@@ -68,6 +68,9 @@ EVENT_GENERATION_PROMPT_TEMPLATE = """
 ### 1. 居民档案 (Agent Profile)
 {resident_profile_json}
 
+### 1.1 Agent State (Real-time)
+{agent_state_json}
+
 ### 2. 物理环境 (Physical Environment)
 **房间列表:**
 {room_list_json}
@@ -99,6 +102,9 @@ EVENT_VALIDATION_PROMPT_TEMPLATE = """
 
 **父活动:**
 {current_activity_json}
+
+**Agent State (Real-time):**
+{agent_state_json}
 
 **生成的事件序列:**
 {events_json}
@@ -132,6 +138,7 @@ EVENT_CORRECTION_PROMPT_TEMPLATE = """
 **居民档案:** {resident_profile_json}
 **可用环境物品:** {furniture_details_json}
 **父活动:** {current_activity_json}
+**Agent State (Real-time):** {agent_state_json}
 
 ## 错误现场
 **原始错误规划:**
@@ -261,6 +268,7 @@ class EventState(TypedDict):
     details_map: Dict
     current_activity: Dict
     previous_events: List[Dict]
+    agent_state_json: str
     
     room_context_data: Dict
     current_events: Optional[EventSequence]
@@ -315,6 +323,7 @@ def generate_events_node(state: EventState):
     result = chain.invoke({
         "event_requirements": EVENT_REQUIREMENTS,
         "resident_profile_json": state["resident_profile"],
+        "agent_state_json": state.get("agent_state_json", "{}"),
         "room_list_json": context_data["room_list_json"],
         "furniture_details_json": context_data["furniture_details_json"],
         "current_activity_json": activity_str,
@@ -344,6 +353,7 @@ def validate_events_node(state: EventState):
         "event_requirements": EVENT_REQUIREMENTS,
         "house_layout_summary": layout_summary,
         "current_activity_json": activity_str,
+        "agent_state_json": state.get("agent_state_json", "{}"),
         "events_json": events_json
     })
     
@@ -369,6 +379,7 @@ def correct_events_node(state: EventState):
         "resident_profile_json": state["resident_profile"],
         "furniture_details_json": layout_summary,
         "current_activity_json": activity_str,
+        "agent_state_json": state.get("agent_state_json", "{}"),
         "original_events_json": events_json,
         "correction_content": state["validation_result"].correction_content
     })
@@ -408,6 +419,16 @@ def run_batch_processing(activities_list: Optional[List[Dict]] = None):
     settings = load_settings_data(project_root)
     if not settings["house_details_map"]:
         logger.warning("⚠️ House Details is empty!")
+    agent_state_json = "{}"
+    sim_context_path = project_root / "data" / "simulation_context.json"
+    if sim_context_path.exists():
+        try:
+            with open(sim_context_path, "r", encoding="utf-8") as f:
+                sim_ctx = json.load(f)
+            agent_state = sim_ctx.get("agent_state", {})
+            agent_state_json = json.dumps(agent_state, ensure_ascii=False, indent=2)
+        except Exception:
+            agent_state_json = "{}"
 
     # 2. 加载 Activity Data
     if activities_list is None:
@@ -425,44 +446,39 @@ def run_batch_processing(activities_list: Optional[List[Dict]] = None):
     all_generated_events = []
     # 使用 buffer 保持上下文连贯，但避免 token 爆炸
     context_events_buffer = [] 
-
-    for index, activity in enumerate(activities_list):
-        print(f"--- Processing [{index+1}/{len(activities_list)}]: {activity['activity_name']} ---")
-        
+    def _process_one(index: int, activity: Dict, prev_events: List[Dict]):
         # 【数据预处理】：如果仅有 "HH:MM"，不强行写死日期；依赖上游活动已包含 ISO 日期
         if len(activity["start_time"]) == 5:  # "HH:MM"
             activity["start_time"] = f"{activity['start_time']}:00"
         if len(activity["end_time"]) == 5:
             activity["end_time"] = f"{activity['end_time']}:00"
 
-        # 初始化 State
         state = {
             "resident_profile": settings["profile_json"],
             "full_layout": settings["house_layout"],
             "details_map": settings["house_details_map"],
             "current_activity": activity,
-            "previous_events": context_events_buffer, # 传入最近的 buffer
+            "previous_events": prev_events,
+            "agent_state_json": agent_state_json,
             "revision_count": 0
         }
 
-        try:
-            # 调用 Graph (针对单个 Activity)
-            final_state = app.invoke(state)
-            
-            if final_state.get("current_events"):
-                new_events = final_state["current_events"].model_dump()["events"]
-                
-                # 1. 收集结果
-                all_generated_events.extend(new_events)
-                
-                # 2. 更新 Buffer (只保留这轮生成的新事件，供下一轮做参考)
-                # 如果 new_events 很多，只取最后 5 个
-                context_events_buffer = new_events[-5:] 
-                
-                print(f"✅ Generated {len(new_events)} events for {activity['activity_name']}.")
-            else:
-                logger.error(f"❌ Failed to generate events for {activity['activity_name']}")
+        final_state = app.invoke(state)
+        if final_state.get("current_events"):
+            new_events = final_state["current_events"].model_dump()["events"]
+            return index, activity, new_events, None
+        return index, activity, None, "no_events"
 
+    for index, activity in enumerate(activities_list):
+        print(f"--- Processing [{index+1}/{len(activities_list)}]: {activity['activity_name']} ---")
+        try:
+            idx, act, new_events, err = _process_one(index, activity, context_events_buffer)
+            if err or not new_events:
+                logger.error(f"❌ Failed to generate events for {activity['activity_name']}")
+                continue
+            all_generated_events.extend(new_events)
+            context_events_buffer = new_events[-5:]
+            print(f"✅ Generated {len(new_events)} events for {activity['activity_name']}.")
         except Exception as e:
             logger.error(f"❌ Error processing activity {activity['activity_id']}: {e}")
             import traceback

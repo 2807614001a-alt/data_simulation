@@ -30,7 +30,7 @@ from settings.llm_utils import create_chat_llm
 
 ACTIVITY_PLANNING_REQUIREMENTS = """
 ## 活动规划核心要求
-请生成一个详细的、符合居民特征的一天（24小时）活动规划。
+请生成一个详细的、符合居民特征的“日程窗口”活动规划（以起床为开始、入睡为结束）。
 
 ### 1. 仿真逻辑与状态机 (核心)
 你需要首先读取【仿真上下文】中的 `simulation_state` 和 `current_date`，并按照以下逻辑执行：
@@ -41,6 +41,9 @@ ACTIVITY_PLANNING_REQUIREMENTS = """
 
 * **记忆机制 (Context Memory)**:
     * 读取 `previous_day_summary`。如果前一天有“熬夜”、“醉酒”或“高强度运动”，请在今天的 `start_time`（起床时间）或活动强度上体现**滞后效应**（如：推迟起床30分钟，或减少今日运动量）。
+* **实时状态 (Agent State)**:
+    * 读取 `agent_state`（包含 mood/energy/stress/health 等），并将其作为今日安排的“硬约束/软偏好”。
+    * 例如：energy 低 -> 增加休息或降低强度；health=unwell -> 避免高强度运动，安排恢复与就医/休息。
 
 * **状态机响应 (State Machine)**:
     * **正常态 (Normal)**: 遵循 80% 的基准线，无意外发生，严格按计划行事。
@@ -51,6 +54,7 @@ ACTIVITY_PLANNING_REQUIREMENTS = """
 
 ### 2. 数据驱动的行为推导
 * **生理节律**：严格遵守 `sleep_schedule` 和 `meal_habits`，除非受【记忆机制】或【扰动/危机】影响。
+* **日程边界**：活动必须从“起床/醒来”开始，以“入睡/睡眠”结束。
 * **性格表现**：
     * 高开放性 -> 即使在扰动日，也会尝试用新颖方式解决问题。
     * 高尽责性 -> 即使生病（扰动态），也可能会尝试完成最低限度的工作。
@@ -63,7 +67,9 @@ ACTIVITY_PLANNING_REQUIREMENTS = """
 * **注意**: 如果状态为“居家办公（扰动态）”，则原本的外出工作应改为在“书房/客厅”使用“电脑”进行。
 
 ### 4. 格式与完整性
-* **时间连续性**：24小时无缝衔接 (00:00 - 23:59)。
+* **时间连续性**：必须无缝衔接并覆盖 `day_start_time` 到 `day_end_time`。
+* **起始时间**：当 `day_start_time` 不是 00:00 时，日程必须从 `day_start_time` 开始，禁止从 00:00 开始。
+* **结束时间**：日程必须覆盖至 `day_end_time`，且最后一项为“入睡/睡眠”类活动。
 * **输出内容**：必须包含 Activity ID, Name, Start/End Time, Description, Main Rooms。
 
 ## 输出数据格式要求 (JSON List)
@@ -81,15 +87,16 @@ ACTIVITY_PLANNING_REQUIREMENTS = """
 """
 
 PLANNING_PROMPT_TEMPLATE = """
-你是一个基于大模型的高保真人类行为模拟器。请根据以下多维度的居民档案和物理环境，通过逻辑推演，规划出这位居民一天（24小时）的活动流。
+你是一个基于大模型的高保真人类行为模拟器。请根据以下多维度的居民档案和物理环境，通过逻辑推演，规划出这位居民一天的“起床到入睡”活动流。
 
 {activity_planning_requirements}
 
 ## 状态机事件要求（高优先级）
-当 `simulation_state` 为 **Perturbed** 或 **Crisis** 且 `random_event` / `emergency_event` 为空时，你必须**自行生成**一个合理事件，并满足：
-1. **必须**明确标注事件（使用“事件：<内容>”格式）。
-2. 该事件必须对当天日程产生实际影响（例如取消/推迟/缩短某活动）。
-3. 如果是 Crisis，后续活动应转为应对处理（就医、维修、联系家人等）。
+当 `simulation_state` 为 **Perturbed** 或 **Crisis** 时，按下述规则生成事件：
+1. 读取 `random_event_count` 或 `emergency_event_count`，并**生成对应数量**的异常事件。
+2. **必须**在活动描述中明确标注事件（使用“事件：<内容>”格式）。
+3. 每个事件必须对当天日程产生实际影响（取消/推迟/缩短/改地点等）。
+4. 如果是 Crisis，后续活动应转为应对处理（就医、维修、联系家人等）。
 
 ## 输入数据
 
@@ -131,15 +138,29 @@ PLANNING_VALIDATION_PROMPT_TEMPLATE = """
 **当前活动规划:**
 {activity_plans_json}
 
+**仿真上下文 (含 agent_state):**
+{simulation_context}
+
 ## 验证维度
-1. **时间连续性 (强校验)**: 不允许时间重叠或空档，必须覆盖 24 小时。
-2. **作息/餐点 (强校验)**: 睡眠/三餐时间必须贴合 Profile（允许轻微偏差，但需说明原因）。
-3. **固定事项 (强校验)**: Profile 中明确的固定安排必须出现（如周会/固定运动）。
-4. **环境交互合理性 (强校验)**: main_rooms 必须来自房屋布局，且活动描述能对应家具/设备。
-5. **扰动/危机体现 (强校验)**：
+1. **时间连续性 (强校验)**: 不允许时间重叠或空档，必须覆盖 `day_start_time` 至 `day_end_time`。
+2. **起始时间 (强校验)**:
+   - 若 `day_start_time` 不是 00:00，活动必须从 `day_start_time` 开始，不得出现 00:00 起床等跳变。
+3. **起床/入睡边界 (强校验)**:
+   - 第一个活动必须是“起床/醒来”类事件。
+   - 最后一个活动必须是“入睡/睡眠”类事件，并覆盖到 `day_end_time`。
+3. **作息/餐点 (强校验)**:
+   - 睡眠与起床时间必须贴合 Profile（工作日/周末区分）。
+   - 早餐/午餐/晚餐必须落在 Profile 的时间窗口内；若偏差需说明原因。
+4. **固定事项 (强校验)**:
+   - Profile 中明确的固定安排必须出现在正确的日期/时间段。
+   - 如被扰动/危机影响取消，必须在描述中明确说明取消原因与替代安排。
+5. **环境交互合理性 (强校验)**: main_rooms 必须来自房屋布局，且活动描述能对应家具/设备。
+6. **扰动/危机体现 (强校验)**：
    - 若 `simulation_state` 为 Perturbed/Crisis，必须在当日活动描述中体现“异常事件的发生与影响”。
    - 表达需自然，但必须能明确看出“事件导致日程变化”（如取消/推迟/缩短/改地点/应对处理）。
-6. **性格逻辑性**: 活动是否违背 Big Five 性格与价值观。
+7. **实时状态一致性 (强校验)**:
+   - `agent_state` 显示疲劳/不适/情绪低落时，不应安排高强度或高压力活动；如确需安排，必须在描述中给出合理解释。
+8. **性格逻辑性**: 活动是否违背 Big Five 性格与价值观。
 
 ## 返回结果
 - 如通过: is_valid = true, correction_content 为空。
@@ -224,6 +245,9 @@ PLANNING_CORRECTION_PROMPT_TEMPLATE = """
 **房屋物品清单:**
 {house_layout_json}
 
+**仿真上下文 (含 agent_state):**
+{simulation_context}
+
 ## 原始规划与问题
 **原始活动规划:**
 {original_activity_plans_json}
@@ -233,11 +257,15 @@ PLANNING_CORRECTION_PROMPT_TEMPLATE = """
 
 ## 修正指令
 1. 优先解决反馈中指出的逻辑冲突。
-2. **时间修正 (强制)**：补齐空档并消除重叠，保证 24 小时完整覆盖。
-3. **作息/固定事项 (强制)**：严格贴合 Profile 的作息与固定安排；若有偏差必须在描述中解释原因。
-4. **房间合法性 (强制)**：main_rooms 必须来自 house_layout；外出活动 main_rooms 为空。
-5. **物品可用性 (强制)**：活动描述需明确使用该房间内的家具/设备。
-6. **扰动/危机体现 (强制)**：当 `simulation_state` 为 Perturbed/Crisis 时，必须在当天活动描述中自然体现异常事件及其对日程的影响。
+2. **时间修正 (强制)**：补齐空档并消除重叠，保证覆盖 `day_start_time` 至 `day_end_time`。
+3. **起始时间 (强制)**：若 `day_start_time` 不是 00:00，活动必须从 `day_start_time` 开始。
+4. **起床/入睡边界 (强制)**：第一个活动必须是“起床/醒来”，最后一个活动必须是“入睡/睡眠”，并覆盖到 `day_end_time`。
+5. **作息/餐点 (强制)**：严格贴合 Profile 的作息与三餐时间窗口；若有偏差必须在描述中解释原因。
+6. **固定事项 (强制)**：Profile 中明确的固定安排必须出现在正确日期/时间段；如被扰动/危机取消，需明确说明原因与替代安排。
+7. **房间合法性 (强制)**：main_rooms 必须来自 house_layout；外出活动 main_rooms 为空。
+8. **物品可用性 (强制)**：活动描述需明确使用该房间内的家具/设备。
+9. **扰动/危机体现 (强制)**：当 `simulation_state` 为 Perturbed/Crisis 时，必须在当天活动描述中体现异常事件及其对日程的影响。
+10. **实时状态一致性 (强制)**：`agent_state` 若显示疲劳/不适/情绪低落，应调整强度与节奏，并在描述中体现恢复/缓解措施。
 """
 
 SUMMARIZATION_PROMPT_TEMPLATE = """
@@ -423,7 +451,58 @@ def validate_node(state: AgentState):
         "profile_routines_and_relations": inputs["profile_routines_and_relations"],
         "house_layout_json": inputs["house_layout_json"],
         "activity_plans_json": plan_json,
+        "simulation_context": inputs.get("simulation_context", "N/A"),
     })
+
+    # Hard check: if state is Perturbed/Crisis, require explicit event marker in activities.
+    try:
+        sim_ctx = json.loads(inputs.get("simulation_context", "{}"))
+        sim_state = sim_ctx.get("simulation_state")
+    except Exception:
+        sim_state = None
+    if sim_state in {"Perturbed", "Crisis"}:
+        activities = state["current_plan"].activities if state.get("current_plan") else []
+        event_marks = sum((act.description or "").count("事件：") for act in activities)
+        required = 0
+        if sim_state == "Perturbed":
+            required = int(sim_ctx.get("random_event_count") or 0)
+        elif sim_state == "Crisis":
+            required = int(sim_ctx.get("emergency_event_count") or 0)
+        if event_marks < required:
+            result.is_valid = False
+            hard_msg = (
+                "硬校验失败：simulation_state 为 Perturbed/Crisis，"
+                f"但活动描述中的“事件：”数量不足（要求 {required}，实际 {event_marks}）。"
+            )
+            if result.correction_content:
+                result.correction_content = f"{hard_msg} {result.correction_content}"
+            else:
+                result.correction_content = hard_msg
+
+    # Hard check: first activity must be wake, last activity must be sleep and reach day_end_time.
+    try:
+        activities = state["current_plan"].activities if state.get("current_plan") else []
+        sim_ctx = json.loads(inputs.get("simulation_context", "{}"))
+        day_end_time = sim_ctx.get("day_end_time")
+        wake_ok = False
+        sleep_ok = False
+        end_ok = False
+        if activities:
+            first_name = activities[0].activity_name or ""
+            last_name = activities[-1].activity_name or ""
+            wake_ok = "起床" in first_name or "醒" in first_name
+            sleep_ok = "睡" in last_name or "入睡" in last_name
+            if day_end_time:
+                end_ok = activities[-1].end_time >= day_end_time
+        if not (wake_ok and sleep_ok and end_ok):
+            result.is_valid = False
+            hard_msg = "硬校验失败：日程必须以“起床/醒来”开始、以“入睡/睡眠”结束并覆盖到 day_end_time。"
+            if result.correction_content:
+                result.correction_content = f"{hard_msg} {result.correction_content}"
+            else:
+                result.correction_content = hard_msg
+    except Exception:
+        pass
 
     if result.is_valid:
         print("[OK] Validation Passed!")
@@ -447,6 +526,7 @@ def correct_node(state: AgentState):
         "profile_psychology": inputs["profile_psychology"],
         "profile_routines_and_relations": inputs["profile_routines_and_relations"],
         "house_layout_json": inputs["house_layout_json"],
+        "simulation_context": inputs.get("simulation_context", "N/A"),
         "original_activity_plans_json": plan_json,
         "correction_content": state["validation_result"].correction_content,
     })

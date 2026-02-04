@@ -57,6 +57,15 @@ class Exercise(BaseModel):
     preferred_time: str = Field(description="偏好时间段")
     type: List[str] = Field(description="运动类型列表")
 
+class EventCountConfig(BaseModel):
+    mean: float = Field(description="平均事件数量 (建议 0.5-2.0)")
+    std: float = Field(description="事件数量标准差 (建议 0.1-1.0)")
+    max: int = Field(description="每日事件数量上限 (建议 1-5)")
+
+class RandomEventConfig(BaseModel):
+    perturbed: EventCountConfig = Field(description="扰动态事件数量分布参数")
+    crisis: EventCountConfig = Field(description="危机态事件数量分布参数")
+
 class WeeklyActivity(BaseModel):
     activity: str = Field(description="活动名称")
     time: str = Field(description="时间段")
@@ -86,6 +95,7 @@ class UserProfile(BaseModel):
     values: Values
     routines: Routines
     preferences: UserPreferences
+    random_event_config: RandomEventConfig = Field(description="随机事件数量分布参数配置")
 
 # ==========================================
 # 2. 生成器核心逻辑
@@ -130,6 +140,12 @@ def generate_profile(seed_instruction: str = None):
 
     4. **真实感校验**:
        - 避免完美人格。可以适当加入一些缺点（如“不爱做家务”、“经常熬夜打游戏”），这会让仿真更有趣。
+
+    5. **随机事件参数 (Random Event Config)**:
+       - 需要提供 `random_event_config`，用于控制扰动态/危机态每日事件数量分布。
+       - 参数应基于人物画像与现实生活方式推断（如工作压力、健康状况、社交频率、作息稳定性）。
+       - 每个分布包含: mean, std, max；请给出合理、可解释的数值。
+       - 参考范围: mean 0.5-2.0, std 0.1-1.0, max 1-5（可在合理范围内微调）。
 
     **语言要求**:
     - 所有文本内容请使用**中文**。
