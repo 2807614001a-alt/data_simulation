@@ -1,0 +1,88 @@
+{
+  "current_date": "2026-02-18",
+  "day_of_week": "Wednesday",
+  "day_type": "workday",
+  "simulation_state": "Normal",
+  "previous_day_summary": "张辰昨日按照平时作息入睡，睡眠充足；工作和活动按计划进行，未出现异常情绪或突发事件，总体状态良好。",
+  "previous_day_snapshot": {
+    "agent_location": "master_bedroom",
+    "device_states": {
+      "bed_001": {
+        "power": "unknown"
+      },
+      "blackout_curtain_001": {
+        "power": "unknown"
+      },
+      "wardrobe_001": {
+        "power": "unknown"
+      },
+      "sink_cabinet_001": {
+        "power": "unknown"
+      },
+      "smart_mirror_001": {
+        "power": "unknown"
+      },
+      "smart_fridge_001": {
+        "power": "unknown"
+      },
+      "kitchen_cabinet_001": {
+        "power": "unknown"
+      },
+      "microwave_001": {
+        "power": "off"
+      },
+      "dining_table_001": {
+        "power": "unknown"
+      },
+      "desk_001": {
+        "power": "unknown"
+      },
+      "dual_monitor_001": {
+        "power": "off"
+      },
+      "smart_speaker_001": {
+        "power": "off"
+      },
+      "printer_001": {
+        "power": "off"
+      },
+      "ergonomic_chair_001": {
+        "power": "unknown"
+      },
+      "sofa_001": {
+        "power": "unknown"
+      },
+      "smart_tv_001": {
+        "power": "off"
+      },
+      "game_console_001": {
+        "power": "off"
+      },
+      "air_purifier_001": {
+        "power": "off"
+      },
+      "smart_lamp_001": {
+        "power": "off"
+      }
+    },
+    "physiology": {
+      "fatigue": 0.0,
+      "hunger": 1.0
+    }
+  },
+  "agent_state": {
+    "mood": "neutral",
+    "energy": 1.0,
+    "stress": 0.2,
+    "hunger": 1.0,
+    "health": "ok",
+    "notes": ""
+  },
+  "agent_state_stage": "after_events",
+  "day_start_time": "2026-02-18T07:00:00",
+  "day_end_time": "2026-02-19T07:00:00",
+  "random_event": "",
+  "emergency_event": "",
+  "random_event_count": 0,
+  "emergency_event_count": 0
+}

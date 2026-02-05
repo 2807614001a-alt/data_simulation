@@ -1,0 +1,116 @@
+{
+  "activities": [
+    {
+      "activity_id": "act_001",
+      "activity_name": "Wake Up and Morning Routine",
+      "start_time": "2026-02-09T07:00:00",
+      "end_time": "2026-02-09T07:30:00",
+      "description": "Woke up, opened the curtains, and performed morning hygiene in the bathroom.",
+      "main_rooms": [
+        "master_bedroom"
+      ]
+    },
+    {
+      "activity_id": "act_002",
+      "activity_name": "Breakfast",
+      "start_time": "2026-02-09T07:30:00",
+      "end_time": "2026-02-09T08:00:00",
+      "description": "Prepared and enjoyed a healthy breakfast in the kitchen.",
+      "main_rooms": [
+        "kitchen"
+      ]
+    },
+    {
+      "activity_id": "act_003",
+      "activity_name": "Work Preparation",
+      "start_time": "2026-02-09T08:00:00",
+      "end_time": "2026-02-09T09:00:00",
+      "description": "Checked emails and prepared for the day's tasks in the study room.",
+      "main_rooms": [
+        "study_room"
+      ]
+    },
+    {
+      "activity_id": "act_004",
+      "activity_name": "Attend Project Meeting",
+      "start_time": "2026-02-09T09:00:00",
+      "end_time": "2026-02-09T12:00:00",
+      "description": "Participated in a weekly project meeting at the office.",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_005",
+      "activity_name": "Lunch",
+      "start_time": "2026-02-09T12:00:00",
+      "end_time": "2026-02-09T12:30:00",
+      "description": "Enjoyed lunch at a nearby restaurant.",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_006",
+      "activity_name": "Afternoon Work",
+      "start_time": "2026-02-09T12:30:00",
+      "end_time": "2026-02-09T18:00:00",
+      "description": "Continued working on reports and discussed strategies with the team.",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_007",
+      "activity_name": "Snack Time",
+      "start_time": "2026-02-09T18:00:00",
+      "end_time": "2026-02-09T18:30:00",
+      "description": "Returned home and prepared a light snack in the kitchen.",
+      "main_rooms": [
+        "kitchen"
+      ]
+    },
+    {
+      "activity_id": "act_008",
+      "activity_name": "Fitness Session",
+      "start_time": "2026-02-09T18:30:00",
+      "end_time": "2026-02-09T20:00:00",
+      "description": "Visited the gym for strength training.",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_009",
+      "activity_name": "Dinner",
+      "start_time": "2026-02-09T20:00:00",
+      "end_time": "2026-02-09T20:30:00",
+      "description": "Prepared and enjoyed a home-cooked meal in the kitchen.",
+      "main_rooms": [
+        "kitchen"
+      ]
+    },
+    {
+      "activity_id": "act_010",
+      "activity_name": "Evening Leisure",
+      "start_time": "2026-02-09T20:30:00",
+      "end_time": "2026-02-09T23:00:00",
+      "description": "Watched a science documentary and played a video game in the living room.",
+      "main_rooms": [
+        "living_room"
+      ]
+    },
+    {
+      "activity_id": "act_011",
+      "activity_name": "Prepare for Bed",
+      "start_time": "2026-02-09T23:00:00",
+      "end_time": "2026-02-10T00:00:00",
+      "description": "Prepared for sleep and adjusted the bedroom environment.",
+      "main_rooms": [
+        "master_bedroom"
+      ]
+    },
+    {
+      "activity_id": "act_012",
+      "activity_name": "Sleep",
+      "start_time": "2026-02-10T00:00:00",
+      "end_time": "2026-02-10T07:00:00",
+      "description": "Slept soundly in the master bedroom.",
+      "main_rooms": [
+        "master_bedroom"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "activities": [
+    {
+      "activity_id": "act_001",
+      "activity_name": "Wake Up and Morning Routine",
+      "start_time": "2026-02-10T07:00:00",
+      "end_time": "2026-02-10T07:30:00",
+      "description": "张辰在主卧醒来，进行晨间洗漱和更衣。使用了床、洗漱台和衣柜。",
+      "main_rooms": [
+        "master_bedroom",
+        "bathroom"
+      ]
+    },
+    {
+      "activity_id": "act_002",
+      "activity_name": "Prepare and Enjoy Breakfast",
+      "start_time": "2026-02-10T07:30:00",
+      "end_time": "2026-02-10T08:00:00",
+      "description": "张辰在厨房准备并享用早餐，选择了低糖日式料理。使用了餐桌和智能冰箱。",
+      "main_rooms": [
+        "kitchen"
+      ]
+    },
+    {
+      "activity_id": "act_003",
+      "activity_name": "Commute to Work",
+      "start_time": "2026-02-10T08:00:00",
+      "end_time": "2026-02-10T08:30:00",
+      "description": "前往公司，准备开始工作任务。",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_004",
+      "activity_name": "Work and Meeting",
+      "start_time": "2026-02-10T08:30:00",
+      "end_time": "2026-02-10T12:00:00",
+      "description": "参与例行工作和项目会议。",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_005",
+      "activity_name": "Lunch Break",
+      "start_time": "2026-02-10T12:00:00",
+      "end_time": "2026-02-10T13:00:00",
+      "description": "与同事外出享用午餐。",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_006",
+      "activity_name": "Afternoon Work",
+      "start_time": "2026-02-10T13:00:00",
+      "end_time": "2026-02-10T17:30:00",
+      "description": "继续完成工作任务。",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_007",
+      "activity_name": "Commute Back Home",
+      "start_time": "2026-02-10T17:30:00",
+      "end_time": "2026-02-10T18:00:00",
+      "description": "从工作场所返回家中。",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_008",
+      "activity_name": "Relaxation and Leisure",
+      "start_time": "2026-02-10T18:00:00",
+      "end_time": "2026-02-10T19:00:00",
+      "description": "在客厅观看纪录片，放松身心。使用了电视和沙发。",
+      "main_rooms": [
+        "living_room"
+      ]
+    },
+    {
+      "activity_id": "act_009",
+      "activity_name": "Dinner",
+      "start_time": "2026-02-10T19:00:00",
+      "end_time": "2026-02-10T19:30:00",
+      "description": "在厨房准备并享用晚餐。使用了餐桌和智能冰箱。",
+      "main_rooms": [
+        "kitchen"
+      ]
+    },
+    {
+      "activity_id": "act_010",
+      "activity_name": "Indoor Cycling Exercise",
+      "start_time": "2026-02-10T19:30:00",
+      "end_time": "2026-02-10T20:30:00",
+      "description": "进行室内动感单车训练。",
+      "main_rooms": [
+        "living_room"
+      ]
+    },
+    {
+      "activity_id": "act_011",
+      "activity_name": "Reading and Reflection",
+      "start_time": "2026-02-10T20:30:00",
+      "end_time": "2026-02-10T22:30:00",
+      "description": "在书房阅读书籍，提升个人能力。使用了书桌和台灯。",
+      "main_rooms": [
+        "study_room"
+      ]
+    },
+    {
+      "activity_id": "act_012",
+      "activity_name": "Prepare for Sleep",
+      "start_time": "2026-02-10T22:30:00",
+      "end_time": "2026-02-10T23:00:00",
+      "description": "在主卧进行睡前准备，包括洗漱和冥想。",
+      "main_rooms": [
+        "master_bedroom",
+        "bathroom"
+      ]
+    },
+    {
+      "activity_id": "act_013",
+      "activity_name": "Sleep",
+      "start_time": "2026-02-10T23:00:00",
+      "end_time": "2026-02-11T07:00:00",
+      "description": "张辰进入睡眠状态，结束一天活动。使用了床和空气净化器。",
+      "main_rooms": [
+        "master_bedroom"
+      ]
+    }
+  ]
+}

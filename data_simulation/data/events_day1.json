@@ -1,0 +1,528 @@
+[
+  {
+    "activity_id": "act_001",
+    "start_time": "2026-02-05T07:00:00",
+    "end_time": "2026-02-05T07:02:00",
+    "room_id": "master_bedroom",
+    "target_object_ids": [
+      "blackout_curtain_001"
+    ],
+    "action_type": "interact",
+    "description": "拉开遮光窗帘，迎接早晨的光线。"
+  },
+  {
+    "activity_id": "act_001",
+    "start_time": "2026-02-05T07:02:00",
+    "end_time": "2026-02-05T07:07:00",
+    "room_id": "master_bedroom",
+    "target_object_ids": [
+      "bed_001"
+    ],
+    "action_type": "interact",
+    "description": "整理床铺，使之整洁有序。"
+  },
+  {
+    "activity_id": "act_001",
+    "start_time": "2026-02-05T07:07:00",
+    "end_time": "2026-02-05T07:09:00",
+    "room_id": "master_bedroom",
+    "target_object_ids": [
+      "smart_lamp_001"
+    ],
+    "action_type": "interact",
+    "description": "开启智能台灯，调整至适宜的亮度。"
+  },
+  {
+    "activity_id": "act_001",
+    "start_time": "2026-02-05T07:09:00",
+    "end_time": "2026-02-05T07:12:00",
+    "room_id": "master_bedroom",
+    "target_object_ids": [],
+    "action_type": "move",
+    "description": "从主卧移动至浴室，为洗漱做好准备。"
+  },
+  {
+    "activity_id": "act_001",
+    "start_time": "2026-02-05T07:12:00",
+    "end_time": "2026-02-05T07:20:00",
+    "room_id": "bathroom",
+    "target_object_ids": [],
+    "action_type": "interact",
+    "description": "完成洗漱，包括刷牙和清洗面部。"
+  },
+  {
+    "activity_id": "act_001",
+    "start_time": "2026-02-05T07:20:00",
+    "end_time": "2026-02-05T07:30:00",
+    "room_id": "bathroom",
+    "target_object_ids": [],
+    "action_type": "move",
+    "description": "从浴室返回主卧，准备接下来的活动。"
+  },
+  {
+    "activity_id": "act_002",
+    "start_time": "2026-02-05T07:30:00",
+    "end_time": "2026-02-05T07:35:00",
+    "room_id": "living_room",
+    "target_object_ids": [
+      "sofa_001"
+    ],
+    "action_type": "lie_down",
+    "description": "躺在沙发上，进行深呼吸以放松身心。"
+  },
+  {
+    "activity_id": "act_002",
+    "start_time": "2026-02-05T07:35:00",
+    "end_time": "2026-02-05T07:50:00",
+    "room_id": "living_room",
+    "target_object_ids": [],
+    "action_type": "interact",
+    "description": "在客厅的空地上完成瑜伽伸展动作，唤醒身体机能。"
+  },
+  {
+    "activity_id": "act_002",
+    "start_time": "2026-02-05T07:50:00",
+    "end_time": "2026-02-05T08:00:00",
+    "room_id": "living_room",
+    "target_object_ids": [],
+    "action_type": "idle",
+    "description": "静坐冥想，感受宁静的晨间时光。"
+  },
+  {
+    "activity_id": "act_003",
+    "start_time": "2026-02-05T08:00:00",
+    "end_time": "2026-02-05T08:01:00",
+    "room_id": "kitchen",
+    "target_object_ids": [],
+    "action_type": "move",
+    "description": "进入厨房，准备早餐。"
+  },
+  {
+    "activity_id": "act_003",
+    "start_time": "2026-02-05T08:01:00",
+    "end_time": "2026-02-05T08:05:00",
+    "room_id": "kitchen",
+    "target_object_ids": [
+      "smart_fridge_001"
+    ],
+    "action_type": "interact",
+    "description": "打开智能冰箱，检查库存并取出早餐食材。"
+  },
+  {
+    "activity_id": "act_003",
+    "start_time": "2026-02-05T08:05:00",
+    "end_time": "2026-02-05T08:10:00",
+    "room_id": "kitchen",
+    "target_object_ids": [
+      "microwave_001"
+    ],
+    "action_type": "interact",
+    "description": "使用微波炉加热食材。"
+  },
+  {
+    "activity_id": "act_003",
+    "start_time": "2026-02-05T08:10:00",
+    "end_time": "2026-02-05T08:12:00",
+    "room_id": "kitchen",
+    "target_object_ids": [
+      "dining_table_001"
+    ],
+    "action_type": "interact",
+    "description": "将早餐食材放置在餐桌上。"
+  },
+  {
+    "activity_id": "act_003",
+    "start_time": "2026-02-05T08:12:00",
+    "end_time": "2026-02-05T08:25:00",
+    "room_id": "kitchen",
+    "target_object_ids": [
+      "dining_table_001"
+    ],
+    "action_type": "interact",
+    "description": "享用早餐。"
+  },
+  {
+    "activity_id": "act_003",
+    "start_time": "2026-02-05T08:25:00",
+    "end_time": "2026-02-05T08:30:00",
+    "room_id": "kitchen",
+    "target_object_ids": [
+      "dining_table_001",
+      "trash_can_001"
+    ],
+    "action_type": "interact",
+    "description": "清理餐桌并处理垃圾。"
+  },
+  {
+    "activity_id": "act_004",
+    "start_time": "2026-02-05T08:30:00",
+    "end_time": "2026-02-05T08:31:00",
+    "room_id": "study_room",
+    "target_object_ids": [],
+    "action_type": "move",
+    "description": "进入书房开始早间工作。"
+  },
+  {
+    "activity_id": "act_004",
+    "start_time": "2026-02-05T08:31:00",
+    "end_time": "2026-02-05T08:32:00",
+    "room_id": "study_room",
+    "target_object_ids": [
+      "dual_monitor_001"
+    ],
+    "action_type": "interact",
+    "description": "开启双屏显示器以准备处理文档。"
+  },
+  {
+    "activity_id": "act_004",
+    "start_time": "2026-02-05T08:32:00",
+    "end_time": "2026-02-05T08:40:00",
+    "room_id": "study_room",
+    "target_object_ids": [
+      "ergonomic_chair_001"
+    ],
+    "action_type": "interact",
+    "description": "坐在人体工学椅上开始处理文档。"
+  },
+  {
+    "activity_id": "act_004",
+    "start_time": "2026-02-05T08:40:00",
+    "end_time": "2026-02-05T08:50:00",
+    "room_id": "study_room",
+    "target_object_ids": [
+      "desk_001"
+    ],
+    "action_type": "interact",
+    "description": "使用书桌完成邮件回复。"
+  },
+  {
+    "activity_id": "act_004",
+    "start_time": "2026-02-05T08:50:00",
+    "end_time": "2026-02-05T09:00:00",
+    "room_id": "study_room",
+    "target_object_ids": [
+      "dual_monitor_001"
+    ],
+    "action_type": "interact",
+    "description": "关闭显示器并结束早间工作。"
+  },
+  {
+    "activity_id": "act_005",
+    "start_time": "2026-02-05T09:00:00",
+    "end_time": "2026-02-05T12:00:00",
+    "room_id": "Outside",
+    "target_object_ids": [],
+    "action_type": "outside",
+    "description": "前往公司与团队讨论项目进展。"
+  },
+  {
+    "activity_id": "act_006",
+    "start_time": "2026-02-05T12:30:00",
+    "end_time": "2026-02-05T12:35:00",
+    "room_id": "kitchen",
+    "target_object_ids": [
+      "kitchen_counter",
+      "knife_set",
+      "cutting_board"
+    ],
+    "action_type": "interact",
+    "description": "在厨房准备午餐的食材和餐具，使用菜刀和砧板切菜。"
+  },
+  {
+    "activity_id": "act_006",
+    "start_time": "2026-02-05T12:35:00",
+    "end_time": "2026-02-05T12:36:00",
+    "room_id": "dining_room",
+    "target_object_ids": [],
+    "action_type": "move",
+    "description": "从厨房移动到餐厅，为用餐做准备。"
+  },
+  {
+    "activity_id": "act_006",
+    "start_time": "2026-02-05T12:36:00",
+    "end_time": "2026-02-05T12:55:00",
+    "room_id": "dining_room",
+    "target_object_ids": [
+      "dining_table",
+      "chair"
+    ],
+    "action_type": "interact",
+    "description": "在餐厅享用健康午餐，坐在餐桌旁感受放松的用餐氛围。"
+  },
+  {
+    "activity_id": "act_006",
+    "start_time": "2026-02-05T12:55:00",
+    "end_time": "2026-02-05T12:56:00",
+    "room_id": "kitchen",
+    "target_object_ids": [],
+    "action_type": "move",
+    "description": "从餐厅返回厨房，为清理餐具做准备。"
+  },
+  {
+    "activity_id": "act_006",
+    "start_time": "2026-02-05T12:56:00",
+    "end_time": "2026-02-05T13:00:00",
+    "room_id": "kitchen",
+    "target_object_ids": [
+      "sink",
+      "dish_rack"
+    ],
+    "action_type": "interact",
+    "description": "清理餐后餐具并整理台面，将清洁的餐具放置于沥水架上。"
+  },
+  {
+    "activity_id": "act_007",
+    "start_time": "2026-02-05T13:00:00",
+    "end_time": "2026-02-05T13:05:00",
+    "room_id": "living_room",
+    "target_object_ids": [],
+    "action_type": "move",
+    "description": "进入客厅并准备开始工作。"
+  },
+  {
+    "activity_id": "act_007",
+    "start_time": "2026-02-05T13:05:00",
+    "end_time": "2026-02-05T15:30:00",
+    "room_id": "living_room",
+    "target_object_ids": [
+      "laptop"
+    ],
+    "action_type": "interact",
+    "description": "使用笔记本电脑处理工作任务。"
+  },
+  {
+    "activity_id": "act_007",
+    "start_time": "2026-02-05T15:30:00",
+    "end_time": "2026-02-05T15:35:00",
+    "room_id": "kitchen",
+    "target_object_ids": [],
+    "action_type": "move",
+    "description": "前往厨房准备饮品。"
+  },
+  {
+    "activity_id": "act_007",
+    "start_time": "2026-02-05T15:35:00",
+    "end_time": "2026-02-05T15:45:00",
+    "room_id": "kitchen",
+    "target_object_ids": [
+      "coffee_machine"
+    ],
+    "action_type": "interact",
+    "description": "使用咖啡机制作饮品并短暂休息。"
+  },
+  {
+    "activity_id": "act_007",
+    "start_time": "2026-02-05T15:45:00",
+    "end_time": "2026-02-05T15:50:00",
+    "room_id": "living_room",
+    "target_object_ids": [],
+    "action_type": "move",
+    "description": "返回客厅继续工作。"
+  },
+  {
+    "activity_id": "act_007",
+    "start_time": "2026-02-05T15:50:00",
+    "end_time": "2026-02-05T18:00:00",
+    "room_id": "living_room",
+    "target_object_ids": [
+      "laptop"
+    ],
+    "action_type": "interact",
+    "description": "继续使用笔记本电脑完成工作任务并记录进度。"
+  },
+  {
+    "activity_id": "act_008",
+    "start_time": "2026-02-05T18:30:00",
+    "end_time": "2026-02-05T20:00:00",
+    "room_id": "Outside",
+    "target_object_ids": [],
+    "action_type": "outside",
+    "description": "前往健身房进行力量训练和有氧运动。"
+  },
+  {
+    "activity_id": "act_009",
+    "start_time": "2026-02-05T20:00:00",
+    "end_time": "2026-02-05T20:05:00",
+    "room_id": "kitchen",
+    "target_object_ids": [
+      "kitchen_cabinet_001"
+    ],
+    "action_type": "interact",
+    "description": "从厨房柜中取出烹饪食材。"
+  },
+  {
+    "activity_id": "act_009",
+    "start_time": "2026-02-05T20:05:00",
+    "end_time": "2026-02-05T20:10:00",
+    "room_id": "kitchen",
+    "target_object_ids": [
+      "smart_fridge_001"
+    ],
+    "action_type": "interact",
+    "description": "检查智能冰箱中的食材并取出需要的物品。"
+  },
+  {
+    "activity_id": "act_009",
+    "start_time": "2026-02-05T20:10:00",
+    "end_time": "2026-02-05T20:20:00",
+    "room_id": "kitchen",
+    "target_object_ids": [
+      "microwave_001"
+    ],
+    "action_type": "interact",
+    "description": "使用微波炉加热烹饪所需的食材。"
+  },
+  {
+    "activity_id": "act_009",
+    "start_time": "2026-02-05T20:20:00",
+    "end_time": "2026-02-05T20:30:00",
+    "room_id": "kitchen",
+    "target_object_ids": [
+      "dining_table_001"
+    ],
+    "action_type": "interact",
+    "description": "将准备好的晚餐摆放在餐桌上。"
+  },
+  {
+    "activity_id": "act_009",
+    "start_time": "2026-02-05T20:30:00",
+    "end_time": "2026-02-05T20:40:00",
+    "room_id": "kitchen",
+    "target_object_ids": [
+      "dining_table_001"
+    ],
+    "action_type": "interact",
+    "description": "享用晚餐并进行整理。"
+  },
+  {
+    "activity_id": "act_010",
+    "start_time": "2026-02-05T20:40:00",
+    "end_time": "2026-02-05T20:42:00",
+    "room_id": "living_room",
+    "target_object_ids": [
+      "smart_tv_001"
+    ],
+    "action_type": "interact",
+    "description": "打开智能电视，选择科技纪录片播放。"
+  },
+  {
+    "activity_id": "act_010",
+    "start_time": "2026-02-05T20:42:00",
+    "end_time": "2026-02-05T20:44:00",
+    "room_id": "living_room",
+    "target_object_ids": [
+      "sound_system_001"
+    ],
+    "action_type": "interact",
+    "description": "调节音响系统的音量以达到适宜的观影效果。"
+  },
+  {
+    "activity_id": "act_010",
+    "start_time": "2026-02-05T20:44:00",
+    "end_time": "2026-02-05T22:00:00",
+    "room_id": "living_room",
+    "target_object_ids": [
+      "sofa_001"
+    ],
+    "action_type": "interact",
+    "description": "坐在沙发上舒适地观看科技纪录片，放松身心。"
+  },
+  {
+    "activity_id": "act_011",
+    "start_time": "2026-02-05T22:00:00",
+    "end_time": "2026-02-05T22:05:00",
+    "room_id": "master_bedroom",
+    "target_object_ids": [],
+    "action_type": "move",
+    "description": "从卧室门进入主卧室，为就寝做准备。"
+  },
+  {
+    "activity_id": "act_011",
+    "start_time": "2026-02-05T22:05:00",
+    "end_time": "2026-02-05T22:10:00",
+    "room_id": "master_bedroom",
+    "target_object_ids": [
+      "nightstand_001"
+    ],
+    "action_type": "interact",
+    "description": "打开床头柜以拿取晚间阅读材料。"
+  },
+  {
+    "activity_id": "act_011",
+    "start_time": "2026-02-05T22:10:00",
+    "end_time": "2026-02-05T23:15:00",
+    "room_id": "master_bedroom",
+    "target_object_ids": [
+      "bed_001",
+      "smart_lamp_001"
+    ],
+    "action_type": "interact",
+    "description": "躺在床上并打开智能台灯，愉快地阅读。"
+  },
+  {
+    "activity_id": "act_011",
+    "start_time": "2026-02-05T23:15:00",
+    "end_time": "2026-02-05T23:30:00",
+    "room_id": "master_bedroom",
+    "target_object_ids": [
+      "smart_lamp_001"
+    ],
+    "action_type": "interact",
+    "description": "关闭智能台灯并整理物品，为就寝做好最后准备。"
+  },
+  {
+    "activity_id": "act_012",
+    "start_time": "2026-02-05T23:30:00",
+    "end_time": "2026-02-05T23:35:00",
+    "room_id": "master_bedroom",
+    "target_object_ids": [
+      "bed_001"
+    ],
+    "action_type": "interact",
+    "description": "进入主卧的床，准备休息。"
+  },
+  {
+    "activity_id": "act_012",
+    "start_time": "2026-02-05T23:35:00",
+    "end_time": "2026-02-05T23:37:00",
+    "room_id": "master_bedroom",
+    "target_object_ids": [
+      "smart_lamp_001"
+    ],
+    "action_type": "interact",
+    "description": "调整智能台灯的亮度至适合睡眠模式。"
+  },
+  {
+    "activity_id": "act_012",
+    "start_time": "2026-02-05T23:37:00",
+    "end_time": "2026-02-05T23:40:00",
+    "room_id": "master_bedroom",
+    "target_object_ids": [
+      "air_purifier_001"
+    ],
+    "action_type": "interact",
+    "description": "启动空气净化器，设定为夜间模式。"
+  },
+  {
+    "activity_id": "act_012",
+    "start_time": "2026-02-05T23:40:00",
+    "end_time": "2026-02-05T23:43:00",
+    "room_id": "master_bedroom",
+    "target_object_ids": [
+      "blackout_curtain_001"
+    ],
+    "action_type": "interact",
+    "description": "拉上遮光窗帘，确保房间昏暗。"
+  },
+  {
+    "activity_id": "act_012",
+    "start_time": "2026-02-05T23:43:00",
+    "end_time": "2026-02-06T07:00:00",
+    "room_id": "master_bedroom",
+    "target_object_ids": [
+      "bed_001"
+    ],
+    "action_type": "interact",
+    "description": "躺在床上，进入睡眠状态。"
+  }
+]

@@ -1,0 +1,345 @@
+{
+  "days": [
+    {
+      "day": 1,
+      "scores": {
+        "structure": 90,
+        "persona": 90,
+        "environment": 20,
+        "special_events": 100,
+        "cross_day": 100,
+        "overall": 80
+      },
+      "issues": {
+        "structure": [
+          "gap detected"
+        ],
+        "persona": [
+          "sleep time deviates >2h"
+        ],
+        "environment": [
+          "invalid room in events: dining_room",
+          "unknown object id: chair",
+          "unknown object id: coffee_machine",
+          "unknown object id: cutting_board",
+          "unknown object id: dining_table",
+          "unknown object id: dish_rack",
+          "unknown object id: kitchen_counter",
+          "unknown object id: knife_set",
+          "unknown object id: laptop",
+          "unknown object id: sink"
+        ],
+        "special_events": [],
+        "cross_day": []
+      }
+    },
+    {
+      "day": 2,
+      "scores": {
+        "structure": 80,
+        "persona": 82,
+        "environment": 100,
+        "special_events": 100,
+        "cross_day": 100,
+        "overall": 92
+      },
+      "issues": {
+        "structure": [
+          "gap detected"
+        ],
+        "persona": [
+          "dinner time deviates >1h",
+          "sleep time deviates >2h"
+        ],
+        "environment": [],
+        "special_events": [],
+        "cross_day": []
+      }
+    },
+    {
+      "day": 3,
+      "scores": {
+        "structure": 100,
+        "persona": 66,
+        "environment": 100,
+        "special_events": 100,
+        "cross_day": 80,
+        "overall": 89
+      },
+      "issues": {
+        "structure": [],
+        "persona": [
+          "breakfast missing",
+          "dinner missing",
+          "lunch missing",
+          "sleep time deviates >2h"
+        ],
+        "environment": [],
+        "special_events": [],
+        "cross_day": [
+          "no cross-day adjustment found"
+        ]
+      }
+    },
+    {
+      "day": 4,
+      "scores": {
+        "structure": 100,
+        "persona": 82,
+        "environment": 100,
+        "special_events": 100,
+        "cross_day": 100,
+        "overall": 96
+      },
+      "issues": {
+        "structure": [],
+        "persona": [
+          "breakfast time deviates >1h",
+          "sleep time deviates >2h"
+        ],
+        "environment": [],
+        "special_events": [],
+        "cross_day": []
+      }
+    },
+    {
+      "day": 5,
+      "scores": {
+        "structure": 100,
+        "persona": 66,
+        "environment": 82,
+        "special_events": 100,
+        "cross_day": 100,
+        "overall": 90
+      },
+      "issues": {
+        "structure": [],
+        "persona": [
+          "breakfast missing",
+          "dinner missing",
+          "lunch missing",
+          "sleep time deviates >2h"
+        ],
+        "environment": [
+          "unknown object id: laptop_001"
+        ],
+        "special_events": [],
+        "cross_day": []
+      }
+    },
+    {
+      "day": 6,
+      "scores": {
+        "structure": 100,
+        "persona": 66,
+        "environment": 66,
+        "special_events": 80,
+        "cross_day": 100,
+        "overall": 82
+      },
+      "issues": {
+        "structure": [],
+        "persona": [
+          "breakfast missing",
+          "dinner missing",
+          "lunch missing",
+          "sleep time deviates >2h"
+        ],
+        "environment": [
+          "invalid room in events: hallway",
+          "unknown object id: desk",
+          "unknown object id: laptop"
+        ],
+        "special_events": [
+          "special events < required (0/1)"
+        ],
+        "cross_day": []
+      }
+    },
+    {
+      "day": 7,
+      "scores": {
+        "structure": 100,
+        "persona": 90,
+        "environment": 100,
+        "special_events": 100,
+        "cross_day": 100,
+        "overall": 98
+      },
+      "issues": {
+        "structure": [],
+        "persona": [
+          "sleep time deviates >2h"
+        ],
+        "environment": [],
+        "special_events": [],
+        "cross_day": []
+      }
+    },
+    {
+      "day": 8,
+      "scores": {
+        "structure": 70,
+        "persona": 90,
+        "environment": 100,
+        "special_events": 100,
+        "cross_day": 100,
+        "overall": 92
+      },
+      "issues": {
+        "structure": [
+          "gap detected"
+        ],
+        "persona": [
+          "sleep time deviates >2h"
+        ],
+        "environment": [],
+        "special_events": [],
+        "cross_day": []
+      }
+    },
+    {
+      "day": 9,
+      "scores": {
+        "structure": 100,
+        "persona": 66,
+        "environment": 100,
+        "special_events": 100,
+        "cross_day": 100,
+        "overall": 93
+      },
+      "issues": {
+        "structure": [],
+        "persona": [
+          "breakfast missing",
+          "dinner missing",
+          "lunch missing",
+          "sleep time deviates >2h"
+        ],
+        "environment": [],
+        "special_events": [],
+        "cross_day": []
+      }
+    },
+    {
+      "day": 10,
+      "scores": {
+        "structure": 100,
+        "persona": 74,
+        "environment": 100,
+        "special_events": 100,
+        "cross_day": 100,
+        "overall": 95
+      },
+      "issues": {
+        "structure": [],
+        "persona": [
+          "breakfast time deviates >1h",
+          "dinner time deviates >1h",
+          "sleep time deviates >2h"
+        ],
+        "environment": [],
+        "special_events": [],
+        "cross_day": []
+      }
+    },
+    {
+      "day": 11,
+      "scores": {
+        "structure": 100,
+        "persona": 74,
+        "environment": 100,
+        "special_events": 80,
+        "cross_day": 100,
+        "overall": 91
+      },
+      "issues": {
+        "structure": [],
+        "persona": [
+          "breakfast time deviates >1h",
+          "dinner time deviates >1h",
+          "sleep time deviates >2h"
+        ],
+        "environment": [],
+        "special_events": [
+          "special events < required (0/1)"
+        ],
+        "cross_day": []
+      }
+    },
+    {
+      "day": 12,
+      "scores": {
+        "structure": 100,
+        "persona": 90,
+        "environment": 100,
+        "special_events": 100,
+        "cross_day": 100,
+        "overall": 98
+      },
+      "issues": {
+        "structure": [],
+        "persona": [
+          "sleep time deviates >2h"
+        ],
+        "environment": [],
+        "special_events": [],
+        "cross_day": []
+      }
+    },
+    {
+      "day": 13,
+      "scores": {
+        "structure": 100,
+        "persona": 66,
+        "environment": 100,
+        "special_events": 80,
+        "cross_day": 100,
+        "overall": 89
+      },
+      "issues": {
+        "structure": [],
+        "persona": [
+          "breakfast missing",
+          "dinner missing",
+          "lunch missing",
+          "sleep time deviates >2h"
+        ],
+        "environment": [],
+        "special_events": [
+          "special events < required (0/1)"
+        ],
+        "cross_day": []
+      }
+    },
+    {
+      "day": 14,
+      "scores": {
+        "structure": 100,
+        "persona": 90,
+        "environment": 62,
+        "special_events": 100,
+        "cross_day": 100,
+        "overall": 90
+      },
+      "issues": {
+        "structure": [],
+        "persona": [
+          "sleep time deviates >2h"
+        ],
+        "environment": [
+          "invalid room in events: dining_room",
+          "unknown object id: dining_table",
+          "unknown object id: kitchen_utensils",
+          "unknown object id: meal_set"
+        ],
+        "special_events": [],
+        "cross_day": []
+      }
+    }
+  ],
+  "summary": {
+    "days": 14,
+    "overall_avg": 91
+  }
+}

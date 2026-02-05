@@ -1,0 +1,148 @@
+{
+  "activities": [
+    {
+      "activity_id": "act_001",
+      "activity_name": "起床",
+      "start_time": "2026-02-06T07:00:00",
+      "end_time": "2026-02-06T07:15:00",
+      "description": "张辰在主卧醒来，整理床铺并拉开窗帘。",
+      "main_rooms": [
+        "master_bedroom"
+      ]
+    },
+    {
+      "activity_id": "act_002",
+      "activity_name": "洗漱",
+      "start_time": "2026-02-06T07:15:00",
+      "end_time": "2026-02-06T07:30:00",
+      "description": "张辰使用浴室的智能镜洗漱，清洁面部与牙齿。",
+      "main_rooms": [
+        "bathroom"
+      ]
+    },
+    {
+      "activity_id": "act_003",
+      "activity_name": "早餐",
+      "start_time": "2026-02-06T07:30:00",
+      "end_time": "2026-02-06T08:00:00",
+      "description": "张辰在厨房准备日式健康早餐并享用。",
+      "main_rooms": [
+        "kitchen"
+      ]
+    },
+    {
+      "activity_id": "act_004",
+      "activity_name": "早间工作",
+      "start_time": "2026-02-06T08:00:00",
+      "end_time": "2026-02-06T09:30:00",
+      "description": "在书房，使用电脑处理邮件并完成文档编辑。",
+      "main_rooms": [
+        "study_room"
+      ]
+    },
+    {
+      "activity_id": "act_005",
+      "activity_name": "短暂放松",
+      "start_time": "2026-02-06T09:30:00",
+      "end_time": "2026-02-06T09:50:00",
+      "description": "在客厅沙发上休息片刻，翻阅杂志。",
+      "main_rooms": [
+        "living_room"
+      ]
+    },
+    {
+      "activity_id": "act_006",
+      "activity_name": "项目会议",
+      "start_time": "2026-02-06T10:00:00",
+      "end_time": "2026-02-06T12:00:00",
+      "description": "前往公司会议室参加每周例行项目会议。",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_007",
+      "activity_name": "午餐",
+      "start_time": "2026-02-06T12:30:00",
+      "end_time": "2026-02-06T13:00:00",
+      "description": "在附近餐厅享用日式料理，补充能量。",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_008",
+      "activity_name": "阅读",
+      "start_time": "2026-02-06T13:00:00",
+      "end_time": "2026-02-06T14:30:00",
+      "description": "在客厅内阅读科技类书籍，扩展知识领域。",
+      "main_rooms": [
+        "living_room"
+      ]
+    },
+    {
+      "activity_id": "act_009",
+      "activity_name": "下午工作",
+      "start_time": "2026-02-06T14:30:00",
+      "end_time": "2026-02-06T17:00:00",
+      "description": "继续在书房进行品牌营销策划与文案撰写。",
+      "main_rooms": [
+        "study_room"
+      ]
+    },
+    {
+      "activity_id": "act_010",
+      "activity_name": "晚间休息",
+      "start_time": "2026-02-06T17:00:00",
+      "end_time": "2026-02-06T18:00:00",
+      "description": "在客厅内使用智能电视观看科技纪录片。",
+      "main_rooms": [
+        "living_room"
+      ]
+    },
+    {
+      "activity_id": "act_011",
+      "activity_name": "健身训练",
+      "start_time": "2026-02-06T18:30:00",
+      "end_time": "2026-02-06T20:00:00",
+      "description": "前往健身房进行力量训练与动感单车运动。",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_012",
+      "activity_name": "晚餐",
+      "start_time": "2026-02-06T20:30:00",
+      "end_time": "2026-02-06T21:00:00",
+      "description": "在厨房准备轻食晚餐，并在餐桌享用。",
+      "main_rooms": [
+        "kitchen"
+      ]
+    },
+    {
+      "activity_id": "act_013",
+      "activity_name": "放松时光",
+      "start_time": "2026-02-06T21:00:00",
+      "end_time": "2026-02-06T22:30:00",
+      "description": "在客厅沙发上休息，并与朋友线上聊天互动。",
+      "main_rooms": [
+        "living_room"
+      ]
+    },
+    {
+      "activity_id": "act_014",
+      "activity_name": "入睡准备",
+      "start_time": "2026-02-06T22:30:00",
+      "end_time": "2026-02-06T23:00:00",
+      "description": "前往浴室进行洗漱并准备入睡。",
+      "main_rooms": [
+        "bathroom"
+      ]
+    },
+    {
+      "activity_id": "act_015",
+      "activity_name": "入睡",
+      "start_time": "2026-02-06T23:00:00",
+      "end_time": "2026-02-07T09:00:00",
+      "description": "进入主卧，关闭灯光后进入睡眠状态，恢复体力。",
+      "main_rooms": [
+        "master_bedroom"
+      ]
+    }
+  ]
+}

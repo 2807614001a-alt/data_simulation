@@ -1,0 +1,1816 @@
+{
+  "action_event_chain": [
+    {
+      "event_id": "act_001",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-15T09:00:00",
+      "end_time": "2026-02-15T09:02:00",
+      "description": "张辰从床上起身，开始新的一天。",
+      "use_devices": true,
+      "devices": [
+        "bed_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T09:00:00",
+            "device_id": "bed_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T09:02:00",
+            "device_id": "bed_001",
+            "patch": {}
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_001",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-15T09:02:00",
+      "end_time": "2026-02-15T09:05:00",
+      "description": "整理床铺，使其整洁有序。",
+      "use_devices": true,
+      "devices": [
+        "bed_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T09:02:00",
+            "device_id": "bed_001",
+            "patch": {
+              "mode": "on"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T09:05:00",
+            "device_id": "bed_001",
+            "patch": {
+              "mode": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_001",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-15T09:05:00",
+      "end_time": "2026-02-15T09:10:00",
+      "description": "打开衣柜挑选适合的服装。",
+      "use_devices": true,
+      "devices": [
+        "wardrobe_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T09:05:00",
+            "device_id": "wardrobe_001",
+            "patch": {
+              "state": "open"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T09:10:00",
+            "device_id": "wardrobe_001",
+            "patch": {
+              "state": "closed"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_001",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-15T09:10:00",
+      "end_time": "2026-02-15T09:15:00",
+      "description": "更换衣物，完成晨间准备。",
+      "use_devices": true,
+      "devices": [
+        "wardrobe_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T09:10:00",
+            "device_id": "wardrobe_001",
+            "patch": {
+              "state": "open"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T09:15:00",
+            "device_id": "wardrobe_001",
+            "patch": {
+              "state": "closed"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_001",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-15T09:15:00",
+      "end_time": "2026-02-15T09:20:00",
+      "description": "打开窗帘，让阳光洒入房间。",
+      "use_devices": true,
+      "devices": [
+        "blackout_curtain_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T09:15:00",
+            "device_id": "blackout_curtain_001",
+            "patch": {
+              "state": "open"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T09:20:00",
+            "device_id": "blackout_curtain_001",
+            "patch": {}
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_001",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-15T09:20:00",
+      "end_time": "2026-02-15T09:22:00",
+      "description": "启动空气净化器，改善室内空气质量。",
+      "use_devices": true,
+      "devices": [
+        "air_purifier_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T09:20:00",
+            "device_id": "air_purifier_001",
+            "patch": {
+              "power": "on",
+              "mode": "auto"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T09:22:00",
+            "device_id": "air_purifier_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_001",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-15T09:22:00",
+      "end_time": "2026-02-15T09:30:00",
+      "description": "环顾房间，确保一切准备妥当。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_002",
+      "room_id": "kitchen",
+      "start_time": "2026-02-15T09:30:00",
+      "end_time": "2026-02-15T09:35:00",
+      "description": "打开智能冰箱，选择需要的食材。",
+      "use_devices": true,
+      "devices": [
+        "smart_fridge_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T09:30:00",
+            "device_id": "smart_fridge_001",
+            "patch": {
+              "state": "open"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T09:35:00",
+            "device_id": "smart_fridge_001",
+            "patch": {
+              "state": "closed"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_002",
+      "room_id": "kitchen",
+      "start_time": "2026-02-15T09:35:00",
+      "end_time": "2026-02-15T09:40:00",
+      "description": "从厨房柜中取出餐具并摆放。",
+      "use_devices": true,
+      "devices": [
+        "kitchen_cabinet_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T09:35:00",
+            "device_id": "kitchen_cabinet_001",
+            "patch": {
+              "state": "open"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T09:40:00",
+            "device_id": "kitchen_cabinet_001",
+            "patch": {
+              "state": "closed"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_002",
+      "room_id": "kitchen",
+      "start_time": "2026-02-15T09:40:00",
+      "end_time": "2026-02-15T09:45:00",
+      "description": "使用微波炉加热食物到适宜温度。",
+      "use_devices": true,
+      "devices": [
+        "microwave_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T09:40:00",
+            "device_id": "microwave_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T09:45:00",
+            "device_id": "microwave_001",
+            "patch": {}
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_002",
+      "room_id": "kitchen",
+      "start_time": "2026-02-15T09:45:00",
+      "end_time": "2026-02-15T10:00:00",
+      "description": "在餐桌上享用早餐，放松心情。",
+      "use_devices": true,
+      "devices": [
+        "dining_table_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T09:45:00",
+            "device_id": "dining_table_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T10:00:00",
+            "device_id": "dining_table_001",
+            "patch": {}
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_003",
+      "room_id": "living_room",
+      "start_time": "2026-02-15T10:00:00",
+      "end_time": "2026-02-15T10:02:00",
+      "description": "从厨房前往客厅，为记录活动做准备。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_003",
+      "room_id": "living_room",
+      "start_time": "2026-02-15T10:02:00",
+      "end_time": "2026-02-15T10:05:00",
+      "description": "在沙发上坐下，打开笔记本电脑。",
+      "use_devices": true,
+      "devices": [
+        "sofa_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T10:02:00",
+            "device_id": "sofa_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T10:05:00",
+            "device_id": "sofa_001",
+            "patch": {}
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_003",
+      "room_id": "living_room",
+      "start_time": "2026-02-15T10:05:00",
+      "end_time": "2026-02-15T10:28:00",
+      "description": "通过笔记本电脑回顾昨日的桌游聚会，记录关键点。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_003",
+      "room_id": "living_room",
+      "start_time": "2026-02-15T10:28:00",
+      "end_time": "2026-02-15T10:30:00",
+      "description": "整理心情并稍作休息。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_004",
+      "room_id": "study_room",
+      "start_time": "2026-02-15T10:30:00",
+      "end_time": "2026-02-15T10:35:00",
+      "description": "从书架上选择一本科技类书籍。",
+      "use_devices": true,
+      "devices": [
+        "bookshelf_002"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T10:30:00",
+            "device_id": "bookshelf_002",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T10:35:00",
+            "device_id": "bookshelf_002",
+            "patch": {}
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_004",
+      "room_id": "study_room",
+      "start_time": "2026-02-15T10:35:00",
+      "end_time": "2026-02-15T11:50:00",
+      "description": "坐在人体工学椅上开始阅读书籍。",
+      "use_devices": true,
+      "devices": [
+        "ergonomic_chair_001",
+        "desk_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T10:35:00",
+            "device_id": "ergonomic_chair_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T11:50:00",
+            "device_id": "ergonomic_chair_001",
+            "patch": {}
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_004",
+      "room_id": "study_room",
+      "start_time": "2026-02-15T11:50:00",
+      "end_time": "2026-02-15T12:00:00",
+      "description": "将书籍放回书架并整理位置。",
+      "use_devices": true,
+      "devices": [
+        "bookshelf_002"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T11:50:00",
+            "device_id": "bookshelf_002",
+            "patch": {
+              "power": "on",
+              "mode": "organize"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T12:00:00",
+            "device_id": "bookshelf_002",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_005",
+      "room_id": "kitchen",
+      "start_time": "2026-02-15T12:00:00",
+      "end_time": "2026-02-15T12:01:00",
+      "description": "从书房移动至厨房以准备午餐。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_005",
+      "room_id": "kitchen",
+      "start_time": "2026-02-15T12:01:00",
+      "end_time": "2026-02-15T12:03:00",
+      "description": "打开厨房柜取出烹饪用具。",
+      "use_devices": true,
+      "devices": [
+        "kitchen_cabinet_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T12:01:00",
+            "device_id": "kitchen_cabinet_001",
+            "patch": {
+              "state": "open"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T12:03:00",
+            "device_id": "kitchen_cabinet_001",
+            "patch": {
+              "state": "closed"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_005",
+      "room_id": "kitchen",
+      "start_time": "2026-02-15T12:03:00",
+      "end_time": "2026-02-15T12:06:00",
+      "description": "从智能冰箱中取出食材。",
+      "use_devices": true,
+      "devices": [
+        "smart_fridge_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T12:03:00",
+            "device_id": "smart_fridge_001",
+            "patch": {
+              "state": "open"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T12:06:00",
+            "device_id": "smart_fridge_001",
+            "patch": {
+              "state": "open"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_005",
+      "room_id": "kitchen",
+      "start_time": "2026-02-15T12:06:00",
+      "end_time": "2026-02-15T12:15:00",
+      "description": "在餐桌上清洗并准备食材。",
+      "use_devices": true,
+      "devices": [
+        "dining_table_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T12:06:00",
+            "device_id": "dining_table_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T12:15:00",
+            "device_id": "dining_table_001",
+            "patch": {}
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_005",
+      "room_id": "kitchen",
+      "start_time": "2026-02-15T12:15:00",
+      "end_time": "2026-02-15T12:20:00",
+      "description": "使用微波炉加热部分食材。",
+      "use_devices": true,
+      "devices": [
+        "microwave_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T12:15:00",
+            "device_id": "microwave_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T12:20:00",
+            "device_id": "microwave_001",
+            "patch": {}
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_005",
+      "room_id": "kitchen",
+      "start_time": "2026-02-15T12:20:00",
+      "end_time": "2026-02-15T12:40:00",
+      "description": "在餐桌上享用精心准备的午餐。",
+      "use_devices": true,
+      "devices": [
+        "dining_table_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T12:20:00",
+            "device_id": "dining_table_001",
+            "patch": {
+              "mode": "place_item"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T12:40:00",
+            "device_id": "dining_table_001",
+            "patch": {
+              "mode": "clean"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_005",
+      "room_id": "kitchen",
+      "start_time": "2026-02-15T12:40:00",
+      "end_time": "2026-02-15T12:45:00",
+      "description": "清理餐桌并将垃圾放入垃圾桶。",
+      "use_devices": true,
+      "devices": [
+        "dining_table_001",
+        "trash_can_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T12:40:00",
+            "device_id": "dining_table_001",
+            "patch": {}
+          },
+          {
+            "timestamp": "2026-02-15T12:40:00",
+            "device_id": "trash_can_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T12:45:00",
+            "device_id": "dining_table_001",
+            "patch": {}
+          },
+          {
+            "timestamp": "2026-02-15T12:45:00",
+            "device_id": "trash_can_001",
+            "patch": {}
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_006",
+      "room_id": "living_room",
+      "start_time": "2026-02-15T12:45:00",
+      "end_time": "2026-02-15T12:46:00",
+      "description": "进入客厅，准备午后休息。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_006",
+      "room_id": "living_room",
+      "start_time": "2026-02-15T12:46:00",
+      "end_time": "2026-02-15T12:48:00",
+      "description": "在沙发上坐下，调整姿势准备休息。",
+      "use_devices": true,
+      "devices": [
+        "sofa_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T12:46:00",
+            "device_id": "sofa_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T12:48:00",
+            "device_id": "sofa_001",
+            "patch": {}
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_006",
+      "room_id": "living_room",
+      "start_time": "2026-02-15T12:48:00",
+      "end_time": "2026-02-15T13:28:00",
+      "description": "躺在沙发上，闭目养神。",
+      "use_devices": true,
+      "devices": [
+        "sofa_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T12:48:00",
+            "device_id": "sofa_001",
+            "patch": {
+              "mode": "lie_down"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T13:28:00",
+            "device_id": "sofa_001",
+            "patch": {
+              "mode": "stand_up"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_006",
+      "room_id": "living_room",
+      "start_time": "2026-02-15T13:28:00",
+      "end_time": "2026-02-15T13:30:00",
+      "description": "从沙发上起身，准备离开客厅。",
+      "use_devices": true,
+      "devices": [
+        "sofa_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T13:28:00",
+            "device_id": "sofa_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T13:30:00",
+            "device_id": "sofa_001",
+            "patch": {}
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_007",
+      "room_id": "living_room",
+      "start_time": "2026-02-15T13:30:00",
+      "end_time": "2026-02-15T13:32:00",
+      "description": "打开电视柜，取出Switch游戏机。",
+      "use_devices": true,
+      "devices": [
+        "tv_stand_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T13:30:00",
+            "device_id": "tv_stand_001",
+            "patch": {
+              "state": "open"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T13:32:00",
+            "device_id": "tv_stand_001",
+            "patch": {
+              "state": "closed"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_007",
+      "room_id": "living_room",
+      "start_time": "2026-02-15T13:32:00",
+      "end_time": "2026-02-15T13:34:00",
+      "description": "启动Switch游戏机，进入游戏界面。",
+      "use_devices": true,
+      "devices": [
+        "game_console_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T13:32:00",
+            "device_id": "game_console_001",
+            "patch": {
+              "power": "on",
+              "mode": "play_game"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T13:34:00",
+            "device_id": "game_console_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_007",
+      "room_id": "living_room",
+      "start_time": "2026-02-15T13:34:00",
+      "end_time": "2026-02-15T14:55:00",
+      "description": "开始玩游戏，体验娱乐时光。",
+      "use_devices": true,
+      "devices": [
+        "game_console_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T13:34:00",
+            "device_id": "game_console_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T14:55:00",
+            "device_id": "game_console_001",
+            "patch": {}
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_007",
+      "room_id": "living_room",
+      "start_time": "2026-02-15T14:55:00",
+      "end_time": "2026-02-15T14:57:00",
+      "description": "关闭Switch游戏机并整理设备。",
+      "use_devices": true,
+      "devices": [
+        "game_console_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T14:55:00",
+            "device_id": "game_console_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T14:57:00",
+            "device_id": "game_console_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_007",
+      "room_id": "living_room",
+      "start_time": "2026-02-15T14:57:00",
+      "end_time": "2026-02-15T15:00:00",
+      "description": "将Switch游戏机归还至电视柜中。",
+      "use_devices": true,
+      "devices": [
+        "tv_stand_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T14:57:00",
+            "device_id": "tv_stand_001",
+            "patch": {
+              "state": "open"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T15:00:00",
+            "device_id": "tv_stand_001",
+            "patch": {}
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_008",
+      "room_id": "study_room",
+      "start_time": "2026-02-15T15:00:00",
+      "end_time": "2026-02-15T15:01:00",
+      "description": "从客厅前往书房，为工作准备。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_008",
+      "room_id": "study_room",
+      "start_time": "2026-02-15T15:01:00",
+      "end_time": "2026-02-15T15:05:00",
+      "description": "打开双屏显示器，调整亮度以适应工作需求。",
+      "use_devices": true,
+      "devices": [
+        "dual_monitor_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T15:01:00",
+            "device_id": "dual_monitor_001",
+            "patch": {
+              "power": "on",
+              "brightness": "work_mode"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T15:05:00",
+            "device_id": "dual_monitor_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_008",
+      "room_id": "study_room",
+      "start_time": "2026-02-15T15:05:00",
+      "end_time": "2026-02-15T15:08:00",
+      "description": "坐上人体工学椅，调整高度和倾斜角度提升舒适度。",
+      "use_devices": true,
+      "devices": [
+        "ergonomic_chair_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T15:05:00",
+            "device_id": "ergonomic_chair_001",
+            "patch": {
+              "power": "on",
+              "mode": "sit"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T15:08:00",
+            "device_id": "ergonomic_chair_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_008",
+      "room_id": "study_room",
+      "start_time": "2026-02-15T15:08:00",
+      "end_time": "2026-02-15T16:50:00",
+      "description": "整理和规划下周的工作任务，记录在电子表格中。",
+      "use_devices": true,
+      "devices": [
+        "dual_monitor_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T15:08:00",
+            "device_id": "dual_monitor_001",
+            "patch": {
+              "power": "on"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T16:50:00",
+            "device_id": "dual_monitor_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_008",
+      "room_id": "study_room",
+      "start_time": "2026-02-15T16:50:00",
+      "end_time": "2026-02-15T16:55:00",
+      "description": "短暂休息，放松眼睛。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_008",
+      "room_id": "study_room",
+      "start_time": "2026-02-15T16:55:00",
+      "end_time": "2026-02-15T17:00:00",
+      "description": "关闭双屏显示器，结束工作准备。",
+      "use_devices": true,
+      "devices": [
+        "dual_monitor_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T16:55:00",
+            "device_id": "dual_monitor_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T17:00:00",
+            "device_id": "dual_monitor_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_009",
+      "room_id": "bathroom",
+      "start_time": "2026-02-15T17:00:00",
+      "end_time": "2026-02-15T17:01:00",
+      "description": "进入浴室，准备进行个人护理。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_009",
+      "room_id": "bathroom",
+      "start_time": "2026-02-15T17:01:00",
+      "end_time": "2026-02-15T17:05:00",
+      "description": "打开智能镜子，检查当天的天气和日程安排。",
+      "use_devices": true,
+      "devices": [
+        "smart_mirror_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T17:01:00",
+            "device_id": "smart_mirror_001",
+            "patch": {
+              "power": "on"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T17:05:00",
+            "device_id": "smart_mirror_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_009",
+      "room_id": "bathroom",
+      "start_time": "2026-02-15T17:05:00",
+      "end_time": "2026-02-15T17:10:00",
+      "description": "使用洗手台清洗面部并整理仪容。",
+      "use_devices": true,
+      "devices": [
+        "sink_cabinet_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T17:05:00",
+            "device_id": "sink_cabinet_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T17:10:00",
+            "device_id": "sink_cabinet_001",
+            "patch": {}
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_009",
+      "room_id": "bathroom",
+      "start_time": "2026-02-15T17:10:00",
+      "end_time": "2026-02-15T17:11:00",
+      "description": "启动智能镜子播放轻音乐，营造舒缓氛围。",
+      "use_devices": true,
+      "devices": [
+        "smart_mirror_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T17:10:00",
+            "device_id": "smart_mirror_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T17:11:00",
+            "device_id": "smart_mirror_001",
+            "patch": {}
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_009",
+      "room_id": "bathroom",
+      "start_time": "2026-02-15T17:11:00",
+      "end_time": "2026-02-15T17:25:00",
+      "description": "进行沐浴，使用温水舒缓身体并清洁皮肤。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_009",
+      "room_id": "bathroom",
+      "start_time": "2026-02-15T17:25:00",
+      "end_time": "2026-02-15T17:30:00",
+      "description": "整理衣物并穿上清爽的服装。",
+      "use_devices": true,
+      "devices": [
+        "sink_cabinet_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T17:25:00",
+            "device_id": "sink_cabinet_001",
+            "patch": {
+              "state": "open"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T17:30:00",
+            "device_id": "sink_cabinet_001",
+            "patch": {
+              "state": "closed"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_010",
+      "room_id": "kitchen",
+      "start_time": "2026-02-15T17:30:00",
+      "end_time": "2026-02-15T17:35:00",
+      "description": "从厨房柜中取出食材和必要的工具。",
+      "use_devices": true,
+      "devices": [
+        "kitchen_cabinet_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T17:30:00",
+            "device_id": "kitchen_cabinet_001",
+            "patch": {
+              "state": "open"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T17:35:00",
+            "device_id": "kitchen_cabinet_001",
+            "patch": {
+              "state": "closed"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_010",
+      "room_id": "kitchen",
+      "start_time": "2026-02-15T17:35:00",
+      "end_time": "2026-02-15T17:40:00",
+      "description": "使用冰箱检查食材库存并取出需要的食材。",
+      "use_devices": true,
+      "devices": [
+        "smart_fridge_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T17:35:00",
+            "device_id": "smart_fridge_001",
+            "patch": {
+              "power": "on",
+              "state": "open"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T17:40:00",
+            "device_id": "smart_fridge_001",
+            "patch": {
+              "state": "open"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_010",
+      "room_id": "kitchen",
+      "start_time": "2026-02-15T17:40:00",
+      "end_time": "2026-02-15T17:50:00",
+      "description": "使用微波炉加热食材。",
+      "use_devices": true,
+      "devices": [
+        "microwave_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T17:40:00",
+            "device_id": "microwave_001",
+            "patch": {
+              "power": "on"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T17:50:00",
+            "device_id": "microwave_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_010",
+      "room_id": "kitchen",
+      "start_time": "2026-02-15T17:50:00",
+      "end_time": "2026-02-15T18:10:00",
+      "description": "在餐桌上布置餐具，并享用准备好的日式料理。",
+      "use_devices": true,
+      "devices": [
+        "dining_table_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T17:50:00",
+            "device_id": "dining_table_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T18:10:00",
+            "device_id": "dining_table_001",
+            "patch": {}
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_010",
+      "room_id": "kitchen",
+      "start_time": "2026-02-15T18:10:00",
+      "end_time": "2026-02-15T18:20:00",
+      "description": "用洗碗机清洗餐具。",
+      "use_devices": true,
+      "devices": [
+        "dishwasher_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T18:10:00",
+            "device_id": "dishwasher_001",
+            "patch": {
+              "power": "on"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T18:20:00",
+            "device_id": "dishwasher_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_010",
+      "room_id": "kitchen",
+      "start_time": "2026-02-15T18:20:00",
+      "end_time": "2026-02-15T18:30:00",
+      "description": "将垃圾投入垃圾桶。",
+      "use_devices": true,
+      "devices": [
+        "trash_can_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T18:20:00",
+            "device_id": "trash_can_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T18:30:00",
+            "device_id": "trash_can_001",
+            "patch": {}
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_011",
+      "room_id": "living_room",
+      "start_time": "2026-02-15T18:30:00",
+      "end_time": "2026-02-15T18:40:00",
+      "description": "设置游戏机设备，为桌游活动做准备。",
+      "use_devices": true,
+      "devices": [
+        "game_console_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T18:30:00",
+            "device_id": "game_console_001",
+            "patch": {
+              "power": "on"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T18:40:00",
+            "device_id": "game_console_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_011",
+      "room_id": "living_room",
+      "start_time": "2026-02-15T18:40:00",
+      "end_time": "2026-02-15T18:50:00",
+      "description": "摆放桌游物品在咖啡桌上。",
+      "use_devices": true,
+      "devices": [
+        "coffee_table_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T18:40:00",
+            "device_id": "coffee_table_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T18:50:00",
+            "device_id": "coffee_table_001",
+            "patch": {}
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_011",
+      "room_id": "living_room",
+      "start_time": "2026-02-15T18:50:00",
+      "end_time": "2026-02-15T20:50:00",
+      "description": "与朋友一同坐在沙发上进行桌游活动。",
+      "use_devices": true,
+      "devices": [
+        "sofa_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T18:50:00",
+            "device_id": "sofa_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T20:50:00",
+            "device_id": "sofa_001",
+            "patch": {}
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_011",
+      "room_id": "living_room",
+      "start_time": "2026-02-15T20:50:00",
+      "end_time": "2026-02-15T21:00:00",
+      "description": "收拾桌游物品并整理咖啡桌。",
+      "use_devices": true,
+      "devices": [
+        "coffee_table_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T20:50:00",
+            "device_id": "coffee_table_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T21:00:00",
+            "device_id": "coffee_table_001",
+            "patch": {}
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_012",
+      "room_id": "living_room",
+      "start_time": "2026-02-15T21:00:00",
+      "end_time": "2026-02-15T21:05:00",
+      "description": "打开智能电视并选择播放科技类纪录片。",
+      "use_devices": true,
+      "devices": [
+        "smart_tv_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T21:00:00",
+            "device_id": "smart_tv_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T21:05:00",
+            "device_id": "smart_tv_001",
+            "patch": {}
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_012",
+      "room_id": "living_room",
+      "start_time": "2026-02-15T21:05:00",
+      "end_time": "2026-02-15T22:55:00",
+      "description": "坐在沙发上，舒适地观看纪录片。",
+      "use_devices": true,
+      "devices": [
+        "sofa_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T21:05:00",
+            "device_id": "sofa_001",
+            "patch": {
+              "mode": "sit"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T22:55:00",
+            "device_id": "sofa_001",
+            "patch": {
+              "mode": "stand_up"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_012",
+      "room_id": "living_room",
+      "start_time": "2026-02-15T22:55:00",
+      "end_time": "2026-02-15T23:00:00",
+      "description": "关闭智能电视并整理周围环境。",
+      "use_devices": true,
+      "devices": [
+        "smart_tv_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T23:00:00",
+            "device_id": "smart_tv_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_013",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-15T23:00:00",
+      "end_time": "2026-02-15T23:05:00",
+      "description": "前往主卧，为睡前准备。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_013",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-15T23:05:00",
+      "end_time": "2026-02-15T23:10:00",
+      "description": "关闭遮光窗帘，营造晚间氛围。",
+      "use_devices": true,
+      "devices": [
+        "blackout_curtain_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T23:05:00",
+            "device_id": "blackout_curtain_001",
+            "patch": {
+              "state": "closed"
+            }
+          }
+        ],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_013",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-15T23:10:00",
+      "end_time": "2026-02-15T23:15:00",
+      "description": "调整智能台灯亮度至舒适模式。",
+      "use_devices": true,
+      "devices": [
+        "smart_lamp_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T23:10:00",
+            "device_id": "smart_lamp_001",
+            "patch": {
+              "power": "on",
+              "brightness": "comfortable"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T23:15:00",
+            "device_id": "smart_lamp_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_013",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-15T23:15:00",
+      "end_time": "2026-02-15T23:20:00",
+      "description": "设置空气净化器至睡眠模式。",
+      "use_devices": true,
+      "devices": [
+        "air_purifier_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T23:15:00",
+            "device_id": "air_purifier_001",
+            "patch": {
+              "power": "on",
+              "mode": "sleep"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T23:20:00",
+            "device_id": "air_purifier_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_013",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-15T23:20:00",
+      "end_time": "2026-02-15T23:25:00",
+      "description": "整理床铺，为舒适睡眠做好准备。",
+      "use_devices": true,
+      "devices": [
+        "bed_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T23:20:00",
+            "device_id": "bed_001",
+            "patch": {
+              "mode": "make_bed"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T23:25:00",
+            "device_id": "bed_001",
+            "patch": {
+              "mode": "standby"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_013",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-15T23:25:00",
+      "end_time": "2026-02-15T23:30:00",
+      "description": "进行短暂的放松，结束睡前准备活动。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_014",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-15T23:30:00",
+      "end_time": "2026-02-15T23:32:00",
+      "description": "关闭智能台灯，为睡眠营造昏暗环境。",
+      "use_devices": true,
+      "devices": [
+        "smart_lamp_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T23:30:00",
+            "device_id": "smart_lamp_001",
+            "patch": {
+              "power": "on",
+              "brightness": "dim"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-15T23:32:00",
+            "device_id": "smart_lamp_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "event_id": "act_014",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-15T23:32:00",
+      "end_time": "2026-02-15T23:34:00",
+      "description": "拉上遮光窗帘，确保卧室不受外界光线干扰。",
+      "use_devices": true,
+      "devices": [
+        "blackout_curtain_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T23:32:00",
+            "device_id": "blackout_curtain_001",
+            "patch": {
+              "state": "closed"
+            }
+          }
+        ],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_014",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-15T23:34:00",
+      "end_time": "2026-02-15T23:35:00",
+      "description": "调整姿势，准备舒适入睡。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_014",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-15T23:35:00",
+      "end_time": "2026-02-16T07:00:00",
+      "description": "躺在床上，进入深度睡眠，为第二天储备精力。",
+      "use_devices": true,
+      "devices": [
+        "bed_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-15T23:35:00",
+            "device_id": "bed_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-16T07:00:00",
+            "device_id": "bed_001",
+            "patch": {}
+          }
+        ]
+      }
+    }
+  ]
+}

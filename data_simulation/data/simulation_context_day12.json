@@ -1,0 +1,94 @@
+{
+  "current_date": "2026-02-16",
+  "day_of_week": "Monday",
+  "day_type": "workday",
+  "simulation_state": "Normal",
+  "previous_day_summary": "张辰昨晚按时入睡，获得充足的7.5小时休息。日间活动安排丰富，包含工作计划整理、社交桌游和知识提升，未见突发事件。整体状态良好，适合新一天的开始。",
+  "previous_day_snapshot": {
+    "agent_location": "master_bedroom",
+    "device_states": {
+      "bed_001": {
+        "power": "unknown"
+      },
+      "wardrobe_001": {
+        "power": "unknown"
+      },
+      "blackout_curtain_001": {
+        "power": "unknown"
+      },
+      "air_purifier_001": {
+        "power": "off"
+      },
+      "smart_fridge_001": {
+        "power": "on"
+      },
+      "kitchen_cabinet_001": {
+        "power": "unknown"
+      },
+      "microwave_001": {
+        "power": "off"
+      },
+      "dining_table_001": {
+        "power": "unknown"
+      },
+      "sofa_001": {
+        "power": "unknown"
+      },
+      "bookshelf_002": {
+        "power": "off"
+      },
+      "ergonomic_chair_001": {
+        "power": "off"
+      },
+      "trash_can_001": {
+        "power": "unknown"
+      },
+      "tv_stand_001": {
+        "power": "unknown"
+      },
+      "game_console_001": {
+        "power": "off"
+      },
+      "dual_monitor_001": {
+        "power": "off"
+      },
+      "smart_mirror_001": {
+        "power": "off"
+      },
+      "sink_cabinet_001": {
+        "power": "unknown"
+      },
+      "dishwasher_001": {
+        "power": "off"
+      },
+      "coffee_table_001": {
+        "power": "unknown"
+      },
+      "smart_tv_001": {
+        "power": "off"
+      },
+      "smart_lamp_001": {
+        "power": "off"
+      }
+    },
+    "physiology": {
+      "fatigue": 0.05000000000000007,
+      "hunger": 1.0
+    }
+  },
+  "agent_state": {
+    "mood": "neutral",
+    "energy": 0.95,
+    "stress": 0.3,
+    "hunger": 1.0,
+    "health": "ok",
+    "notes": ""
+  },
+  "agent_state_stage": "after_events",
+  "day_start_time": "2026-02-16T07:00:00",
+  "day_end_time": "2026-02-17T07:00:00",
+  "random_event": "",
+  "emergency_event": "",
+  "random_event_count": 0,
+  "emergency_event_count": 0
+}

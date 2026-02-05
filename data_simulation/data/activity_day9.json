@@ -1,0 +1,105 @@
+{
+  "activities": [
+    {
+      "activity_id": "act_001",
+      "activity_name": "Morning Wake-Up",
+      "start_time": "2026-02-13T07:00:00",
+      "end_time": "2026-02-13T07:30:00",
+      "description": "The resident, feeling slightly unwell, wakes up in the main bedroom, adjusts the blackout curtains, and performs light stretching.",
+      "main_rooms": [
+        "master_bedroom"
+      ]
+    },
+    {
+      "activity_id": "act_002",
+      "activity_name": "Breakfast and Relaxation",
+      "start_time": "2026-02-13T07:30:00",
+      "end_time": "2026-02-13T08:15:00",
+      "description": "Prepares a low-sugar breakfast in the kitchen, accompanied by a warm drink, and enjoys it while reading a calming book.",
+      "main_rooms": [
+        "kitchen"
+      ]
+    },
+    {
+      "activity_id": "act_003",
+      "activity_name": "Morning Work Session",
+      "start_time": "2026-02-13T08:15:00",
+      "end_time": "2026-02-13T12:00:00",
+      "description": "Works from home in the study room, focusing on essential tasks using the ergonomic chair and desk setup.",
+      "main_rooms": [
+        "study_room"
+      ]
+    },
+    {
+      "activity_id": "act_004",
+      "activity_name": "Lunch and Rest",
+      "start_time": "2026-02-13T12:00:00",
+      "end_time": "2026-02-13T14:00:00",
+      "description": "Prepares lunch in the kitchen and takes a short nap on the living room sofa.",
+      "main_rooms": [
+        "kitchen",
+        "living_room"
+      ]
+    },
+    {
+      "activity_id": "act_005",
+      "activity_name": "Afternoon Work Session",
+      "start_time": "2026-02-13T14:00:00",
+      "end_time": "2026-02-13T17:00:00",
+      "description": "Continues with work tasks in the study and responds to emails and messages.",
+      "main_rooms": [
+        "study_room"
+      ]
+    },
+    {
+      "activity_id": "act_006",
+      "activity_name": "Dinner Preparation",
+      "start_time": "2026-02-13T17:00:00",
+      "end_time": "2026-02-13T18:30:00",
+      "description": "Prepares for the team dinner by grooming in the bathroom and dressing appropriately from the wardrobe in the bedroom.",
+      "main_rooms": [
+        "bathroom",
+        "master_bedroom"
+      ]
+    },
+    {
+      "activity_id": "act_007",
+      "activity_name": "Team Dinner",
+      "start_time": "2026-02-13T18:30:00",
+      "end_time": "2026-02-13T21:00:00",
+      "description": "Attends a team dinner at a local restaurant, engaging in social interactions and enjoying a meal.",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_008",
+      "activity_name": "Relaxing Evening",
+      "start_time": "2026-02-13T21:00:00",
+      "end_time": "2026-02-13T22:00:00",
+      "description": "Returns home, relaxes in the living room by listening to soothing Jazz music on the sound system.",
+      "main_rooms": [
+        "living_room"
+      ]
+    },
+    {
+      "activity_id": "act_009",
+      "activity_name": "Bedtime Routine",
+      "start_time": "2026-02-13T22:00:00",
+      "end_time": "2026-02-13T23:00:00",
+      "description": "Prepares for bedtime with a warm shower in the bathroom and adjusts the bedroom environment for sleep.",
+      "main_rooms": [
+        "bathroom",
+        "master_bedroom"
+      ]
+    },
+    {
+      "activity_id": "act_010",
+      "activity_name": "Night's Rest",
+      "start_time": "2026-02-13T23:00:00",
+      "end_time": "2026-02-14T09:00:00",
+      "description": "Goes to sleep in the master bedroom, allowing the body and mind to recover for the next day.",
+      "main_rooms": [
+        "master_bedroom"
+      ]
+    }
+  ]
+}

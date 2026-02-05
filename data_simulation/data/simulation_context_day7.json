@@ -1,0 +1,91 @@
+{
+  "current_date": "2026-02-11",
+  "day_of_week": "Wednesday",
+  "day_type": "workday",
+  "simulation_state": "Normal",
+  "previous_day_summary": "张辰昨日作息规律，睡眠时间为8小时，未出现明显异常表现，完成了一次室内动感单车训练，保持了健康的生活方式。",
+  "previous_day_snapshot": {
+    "agent_location": "master_bedroom",
+    "device_states": {
+      "blackout_curtain_001": {
+        "power": "unknown"
+      },
+      "bed_001": {
+        "power": "off"
+      },
+      "sink_cabinet_001": {
+        "power": "unknown"
+      },
+      "wardrobe_001": {
+        "power": "unknown"
+      },
+      "air_purifier_001": {
+        "power": "off"
+      },
+      "smart_fridge_001": {
+        "power": "on"
+      },
+      "kitchen_cabinet_001": {
+        "power": "unknown"
+      },
+      "microwave_001": {
+        "power": "off"
+      },
+      "dining_table_001": {
+        "power": "unknown"
+      },
+      "laptop": {
+        "power": "off"
+      },
+      "desk": {
+        "power": "unknown"
+      },
+      "smart_tv_001": {
+        "power": "off"
+      },
+      "sofa_001": {
+        "power": "unknown"
+      },
+      "trash_can_001": {
+        "power": "unknown"
+      },
+      "sound_system_001": {
+        "power": "off"
+      },
+      "robot_vacuum_001": {
+        "power": "unknown"
+      },
+      "desk_001": {
+        "power": "off"
+      },
+      "ergonomic_chair_001": {
+        "power": "unknown"
+      },
+      "smart_mirror_001": {
+        "power": "off"
+      },
+      "smart_lamp_001": {
+        "power": "off"
+      }
+    },
+    "physiology": {
+      "fatigue": 0.30000000000000004,
+      "hunger": 1.0
+    }
+  },
+  "agent_state": {
+    "mood": "neutral",
+    "energy": 0.7,
+    "stress": 0.1,
+    "hunger": 1.0,
+    "health": "ok",
+    "notes": ""
+  },
+  "agent_state_stage": "after_events",
+  "day_start_time": "2026-02-11T07:00:00",
+  "day_end_time": "2026-02-12T07:00:00",
+  "random_event": "",
+  "emergency_event": "",
+  "random_event_count": 0,
+  "emergency_event_count": 0
+}

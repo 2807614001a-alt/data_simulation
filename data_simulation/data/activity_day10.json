@@ -1,0 +1,134 @@
+{
+  "activities": [
+    {
+      "activity_id": "act_001",
+      "activity_name": "起床与晨间活动",
+      "start_time": "2026-02-14T09:00:00",
+      "end_time": "2026-02-14T09:30:00",
+      "description": "张辰在早晨9点醒来，拉开窗帘，开启空气净化器，整理床铺，为新的一天做准备。",
+      "main_rooms": [
+        "master_bedroom"
+      ]
+    },
+    {
+      "activity_id": "act_002",
+      "activity_name": "享用早餐",
+      "start_time": "2026-02-14T09:30:00",
+      "end_time": "2026-02-14T10:00:00",
+      "description": "前往厨房，使用智能冰箱取出酸奶和水果，搭配低糖谷物，在餐桌享用早餐。",
+      "main_rooms": [
+        "kitchen"
+      ]
+    },
+    {
+      "activity_id": "act_003",
+      "activity_name": "居家清洁",
+      "start_time": "2026-02-14T10:00:00",
+      "end_time": "2026-02-14T11:00:00",
+      "description": "在客厅使用智能扫地机器人清洁地面，整理书架和鞋柜，保持环境整洁。",
+      "main_rooms": [
+        "living_room"
+      ]
+    },
+    {
+      "activity_id": "act_004",
+      "activity_name": "观看纪录片",
+      "start_time": "2026-02-14T11:00:00",
+      "end_time": "2026-02-14T12:30:00",
+      "description": "在客厅沙发上，通过智能电视观看一部关于未来科技的纪录片，放松身心。",
+      "main_rooms": [
+        "living_room"
+      ]
+    },
+    {
+      "activity_id": "act_005",
+      "activity_name": "午餐时间",
+      "start_time": "2026-02-14T12:30:00",
+      "end_time": "2026-02-14T13:30:00",
+      "description": "准备并享用一份日式低糖便当，包括寿司和味噌汤，补充能量。",
+      "main_rooms": [
+        "kitchen"
+      ]
+    },
+    {
+      "activity_id": "act_006",
+      "activity_name": "个人成长阅读",
+      "start_time": "2026-02-14T13:30:00",
+      "end_time": "2026-02-14T15:00:00",
+      "description": "在书房阅读一本关于时间管理的书籍，提升个人效率。",
+      "main_rooms": [
+        "study_room"
+      ]
+    },
+    {
+      "activity_id": "act_007",
+      "activity_name": "室内运动",
+      "start_time": "2026-02-14T15:00:00",
+      "end_time": "2026-02-14T16:30:00",
+      "description": "在客厅进行动感单车锻炼，并配合听电子音乐，增强运动体验。",
+      "main_rooms": [
+        "living_room"
+      ]
+    },
+    {
+      "activity_id": "act_008",
+      "activity_name": "下午休息",
+      "start_time": "2026-02-14T16:30:00",
+      "end_time": "2026-02-14T17:00:00",
+      "description": "坐在客厅沙发上喝茶并短暂闭目养神，恢复精力。",
+      "main_rooms": [
+        "living_room"
+      ]
+    },
+    {
+      "activity_id": "act_009",
+      "activity_name": "准备晚餐",
+      "start_time": "2026-02-14T17:00:00",
+      "end_time": "2026-02-14T18:30:00",
+      "description": "在厨房切菜、烹饪，准备一份低糖健康晚餐。",
+      "main_rooms": [
+        "kitchen"
+      ]
+    },
+    {
+      "activity_id": "act_010",
+      "activity_name": "晚餐时间",
+      "start_time": "2026-02-14T18:30:00",
+      "end_time": "2026-02-14T19:30:00",
+      "description": "张辰在餐桌享用精心准备的晚餐，并听轻音乐放松心情。",
+      "main_rooms": [
+        "kitchen"
+      ]
+    },
+    {
+      "activity_id": "act_011",
+      "activity_name": "桌游与社交",
+      "start_time": "2026-02-14T19:30:00",
+      "end_time": "2026-02-14T22:30:00",
+      "description": "邀请朋友到客厅进行桌游活动，播放爵士音乐增添氛围，享受欢乐时光。",
+      "main_rooms": [
+        "living_room"
+      ]
+    },
+    {
+      "activity_id": "act_012",
+      "activity_name": "准备入睡",
+      "start_time": "2026-02-14T22:30:00",
+      "end_time": "2026-02-15T00:00:00",
+      "description": "张辰在主卧关闭窗帘与智能灯，阅读片刻后准备入睡。",
+      "main_rooms": [
+        "master_bedroom"
+      ]
+    },
+    {
+      "activity_id": "act_013",
+      "activity_name": "睡眠",
+      "start_time": "2026-02-15T00:00:00",
+      "end_time": "2026-02-15T09:00:00",
+      "description": "张辰在主卧保持良好睡眠状态，恢复身心，直到次日早晨醒来。",
+      "main_rooms": [
+        "master_bedroom"
+      ]
+    }
+  ]
+}

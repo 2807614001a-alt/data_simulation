@@ -1,106 +1,98 @@
 {
   "user_id": "user_001",
-  "name": "王晓东",
-  "age": 35,
+  "name": "张辰",
+  "age": 32,
   "gender": "male",
-  "occupation": "数据分析师（负责跨部门报告和预测模型开发）",
+  "occupation": "品牌营销经理（专注于科技行业）",
   "personality": {
     "big_five": {
       "openness": 0.75,
-      "conscientiousness": 0.85,
-      "extraversion": 0.4,
-      "agreeableness": 0.6,
-      "neuroticism": 0.55
+      "conscientiousness": 0.68,
+      "extraversion": 0.83,
+      "agreeableness": 0.65,
+      "neuroticism": 0.45
     },
     "traits": [
-      "细致入微",
-      "逻辑驱动",
-      "轻微强迫症",
-      "对视觉混乱敏感"
+      "爱好创新",
+      "社交活跃",
+      "对细节敏感",
+      "轻度强迫症"
     ]
   },
   "values": {
     "work_life_balance": 0.6,
-    "health_consciousness": 0.8,
-    "social_interaction": 0.4,
-    "personal_growth": 0.75,
-    "financial_security": 0.9
+    "health_consciousness": 0.55,
+    "social_interaction": 0.8,
+    "personal_growth": 0.7,
+    "financial_security": 0.65
   },
   "routines": {
     "sleep_schedule": {
       "weekday_bedtime": "23:30",
       "weekday_wakeup": "07:00",
       "weekend_bedtime": "00:30",
-      "weekend_wakeup": "08:30"
+      "weekend_wakeup": "09:00"
     },
     "meal_habits": {
-      "breakfast_time": "07:30",
+      "breakfast_time": "08:00",
       "lunch_time": "12:30",
       "dinner_time": "19:00",
       "cooking_frequency": 0.3,
       "diet_preference": [
         "低糖",
-        "高蛋白",
-        "偏爱中国菜"
+        "喜欢日式料理"
       ]
     },
     "exercise": {
-      "frequency": "3次/周",
-      "preferred_time": "早晨",
+      "frequency": "2次/周",
+      "preferred_time": "晚间",
       "type": [
-        "跑步",
-        "力量训练"
+        "健身房力量训练",
+        "室内动感单车"
       ]
     },
     "weekly_schedule": {
       "monday": {
-        "activity": "准备数据报告",
-        "time": "09:00-12:00",
-        "location": "公司办公室",
+        "activity": "项目会议",
+        "time": "10:00-12:00",
+        "location": "公司会议室",
         "frequency": "每周一次"
       },
       "wednesday": {
         "activity": "健身训练",
-        "time": "06:30-07:30",
-        "location": "小区健身房",
+        "time": "18:30-20:00",
+        "location": "健身房",
         "frequency": "每周一次"
       },
       "friday": {
-        "activity": "读书俱乐部",
-        "time": "19:30-21:00",
-        "location": "咖啡馆",
-        "frequency": "每周一次"
-      },
-      "sunday": {
-        "activity": "整理房间和清理文件",
-        "time": "15:00-17:00",
-        "location": "家中",
+        "activity": "团队聚餐",
+        "time": "19:30-21:30",
+        "location": "餐厅",
         "frequency": "每周一次"
       }
     }
   },
   "preferences": {
     "entertainment": [
-      "剧集追更",
+      "看科技类纪录片",
       "桌游聚会",
-      "学习新技能"
+      "玩Switch游戏"
     ],
     "music_genre": [
-      "爵士",
-      "电子",
-      "古典"
+      "电子音乐",
+      "爵士"
     ],
-    "home_temperature": 23
+    "home_temperature": 24
   },
   "random_event_config": {
     "perturbed": {
-      "mean": 1.2,
+      "mean": 1.5,
       "std": 0.5,
       "max": 3
     },
     "crisis": {
       "mean": 0.8,
-      "std": 0.4,
+      "std": 0.3,
       "max": 2
     }
   }

@@ -53,13 +53,18 @@ ACTIVITY_PLANNING_REQUIREMENTS = """
         * 事件发生后，后续活动应中断或转变为“应对危机”（如：等待救援、联系家人、停止移动）。
 
 ### 2. 数据驱动的行为推导
-* **生理节律**：严格遵守 `sleep_schedule` 和 `meal_habits`，除非受【记忆机制】或【扰动/危机】影响。
+* **生理节律**：尽可能贴合 `sleep_schedule` 和 `meal_habits`。允许**小幅误差**，但必须解释原因。
+  - 餐点时间：允许 ±30 分钟内浮动；超过则必须给出明确原因（扰动/危机/跨日影响）。
+  - 入睡/起床：允许 ±30 分钟内浮动；超过则必须给出明确原因（熬夜/身体不适/突发事件）。
 * **日程边界**：活动必须从“起床/醒来”开始，以“入睡/睡眠”结束。
 * **性格表现**：
     * 高开放性 -> 即使在扰动日，也会尝试用新颖方式解决问题。
     * 高尽责性 -> 即使生病（扰动态），也可能会尝试完成最低限度的工作。
 * **环境交互**：所有活动必须绑定 `furniture` 或 `devices`。
     * *危机态特别说明*：如果发生“跌倒”，请注明跌倒发生的具体位置（Room/Furniture）。
+* **资产清单强约束**：活动只能与 Asset List（house_layout/house_details）中存在的物品交互，不允许臆造物品。
+* **房间映射强约束**：禁止输出未在 house_layout 中存在的房间。若需要居家办公，请映射到 house_layout 中的有效房间。
+* **描述约束**：若未在 Asset List 中出现某物品，请改用泛化描述（如“准备食物/处理食材/整理餐具”），不要写出不存在的具体物品名。
 
 ### 3. 外出活动规范（闭环原则）
 * 外出活动（工作、购物、运动）必须是 `Home -> Activity -> Home` 的闭环。
@@ -69,7 +74,7 @@ ACTIVITY_PLANNING_REQUIREMENTS = """
 ### 4. 格式与完整性
 * **时间连续性**：必须无缝衔接并覆盖 `day_start_time` 到 `day_end_time`。
 * **起始时间**：当 `day_start_time` 不是 00:00 时，日程必须从 `day_start_time` 开始，禁止从 00:00 开始。
-* **结束时间**：日程必须覆盖至 `day_end_time`，且最后一项为“入睡/睡眠”类活动。
+* **结束时间**：日程必须覆盖至 `day_end_time`，且最后一项为“入睡/睡眠”类活动（允许跨日，直到次日醒来）。
 * **输出内容**：必须包含 Activity ID, Name, Start/End Time, Description, Main Rooms。
 
 ## 输出数据格式要求 (JSON List)
@@ -146,21 +151,23 @@ PLANNING_VALIDATION_PROMPT_TEMPLATE = """
 2. **起始时间 (强校验)**:
    - 若 `day_start_time` 不是 00:00，活动必须从 `day_start_time` 开始，不得出现 00:00 起床等跳变。
 3. **起床/入睡边界 (强校验)**:
-   - 第一个活动必须是“起床/醒来”类事件。
-   - 最后一个活动必须是“入睡/睡眠”类事件，并覆盖到 `day_end_time`。
+   - 第一个活动必须**语义上**表达“起床/醒来/晨间开始”，无需死板依赖某个词。
+   - 最后一个活动必须**语义上**表达“入睡/睡眠/就寝”，并覆盖到 `day_end_time`（可跨日）。
 3. **作息/餐点 (强校验)**:
-   - 睡眠与起床时间必须贴合 Profile（工作日/周末区分）。
-   - 早餐/午餐/晚餐必须落在 Profile 的时间窗口内；若偏差需说明原因。
+   - 睡眠与起床时间应贴合 Profile（工作日/周末区分），允许 ±30 分钟误差；超过必须说明原因。
+   - 早餐/午餐/晚餐应贴合 Profile 时间，允许 ±30 分钟误差；超过必须说明原因。
 4. **固定事项 (强校验)**:
    - Profile 中明确的固定安排必须出现在正确的日期/时间段。
    - 如被扰动/危机影响取消，必须在描述中明确说明取消原因与替代安排。
 5. **环境交互合理性 (强校验)**: main_rooms 必须来自房屋布局，且活动描述能对应家具/设备。
-6. **扰动/危机体现 (强校验)**：
+6. **资产清单强校验**：活动描述只能使用 Asset List 中的物品；出现不存在物品必须判为不通过。
+7. **房间映射强校验**：禁止使用不在 house_layout 中的房间；若出现必须判为不通过并要求改为有效房间。
+8. **扰动/危机体现 (强校验)**：
    - 若 `simulation_state` 为 Perturbed/Crisis，必须在当日活动描述中体现“异常事件的发生与影响”。
-   - 表达需自然，但必须能明确看出“事件导致日程变化”（如取消/推迟/缩短/改地点/应对处理）。
-7. **实时状态一致性 (强校验)**:
+   - 判定应基于**语义**，无需固定关键词；但必须能明确看出“事件导致日程变化”（如取消/推迟/缩短/改地点/应对处理）。
+9. **实时状态一致性 (强校验)**:
    - `agent_state` 显示疲劳/不适/情绪低落时，不应安排高强度或高压力活动；如确需安排，必须在描述中给出合理解释。
-8. **性格逻辑性**: 活动是否违背 Big Five 性格与价值观。
+10. **性格逻辑性**: 活动是否违背 Big Five 性格与价值观。
 
 ## 返回结果
 - 如通过: is_valid = true, correction_content 为空。
@@ -264,8 +271,10 @@ PLANNING_CORRECTION_PROMPT_TEMPLATE = """
 6. **固定事项 (强制)**：Profile 中明确的固定安排必须出现在正确日期/时间段；如被扰动/危机取消，需明确说明原因与替代安排。
 7. **房间合法性 (强制)**：main_rooms 必须来自 house_layout；外出活动 main_rooms 为空。
 8. **物品可用性 (强制)**：活动描述需明确使用该房间内的家具/设备。
-9. **扰动/危机体现 (强制)**：当 `simulation_state` 为 Perturbed/Crisis 时，必须在当天活动描述中体现异常事件及其对日程的影响。
-10. **实时状态一致性 (强制)**：`agent_state` 若显示疲劳/不适/情绪低落，应调整强度与节奏，并在描述中体现恢复/缓解措施。
+9. **资产清单强制**：只能与 Asset List 中的物品交互，禁止臆造物品。
+10. **房间映射强制**：禁止使用不在 house_layout 中的房间；如出现，必须改为有效房间。
+11. **扰动/危机体现 (强制)**：当 `simulation_state` 为 Perturbed/Crisis 时，必须在当天活动描述中体现异常事件及其对日程的影响。
+12. **实时状态一致性 (强制)**：`agent_state` 若显示疲劳/不适/情绪低落，应调整强度与节奏，并在描述中体现恢复/缓解措施。
 """
 
 SUMMARIZATION_PROMPT_TEMPLATE = """
@@ -422,6 +431,11 @@ class AgentState(TypedDict):
 
 llm = create_chat_llm(model="gpt-4o", temperature=0.7)
 
+def _estimate_prompt_chars(template: str, variables: Dict[str, str]) -> int:
+    total = len(template or "")
+    for val in variables.values():
+        total += len(str(val))
+    return total
 
 def generate_node(state: AgentState):
     print("\n[Step 1] Generating Initial Plan...")
@@ -433,6 +447,12 @@ def generate_node(state: AgentState):
         "activity_planning_requirements": ACTIVITY_PLANNING_REQUIREMENTS,
         **state["inputs"],
     })
+    try:
+        vars_for_count = {"activity_planning_requirements": ACTIVITY_PLANNING_REQUIREMENTS, **state["inputs"]}
+        chars = _estimate_prompt_chars(PLANNING_PROMPT_TEMPLATE, vars_for_count)
+        print(f"[INFO] LLM input size (planning generate): ~{chars} chars (~{chars//4} tokens)")
+    except Exception:
+        pass
     return {"current_plan": result, "revision_count": 0}
 
 
@@ -453,54 +473,17 @@ def validate_node(state: AgentState):
         "activity_plans_json": plan_json,
         "simulation_context": inputs.get("simulation_context", "N/A"),
     })
-
-    # Hard check: if state is Perturbed/Crisis, require explicit event marker in activities.
     try:
-        sim_ctx = json.loads(inputs.get("simulation_context", "{}"))
-        sim_state = sim_ctx.get("simulation_state")
-    except Exception:
-        sim_state = None
-    if sim_state in {"Perturbed", "Crisis"}:
-        activities = state["current_plan"].activities if state.get("current_plan") else []
-        event_marks = sum((act.description or "").count("事件：") for act in activities)
-        required = 0
-        if sim_state == "Perturbed":
-            required = int(sim_ctx.get("random_event_count") or 0)
-        elif sim_state == "Crisis":
-            required = int(sim_ctx.get("emergency_event_count") or 0)
-        if event_marks < required:
-            result.is_valid = False
-            hard_msg = (
-                "硬校验失败：simulation_state 为 Perturbed/Crisis，"
-                f"但活动描述中的“事件：”数量不足（要求 {required}，实际 {event_marks}）。"
-            )
-            if result.correction_content:
-                result.correction_content = f"{hard_msg} {result.correction_content}"
-            else:
-                result.correction_content = hard_msg
-
-    # Hard check: first activity must be wake, last activity must be sleep and reach day_end_time.
-    try:
-        activities = state["current_plan"].activities if state.get("current_plan") else []
-        sim_ctx = json.loads(inputs.get("simulation_context", "{}"))
-        day_end_time = sim_ctx.get("day_end_time")
-        wake_ok = False
-        sleep_ok = False
-        end_ok = False
-        if activities:
-            first_name = activities[0].activity_name or ""
-            last_name = activities[-1].activity_name or ""
-            wake_ok = "起床" in first_name or "醒" in first_name
-            sleep_ok = "睡" in last_name or "入睡" in last_name
-            if day_end_time:
-                end_ok = activities[-1].end_time >= day_end_time
-        if not (wake_ok and sleep_ok and end_ok):
-            result.is_valid = False
-            hard_msg = "硬校验失败：日程必须以“起床/醒来”开始、以“入睡/睡眠”结束并覆盖到 day_end_time。"
-            if result.correction_content:
-                result.correction_content = f"{hard_msg} {result.correction_content}"
-            else:
-                result.correction_content = hard_msg
+        vars_for_count = {
+            "activity_planning_requirements": ACTIVITY_PLANNING_REQUIREMENTS,
+            "profile_psychology": inputs["profile_psychology"],
+            "profile_routines_and_relations": inputs["profile_routines_and_relations"],
+            "house_layout_json": inputs["house_layout_json"],
+            "activity_plans_json": plan_json,
+            "simulation_context": inputs.get("simulation_context", "N/A"),
+        }
+        chars = _estimate_prompt_chars(PLANNING_VALIDATION_PROMPT_TEMPLATE, vars_for_count)
+        print(f"[INFO] LLM input size (planning validate): ~{chars} chars (~{chars//4} tokens)")
     except Exception:
         pass
 
@@ -508,6 +491,60 @@ def validate_node(state: AgentState):
         print("[OK] Validation Passed!")
     else:
         print(f"[ERROR] Validation Failed. Reason: {result.correction_content[:150]}...")
+
+    # Hard check: time continuity (highest priority).
+    try:
+        activities = state["current_plan"].activities if state.get("current_plan") else []
+        sim_ctx = json.loads(inputs.get("simulation_context", "{}"))
+        day_start_time = sim_ctx.get("day_start_time")
+        day_end_time = sim_ctx.get("day_end_time")
+        hard_errors = []
+        if not activities:
+            hard_errors.append("日程为空，无法覆盖时间窗口。")
+        else:
+            # ensure sorted by start_time
+            def _parse_iso(ts: str):
+                return datetime.fromisoformat(ts)
+            ordered = sorted(activities, key=lambda a: a.start_time)
+            if day_start_time and ordered[0].start_time > day_start_time:
+                hard_errors.append("首个活动开始时间晚于 day_start_time。")
+            for prev, cur in zip(ordered, ordered[1:]):
+                if cur.start_time > prev.end_time:
+                    hard_errors.append("存在时间空档。")
+                if cur.start_time < prev.end_time:
+                    hard_errors.append("存在时间重叠。")
+            if day_end_time and ordered[-1].end_time < day_end_time:
+                hard_errors.append("最后活动未覆盖到 day_end_time。")
+        if hard_errors:
+            result.is_valid = False
+            hard_msg = "硬校验失败（时间连续性）： " + " ".join(hard_errors)
+            if result.correction_content:
+                result.correction_content = f"{hard_msg} {result.correction_content}"
+            else:
+                result.correction_content = hard_msg
+    except Exception:
+        pass
+
+    # Hard check: main_rooms must exist in house_layout (no hallucinated rooms).
+    try:
+        layout = json.loads(inputs.get("house_layout_json", "{}"))
+        valid_rooms = set(layout.keys())
+        activities = state["current_plan"].activities if state.get("current_plan") else []
+        bad_rooms = []
+        for act in activities:
+            for room in (act.main_rooms or []):
+                if room not in valid_rooms:
+                    bad_rooms.append(room)
+        if bad_rooms:
+            result.is_valid = False
+            rooms = ", ".join(sorted(set(bad_rooms)))
+            hard_msg = f"硬校验失败：出现不在 house_layout 中的房间：{rooms}。"
+            if result.correction_content:
+                result.correction_content = f"{hard_msg} {result.correction_content}"
+            else:
+                result.correction_content = hard_msg
+    except Exception:
+        pass
 
     return {"validation_result": result}
 
@@ -530,6 +567,20 @@ def correct_node(state: AgentState):
         "original_activity_plans_json": plan_json,
         "correction_content": state["validation_result"].correction_content,
     })
+    try:
+        vars_for_count = {
+            "activity_planning_requirements": ACTIVITY_PLANNING_REQUIREMENTS,
+            "profile_psychology": inputs["profile_psychology"],
+            "profile_routines_and_relations": inputs["profile_routines_and_relations"],
+            "house_layout_json": inputs["house_layout_json"],
+            "simulation_context": inputs.get("simulation_context", "N/A"),
+            "original_activity_plans_json": plan_json,
+            "correction_content": state["validation_result"].correction_content,
+        }
+        chars = _estimate_prompt_chars(PLANNING_CORRECTION_PROMPT_TEMPLATE, vars_for_count)
+        print(f"[INFO] LLM input size (planning correct): ~{chars} chars (~{chars//4} tokens)")
+    except Exception:
+        pass
 
     return {
         "current_plan": result,
@@ -646,6 +697,15 @@ def generate_previous_day_summary(profile_json: str, activity_logs: List[Dict]) 
         "profile_json": profile_json,
         "activity_logs_json": json.dumps(activity_payload, ensure_ascii=False, indent=2),
     })
+    try:
+        vars_for_count = {
+            "profile_json": profile_json,
+            "activity_logs_json": json.dumps(activity_payload, ensure_ascii=False, indent=2),
+        }
+        chars = _estimate_prompt_chars(SUMMARIZATION_PROMPT_TEMPLATE, vars_for_count)
+        print(f"[INFO] LLM input size (summary): ~{chars} chars (~{chars//4} tokens)")
+    except Exception:
+        pass
     return result.previous_day_summary
 
 

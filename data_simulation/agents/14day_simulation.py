@@ -16,7 +16,6 @@ if str(project_root) not in sys.path:
 import planning
 import event
 import device_operate
-import evaluator
 
 load_dotenv()
 dotenv_path = project_root / ".env"
@@ -138,6 +137,18 @@ def _get_sleep_cutoff(activities: List[Dict]) -> Optional[datetime]:
     return None
 
 
+def _get_wake_time(profile: Dict, target_date: date) -> datetime:
+    routines = profile.get("routines", {})
+    sleep_schedule = routines.get("sleep_schedule", {})
+    day_of_week = target_date.strftime("%A")
+    day_type = "weekend" if day_of_week in {"Saturday", "Sunday"} else "workday"
+    if day_type == "workday":
+        wake_str = sleep_schedule.get("weekday_wakeup", "07:00")
+    else:
+        wake_str = sleep_schedule.get("weekend_wakeup", "08:30")
+    return datetime.combine(target_date, datetime.strptime(wake_str, "%H:%M").time())
+
+
 def _get_day_time_window(profile: Dict, current_date: date) -> Tuple[datetime, datetime]:
     routines = profile.get("routines", {})
     sleep_schedule = routines.get("sleep_schedule", {})
@@ -145,17 +156,17 @@ def _get_day_time_window(profile: Dict, current_date: date) -> Tuple[datetime, d
     day_type = "weekend" if day_of_week in {"Saturday", "Sunday"} else "workday"
 
     if day_type == "workday":
-        wake_str = sleep_schedule.get("weekday_wakeup", "07:00")
         bed_str = sleep_schedule.get("weekday_bedtime", "23:30")
     else:
-        wake_str = sleep_schedule.get("weekend_wakeup", "08:30")
         bed_str = sleep_schedule.get("weekend_bedtime", "00:30")
 
-    wake_time = datetime.combine(current_date, datetime.strptime(wake_str, "%H:%M").time())
+    wake_time = _get_wake_time(profile, current_date)
     bed_time = datetime.combine(current_date, datetime.strptime(bed_str, "%H:%M").time())
     if bed_time <= wake_time:
         bed_time = bed_time + timedelta(days=1)
-    return wake_time, bed_time
+    # day_end_time set to next day's wake time to include sleep at day end
+    next_day_wake = _get_wake_time(profile, current_date + timedelta(days=1))
+    return wake_time, next_day_wake
 
 
 def _align_and_slice_activities(
@@ -401,12 +412,6 @@ def run_multi_day_simulation() -> None:
         previous_day_snapshot["physiology"] = physiology_state
 
         print(f"[OK] Day {day_index} completed.")
-
-    if os.getenv("SIM_RUN_EVALUATION", "1") != "0":
-        try:
-            evaluator.main()
-        except Exception as exc:
-            print(f"[WARN] Evaluation failed: {exc}")
 
 
 if __name__ == "__main__":

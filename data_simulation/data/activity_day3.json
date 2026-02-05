@@ -1,0 +1,112 @@
+{
+  "activities": [
+    {
+      "activity_id": "act_001",
+      "activity_name": "Waking Up",
+      "start_time": "2026-02-07T09:00:00",
+      "end_time": "2026-02-07T09:15:00",
+      "description": "张辰从床上醒来，伸展身体并拉开窗帘迎接新的一天。",
+      "main_rooms": [
+        "master_bedroom"
+      ]
+    },
+    {
+      "activity_id": "act_002",
+      "activity_name": "Morning Routine",
+      "start_time": "2026-02-07T09:15:00",
+      "end_time": "2026-02-07T09:45:00",
+      "description": "张辰在浴室完成洗漱，整理仪容并感到清爽。",
+      "main_rooms": [
+        "bathroom"
+      ]
+    },
+    {
+      "activity_id": "act_003",
+      "activity_name": "Breakfast",
+      "start_time": "2026-02-07T09:45:00",
+      "end_time": "2026-02-07T10:15:00",
+      "description": "张辰在厨房准备并享用早餐，包括一杯咖啡和日式早餐套餐。",
+      "main_rooms": [
+        "kitchen"
+      ]
+    },
+    {
+      "activity_id": "act_004",
+      "activity_name": "Outdoor Social Interaction",
+      "start_time": "2026-02-07T10:15:00",
+      "end_time": "2026-02-07T12:00:00",
+      "description": "张辰前往附近的咖啡厅，与朋友聚会并分享生活点滴。",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_005",
+      "activity_name": "Lunch",
+      "start_time": "2026-02-07T12:00:00",
+      "end_time": "2026-02-07T13:00:00",
+      "description": "张辰在厨房准备并享用午餐，包括健康的日式料理。",
+      "main_rooms": [
+        "kitchen"
+      ]
+    },
+    {
+      "activity_id": "act_006",
+      "activity_name": "Afternoon Nap",
+      "start_time": "2026-02-07T13:00:00",
+      "end_time": "2026-02-07T14:30:00",
+      "description": "张辰在卧室小憩一会儿以恢复精力。",
+      "main_rooms": [
+        "master_bedroom"
+      ]
+    },
+    {
+      "activity_id": "act_007",
+      "activity_name": "Video Game Session",
+      "start_time": "2026-02-07T14:30:00",
+      "end_time": "2026-02-07T16:00:00",
+      "description": "张辰在客厅使用游戏主机进行一场休闲游戏。",
+      "main_rooms": [
+        "living_room"
+      ]
+    },
+    {
+      "activity_id": "act_008",
+      "activity_name": "Dinner Preparation",
+      "start_time": "2026-02-07T16:00:00",
+      "end_time": "2026-02-07T18:00:00",
+      "description": "张辰在厨房准备晚餐，尝试新菜谱并享受烹饪过程。",
+      "main_rooms": [
+        "kitchen"
+      ]
+    },
+    {
+      "activity_id": "act_009",
+      "activity_name": "Documentary Watching",
+      "start_time": "2026-02-07T18:00:00",
+      "end_time": "2026-02-07T20:00:00",
+      "description": "张辰在客厅观看科技类纪录片，感受科技的魅力。",
+      "main_rooms": [
+        "living_room"
+      ]
+    },
+    {
+      "activity_id": "act_010",
+      "activity_name": "Night Routine",
+      "start_time": "2026-02-07T20:00:00",
+      "end_time": "2026-02-07T20:30:00",
+      "description": "张辰在浴室进行晚间洗漱，准备入睡。",
+      "main_rooms": [
+        "bathroom"
+      ]
+    },
+    {
+      "activity_id": "act_011",
+      "activity_name": "Sleep",
+      "start_time": "2026-02-07T20:30:00",
+      "end_time": "2026-02-08T09:00:00",
+      "description": "张辰在卧室进入睡眠状态，结束一天的活动。",
+      "main_rooms": [
+        "master_bedroom"
+      ]
+    }
+  ]
+}

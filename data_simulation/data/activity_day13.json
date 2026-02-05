@@ -1,0 +1,132 @@
+{
+  "activities": [
+    {
+      "activity_id": "act_001",
+      "activity_name": "Wake Up and Prepare",
+      "start_time": "2026-02-17T07:00:00",
+      "end_time": "2026-02-17T07:15:00",
+      "description": "Wake up, open the blackout curtains, and make the bed.",
+      "main_rooms": [
+        "master_bedroom"
+      ]
+    },
+    {
+      "activity_id": "act_002",
+      "activity_name": "Morning Hygiene",
+      "start_time": "2026-02-17T07:15:00",
+      "end_time": "2026-02-17T07:45:00",
+      "description": "Brush teeth, wash face, and freshen up using the sink cabinet.",
+      "main_rooms": [
+        "bathroom"
+      ]
+    },
+    {
+      "activity_id": "act_003",
+      "activity_name": "Breakfast",
+      "start_time": "2026-02-17T07:45:00",
+      "end_time": "2026-02-17T08:15:00",
+      "description": "Prepare and enjoy a low-sugar Japanese-style breakfast at the dining table.",
+      "main_rooms": [
+        "kitchen"
+      ]
+    },
+    {
+      "activity_id": "act_004",
+      "activity_name": "Work Session",
+      "start_time": "2026-02-17T08:15:00",
+      "end_time": "2026-02-17T10:00:00",
+      "description": "Engage in focused work using the desk and dual monitors in the study room.",
+      "main_rooms": [
+        "study_room"
+      ]
+    },
+    {
+      "activity_id": "act_005",
+      "activity_name": "Project Meeting",
+      "start_time": "2026-02-17T10:00:00",
+      "end_time": "2026-02-17T12:30:00",
+      "description": "Attend a scheduled meeting at the company's conference room.",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_006",
+      "activity_name": "Lunch",
+      "start_time": "2026-02-17T12:30:00",
+      "end_time": "2026-02-17T13:15:00",
+      "description": "Have a well-balanced meal at the dining table.",
+      "main_rooms": [
+        "kitchen"
+      ]
+    },
+    {
+      "activity_id": "act_007",
+      "activity_name": "Work Continuation",
+      "start_time": "2026-02-17T13:15:00",
+      "end_time": "2026-02-17T15:30:00",
+      "description": "Resume work tasks and correspondence in the study room.",
+      "main_rooms": [
+        "study_room"
+      ]
+    },
+    {
+      "activity_id": "act_008",
+      "activity_name": "Short Break",
+      "start_time": "2026-02-17T15:30:00",
+      "end_time": "2026-02-17T16:00:00",
+      "description": "Relax on the sofa, watch a short documentary on the smart TV.",
+      "main_rooms": [
+        "living_room"
+      ]
+    },
+    {
+      "activity_id": "act_009",
+      "activity_name": "Afternoon Work",
+      "start_time": "2026-02-17T16:00:00",
+      "end_time": "2026-02-17T18:30:00",
+      "description": "Complete remaining work tasks with a focus on project deadlines.",
+      "main_rooms": [
+        "study_room"
+      ]
+    },
+    {
+      "activity_id": "act_010",
+      "activity_name": "Dinner Preparation",
+      "start_time": "2026-02-17T18:30:00",
+      "end_time": "2026-02-17T19:00:00",
+      "description": "Prepare and enjoy a Japanese-inspired dinner at the dining table.",
+      "main_rooms": [
+        "kitchen"
+      ]
+    },
+    {
+      "activity_id": "act_011",
+      "activity_name": "Leisure Time",
+      "start_time": "2026-02-17T19:00:00",
+      "end_time": "2026-02-17T21:00:00",
+      "description": "Engage in social board games or play on the Switch console.",
+      "main_rooms": [
+        "living_room"
+      ]
+    },
+    {
+      "activity_id": "act_012",
+      "activity_name": "Prepare for Bed",
+      "start_time": "2026-02-17T21:00:00",
+      "end_time": "2026-02-17T23:30:00",
+      "description": "Perform nighttime hygiene and relax before sleep using the air purifier.",
+      "main_rooms": [
+        "master_bedroom"
+      ]
+    },
+    {
+      "activity_id": "act_013",
+      "activity_name": "Sleep",
+      "start_time": "2026-02-17T23:30:00",
+      "end_time": "2026-02-18T07:00:00",
+      "description": "Enjoy a restful sleep in the master bedroom, ensuring energy for the next day.",
+      "main_rooms": [
+        "master_bedroom"
+      ]
+    }
+  ]
+}

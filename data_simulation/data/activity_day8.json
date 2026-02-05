@@ -1,0 +1,114 @@
+{
+  "activities": [
+    {
+      "activity_id": "act_001",
+      "activity_name": "起床",
+      "start_time": "2026-02-12T07:00:00",
+      "end_time": "2026-02-12T07:15:00",
+      "description": "从床上起身，拉开窗帘迎接清晨的阳光。",
+      "main_rooms": [
+        "master_bedroom"
+      ]
+    },
+    {
+      "activity_id": "act_002",
+      "activity_name": "个人清洁",
+      "start_time": "2026-02-12T07:15:00",
+      "end_time": "2026-02-12T07:45:00",
+      "description": "前往浴室，进行日常洗漱与个人清洁。",
+      "main_rooms": [
+        "bathroom"
+      ]
+    },
+    {
+      "activity_id": "act_003",
+      "activity_name": "早餐",
+      "start_time": "2026-02-12T07:45:00",
+      "end_time": "2026-02-12T08:15:00",
+      "description": "在厨房准备一份健康的早餐，并在餐桌上享用。",
+      "main_rooms": [
+        "kitchen"
+      ]
+    },
+    {
+      "activity_id": "act_004",
+      "activity_name": "通勤",
+      "start_time": "2026-02-12T08:15:00",
+      "end_time": "2026-02-12T09:00:00",
+      "description": "从家中出发，前往公司上班，利用通勤时间规划工作。",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_005",
+      "activity_name": "项目会议",
+      "start_time": "2026-02-12T10:00:00",
+      "end_time": "2026-02-12T12:00:00",
+      "description": "参与公司会议室的例行项目会议，讨论工作进展。",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_006",
+      "activity_name": "午餐",
+      "start_time": "2026-02-12T12:30:00",
+      "end_time": "2026-02-12T13:00:00",
+      "description": "与同事一同在公司餐厅用餐，交流当天的工作感想。",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_007",
+      "activity_name": "工作",
+      "start_time": "2026-02-12T13:30:00",
+      "end_time": "2026-02-12T17:30:00",
+      "description": "完成下午的工作任务，整理会议记录与相关文件。",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_008",
+      "activity_name": "回家",
+      "start_time": "2026-02-12T17:30:00",
+      "end_time": "2026-02-12T18:15:00",
+      "description": "结束一天的工作后，搭乘交通工具返回家中。",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_009",
+      "activity_name": "晚餐",
+      "start_time": "2026-02-12T19:00:00",
+      "end_time": "2026-02-12T19:30:00",
+      "description": "在厨房准备简单的晚餐，享受温馨的用餐时光。",
+      "main_rooms": [
+        "kitchen"
+      ]
+    },
+    {
+      "activity_id": "act_010",
+      "activity_name": "突发事件",
+      "start_time": "2026-02-12T20:00:00",
+      "end_time": "2026-02-12T20:10:00",
+      "description": "在客厅因头晕意外跌倒，随后在沙发旁寻找支撑。",
+      "main_rooms": [
+        "living_room"
+      ]
+    },
+    {
+      "activity_id": "act_011",
+      "activity_name": "联系医疗服务",
+      "start_time": "2026-02-12T20:10:00",
+      "end_time": "2026-02-12T21:00:00",
+      "description": "拨打急救电话并等待救援到来，同时尝试舒适地平躺休息。",
+      "main_rooms": [
+        "living_room"
+      ]
+    },
+    {
+      "activity_id": "act_012",
+      "activity_name": "夜间休息",
+      "start_time": "2026-02-12T21:30:00",
+      "end_time": "2026-02-13T07:00:00",
+      "description": "在主卧休息调整身心，准备入睡以恢复状态。",
+      "main_rooms": [
+        "master_bedroom"
+      ]
+    }
+  ]
+}

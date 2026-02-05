@@ -1,0 +1,114 @@
+{
+  "activities": [
+    {
+      "activity_id": "act_001",
+      "activity_name": "起床",
+      "start_time": "2026-02-16T07:00:00",
+      "end_time": "2026-02-16T07:15:00",
+      "description": "张辰在闹钟声中醒来，拉开窗帘迎接新的一天。",
+      "main_rooms": [
+        "master_bedroom"
+      ]
+    },
+    {
+      "activity_id": "act_002",
+      "activity_name": "洗漱",
+      "start_time": "2026-02-16T07:15:00",
+      "end_time": "2026-02-16T07:30:00",
+      "description": "进入浴室进行晨间洗漱，包括刷牙和洗脸。",
+      "main_rooms": [
+        "bathroom"
+      ]
+    },
+    {
+      "activity_id": "act_003",
+      "activity_name": "早餐准备与享用",
+      "start_time": "2026-02-16T07:30:00",
+      "end_time": "2026-02-16T08:00:00",
+      "description": "张辰在厨房准备了日式低糖早餐，并在餐桌享用。",
+      "main_rooms": [
+        "kitchen"
+      ]
+    },
+    {
+      "activity_id": "act_004",
+      "activity_name": "通勤至公司",
+      "start_time": "2026-02-16T08:00:00",
+      "end_time": "2026-02-16T09:00:00",
+      "description": "张辰搭乘公共交通前往公司，开始一天的工作。",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_005",
+      "activity_name": "工作",
+      "start_time": "2026-02-16T09:00:00",
+      "end_time": "2026-02-16T12:00:00",
+      "description": "张辰在办公室处理品牌营销相关事务，并参与项目会议。",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_006",
+      "activity_name": "午餐时间",
+      "start_time": "2026-02-16T12:00:00",
+      "end_time": "2026-02-16T13:00:00",
+      "description": "与同事外出至附近餐厅享用健康饮食。",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_007",
+      "activity_name": "下午工作",
+      "start_time": "2026-02-16T13:00:00",
+      "end_time": "2026-02-16T18:00:00",
+      "description": "继续上午未完成的任务，并进行策略报告撰写。",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_008",
+      "activity_name": "通勤回家",
+      "start_time": "2026-02-16T18:00:00",
+      "end_time": "2026-02-16T19:00:00",
+      "description": "搭乘公共交通回到家中。",
+      "main_rooms": []
+    },
+    {
+      "activity_id": "act_009",
+      "activity_name": "晚餐",
+      "start_time": "2026-02-16T19:00:00",
+      "end_time": "2026-02-16T20:00:00",
+      "description": "在客厅享用提前准备好的晚餐，并观看科技类纪录片。",
+      "main_rooms": [
+        "living_room"
+      ]
+    },
+    {
+      "activity_id": "act_010",
+      "activity_name": "个人成长时间",
+      "start_time": "2026-02-16T20:00:00",
+      "end_time": "2026-02-16T22:30:00",
+      "description": "在书房阅读品牌营销相关书籍并做笔记。",
+      "main_rooms": [
+        "study_room"
+      ]
+    },
+    {
+      "activity_id": "act_011",
+      "activity_name": "准备入睡",
+      "start_time": "2026-02-16T22:30:00",
+      "end_time": "2026-02-16T23:00:00",
+      "description": "在主卧进行轻松的拉伸活动并准备睡觉。",
+      "main_rooms": [
+        "master_bedroom"
+      ]
+    },
+    {
+      "activity_id": "act_012",
+      "activity_name": "入睡",
+      "start_time": "2026-02-16T23:00:00",
+      "end_time": "2026-02-17T07:00:00",
+      "description": "在舒适的环境中进入梦乡，迎接新的一天。",
+      "main_rooms": [
+        "master_bedroom"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "current_date": "2026-02-05",
+  "day_of_week": "Thursday",
+  "day_type": "workday",
+  "simulation_state": "Normal",
+  "previous_day_summary": "N/A",
+  "previous_day_snapshot": {},
+  "agent_state": {
+    "mood": "neutral",
+    "energy": 0.9,
+    "stress": 0.0,
+    "hunger": 0.3,
+    "health": "ok",
+    "notes": ""
+  },
+  "agent_state_stage": "after_events",
+  "day_start_time": "2026-02-05T07:00:00",
+  "day_end_time": "2026-02-06T07:00:00",
+  "random_event": "",
+  "emergency_event": "",
+  "random_event_count": 0,
+  "emergency_event_count": 0
+}

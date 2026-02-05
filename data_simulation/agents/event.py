@@ -242,14 +242,16 @@ def get_room_specific_context(full_layout: Dict, details_map: Dict, target_rooms
         for item_id in all_ids:
             if item_id in details_map:
                 item_info = details_map[item_id]
+                support_actions = item_info.get("support_actions", [])
+                if not support_actions:
+                    continue
                 room_items.append({
                     "id": item_id,
                     "name": item_info.get("name", "Unknown"),
-                    "support_actions": item_info.get("support_actions", []),
-                    "current_state": item_info.get("current_state", {})
+                    "support_actions": support_actions
                 })
             else:
-                room_items.append({"id": item_id, "name": "Unknown", "support_actions": []})
+                continue
         
         filtered_details[room_key] = room_items
 
@@ -276,6 +278,13 @@ class EventState(TypedDict):
     revision_count: int
 
 llm = create_chat_llm(model="gpt-4o", temperature=0.7)
+
+def _estimate_prompt_chars(template: str, variables: Dict[str, Any]) -> int:
+    total = len(template or "")
+    for val in variables.values():
+        total += len(str(val))
+    return total
+
 
 
 def _sanitize_events(events: List[EventItem], full_layout: Dict) -> None:
@@ -317,8 +326,8 @@ def generate_events_node(state: EventState):
     chain = prompt | structured_llm
     
     activity_str = json.dumps(state["current_activity"], ensure_ascii=False)
-    # 关键：只取最近 5 个事件作为 Context
-    prev_events_str = json.dumps(state["previous_events"][-5:], ensure_ascii=False) if state["previous_events"] else "[]"
+    # 关键：只取最近 2 个事件作为 Context
+    prev_events_str = json.dumps(state["previous_events"][-2:], ensure_ascii=False) if state["previous_events"] else "[]"
     
     result = chain.invoke({
         "event_requirements": EVENT_REQUIREMENTS,
@@ -330,6 +339,22 @@ def generate_events_node(state: EventState):
         "context_size": 5,
         "previous_events_context": prev_events_str
     })
+    try:
+        vars_for_count = {
+            "event_requirements": EVENT_REQUIREMENTS,
+            "resident_profile_json": state["resident_profile"],
+            "agent_state_json": state.get("agent_state_json", "{}"),
+            "room_list_json": context_data["room_list_json"],
+            "furniture_details_json": context_data["furniture_details_json"],
+            "current_activity_json": activity_str,
+            "context_size": 5,
+            "previous_events_context": prev_events_str,
+        }
+        chars = _estimate_prompt_chars(EVENT_GENERATION_PROMPT_TEMPLATE, vars_for_count)
+        logger.info(f"LLM input size (event generate): ~{chars} chars (~{chars//4} tokens)")
+    except Exception:
+        pass
+
     _sanitize_events(result.events, state["full_layout"])
 
     
@@ -356,6 +381,19 @@ def validate_events_node(state: EventState):
         "agent_state_json": state.get("agent_state_json", "{}"),
         "events_json": events_json
     })
+    try:
+        vars_for_count = {
+            "event_requirements": EVENT_REQUIREMENTS,
+            "house_layout_summary": layout_summary,
+            "current_activity_json": activity_str,
+            "agent_state_json": state.get("agent_state_json", "{}"),
+            "events_json": events_json,
+        }
+        chars = _estimate_prompt_chars(EVENT_VALIDATION_PROMPT_TEMPLATE, vars_for_count)
+        logger.info(f"LLM input size (event validate): ~{chars} chars (~{chars//4} tokens)")
+    except Exception:
+        pass
+
     
     if result.is_valid:
         logger.info("✅ Validation Passed!")
@@ -383,6 +421,21 @@ def correct_events_node(state: EventState):
         "original_events_json": events_json,
         "correction_content": state["validation_result"].correction_content
     })
+    try:
+        vars_for_count = {
+            "event_requirements": EVENT_REQUIREMENTS,
+            "resident_profile_json": state["resident_profile"],
+            "furniture_details_json": layout_summary,
+            "current_activity_json": activity_str,
+            "agent_state_json": state.get("agent_state_json", "{}"),
+            "original_events_json": events_json,
+            "correction_content": state["validation_result"].correction_content,
+        }
+        chars = _estimate_prompt_chars(EVENT_CORRECTION_PROMPT_TEMPLATE, vars_for_count)
+        logger.info(f"LLM input size (event correct): ~{chars} chars (~{chars//4} tokens)")
+    except Exception:
+        pass
+
     
     return {
         "current_events": result,

@@ -1,0 +1,79 @@
+{
+  "current_date": "2026-02-07",
+  "day_of_week": "Saturday",
+  "day_type": "weekend",
+  "simulation_state": "Normal",
+  "previous_day_summary": "张辰昨日睡眠时间为10小时，与其预期作息时间相比，存在一定晚起情况；在健身房进行高强度训练，可能导致今日轻微疲劳；整体活动井然有序，未发生异常事件。",
+  "previous_day_snapshot": {
+    "agent_location": "master_bedroom",
+    "device_states": {
+      "bed_001": {
+        "power": "unknown"
+      },
+      "blackout_curtain_001": {
+        "power": "unknown"
+      },
+      "smart_lamp_001": {
+        "power": "off"
+      },
+      "smart_mirror_001": {
+        "power": "off"
+      },
+      "sink_cabinet_001": {
+        "power": "unknown"
+      },
+      "smart_fridge_001": {
+        "power": "on"
+      },
+      "kitchen_cabinet_001": {
+        "power": "unknown"
+      },
+      "microwave_001": {
+        "power": "unknown"
+      },
+      "dining_table_001": {
+        "power": "unknown"
+      },
+      "ergonomic_chair_001": {
+        "power": "off"
+      },
+      "dual_monitor_001": {
+        "power": "off"
+      },
+      "sofa_001": {
+        "power": "unknown"
+      },
+      "bookshelf_001": {
+        "power": "unknown"
+      },
+      "smart_tv_001": {
+        "power": "off"
+      },
+      "dishwasher_001": {
+        "power": "off"
+      },
+      "air_purifier_001": {
+        "power": "off"
+      }
+    },
+    "physiology": {
+      "fatigue": 0.5,
+      "hunger": 0.7
+    }
+  },
+  "agent_state": {
+    "mood": "neutral",
+    "energy": 0.7,
+    "stress": 0.3,
+    "hunger": 0.7,
+    "health": "ok",
+    "notes": ""
+  },
+  "agent_state_stage": "after_events",
+  "day_start_time": "2026-02-07T09:00:00",
+  "day_end_time": "2026-02-08T09:00:00",
+  "random_event": "",
+  "emergency_event": "",
+  "random_event_count": 0,
+  "emergency_event_count": 0
+}

@@ -1,0 +1,493 @@
+[
+  {
+    "activity_id": "act_001",
+    "start_time": "2026-02-09T07:00:00",
+    "end_time": "2026-02-09T07:05:00",
+    "room_id": "master_bedroom",
+    "target_object_ids": [
+      "bed_001"
+    ],
+    "action_type": "interact",
+    "description": "The resident gets up from the bed."
+  },
+  {
+    "activity_id": "act_001",
+    "start_time": "2026-02-09T07:05:00",
+    "end_time": "2026-02-09T07:10:00",
+    "room_id": "master_bedroom",
+    "target_object_ids": [
+      "blackout_curtain_001"
+    ],
+    "action_type": "interact",
+    "description": "The resident opens the blackout curtains to let in sunlight."
+  },
+  {
+    "activity_id": "act_001",
+    "start_time": "2026-02-09T07:10:00",
+    "end_time": "2026-02-09T07:25:00",
+    "room_id": "master_bedroom",
+    "target_object_ids": [],
+    "action_type": "idle",
+    "description": "The resident prepares for the morning routine within the bedroom."
+  },
+  {
+    "activity_id": "act_001",
+    "start_time": "2026-02-09T07:25:00",
+    "end_time": "2026-02-09T07:30:00",
+    "room_id": "master_bedroom",
+    "target_object_ids": [
+      "nightstand_001"
+    ],
+    "action_type": "interact",
+    "description": "The resident organizes items on the nightstand."
+  },
+  {
+    "activity_id": "act_002",
+    "start_time": "2026-02-09T07:30:00",
+    "end_time": "2026-02-09T07:32:00",
+    "room_id": "kitchen",
+    "target_object_ids": [],
+    "action_type": "move",
+    "description": "The resident moves from the bedroom to the kitchen to prepare breakfast."
+  },
+  {
+    "activity_id": "act_002",
+    "start_time": "2026-02-09T07:32:00",
+    "end_time": "2026-02-09T07:35:00",
+    "room_id": "kitchen",
+    "target_object_ids": [
+      "smart_fridge_001"
+    ],
+    "action_type": "interact",
+    "description": "The resident opens the smart fridge to retrieve ingredients."
+  },
+  {
+    "activity_id": "act_002",
+    "start_time": "2026-02-09T07:35:00",
+    "end_time": "2026-02-09T07:36:00",
+    "room_id": "kitchen",
+    "target_object_ids": [
+      "smart_fridge_001"
+    ],
+    "action_type": "interact",
+    "description": "The resident closes the smart fridge after retrieving ingredients."
+  },
+  {
+    "activity_id": "act_002",
+    "start_time": "2026-02-09T07:36:00",
+    "end_time": "2026-02-09T07:45:00",
+    "room_id": "kitchen",
+    "target_object_ids": [
+      "dining_table_001"
+    ],
+    "action_type": "interact",
+    "description": "The resident prepares breakfast using ingredients on the dining table."
+  },
+  {
+    "activity_id": "act_002",
+    "start_time": "2026-02-09T07:45:00",
+    "end_time": "2026-02-09T07:55:00",
+    "room_id": "kitchen",
+    "target_object_ids": [
+      "dining_table_001"
+    ],
+    "action_type": "interact",
+    "description": "The resident enjoys breakfast at the dining table."
+  },
+  {
+    "activity_id": "act_002",
+    "start_time": "2026-02-09T07:55:00",
+    "end_time": "2026-02-09T08:00:00",
+    "room_id": "kitchen",
+    "target_object_ids": [
+      "dining_table_001"
+    ],
+    "action_type": "interact",
+    "description": "The resident cleans the dining table after breakfast."
+  },
+  {
+    "activity_id": "act_003",
+    "start_time": "2026-02-09T08:00:00",
+    "end_time": "2026-02-09T08:05:00",
+    "room_id": "study_room",
+    "target_object_ids": [
+      "ergonomic_chair_001"
+    ],
+    "action_type": "interact",
+    "description": "The resident adjusts the ergonomic chair for comfortable seating."
+  },
+  {
+    "activity_id": "act_003",
+    "start_time": "2026-02-09T08:05:00",
+    "end_time": "2026-02-09T08:10:00",
+    "room_id": "study_room",
+    "target_object_ids": [
+      "dual_monitor_001"
+    ],
+    "action_type": "interact",
+    "description": "The resident powers on the dual monitor and adjusts its settings."
+  },
+  {
+    "activity_id": "act_003",
+    "start_time": "2026-02-09T08:10:00",
+    "end_time": "2026-02-09T08:20:00",
+    "room_id": "study_room",
+    "target_object_ids": [
+      "desk_001"
+    ],
+    "action_type": "interact",
+    "description": "The resident organizes the desk, arranging items neatly."
+  },
+  {
+    "activity_id": "act_003",
+    "start_time": "2026-02-09T08:20:00",
+    "end_time": "2026-02-09T08:40:00",
+    "room_id": "study_room",
+    "target_object_ids": [
+      "dual_monitor_001"
+    ],
+    "action_type": "interact",
+    "description": "The resident checks emails on the dual monitor."
+  },
+  {
+    "activity_id": "act_003",
+    "start_time": "2026-02-09T08:40:00",
+    "end_time": "2026-02-09T08:50:00",
+    "room_id": "study_room",
+    "target_object_ids": [
+      "printer_001"
+    ],
+    "action_type": "interact",
+    "description": "The resident prints documents needed for the day's tasks."
+  },
+  {
+    "activity_id": "act_003",
+    "start_time": "2026-02-09T08:50:00",
+    "end_time": "2026-02-09T09:00:00",
+    "room_id": "study_room",
+    "target_object_ids": [
+      "smart_speaker_001"
+    ],
+    "action_type": "interact",
+    "description": "The resident plays soft background music to enhance concentration."
+  },
+  {
+    "activity_id": "act_004",
+    "start_time": "2026-02-09T09:00:00",
+    "end_time": "2026-02-09T12:00:00",
+    "room_id": "Outside",
+    "target_object_ids": [],
+    "action_type": "outside",
+    "description": "Attend the project meeting scheduled at the office."
+  },
+  {
+    "activity_id": "act_005",
+    "start_time": "2026-02-09T12:00:00",
+    "end_time": "2026-02-09T12:30:00",
+    "room_id": "Outside",
+    "target_object_ids": [],
+    "action_type": "outside",
+    "description": "Lunch at a nearby restaurant."
+  },
+  {
+    "activity_id": "act_006",
+    "start_time": "2026-02-09T12:30:00",
+    "end_time": "2026-02-09T12:45:00",
+    "room_id": "living_room",
+    "target_object_ids": [
+      "desk_001",
+      "laptop_001"
+    ],
+    "action_type": "interact",
+    "description": "Prepare workstation with available tools for afternoon tasks."
+  },
+  {
+    "activity_id": "act_006",
+    "start_time": "2026-02-09T12:45:00",
+    "end_time": "2026-02-09T15:30:00",
+    "room_id": "living_room",
+    "target_object_ids": [
+      "laptop_001"
+    ],
+    "action_type": "interact",
+    "description": "Focus on report creation and analysis using laptop."
+  },
+  {
+    "activity_id": "act_006",
+    "start_time": "2026-02-09T15:30:00",
+    "end_time": "2026-02-09T15:45:00",
+    "room_id": "living_room",
+    "target_object_ids": [],
+    "action_type": "idle",
+    "description": "Take a short break and relax."
+  },
+  {
+    "activity_id": "act_006",
+    "start_time": "2026-02-09T15:45:00",
+    "end_time": "2026-02-09T17:45:00",
+    "room_id": "living_room",
+    "target_object_ids": [
+      "laptop_001"
+    ],
+    "action_type": "interact",
+    "description": "Engage in team discussions on strategies via online platform."
+  },
+  {
+    "activity_id": "act_006",
+    "start_time": "2026-02-09T17:45:00",
+    "end_time": "2026-02-09T18:00:00",
+    "room_id": "living_room",
+    "target_object_ids": [],
+    "action_type": "interact",
+    "description": "Organize the workspace and conclude the day's tasks."
+  },
+  {
+    "activity_id": "act_007",
+    "start_time": "2026-02-09T18:00:00",
+    "end_time": "2026-02-09T18:01:00",
+    "room_id": "kitchen",
+    "target_object_ids": [],
+    "action_type": "move",
+    "description": "Enter the kitchen to prepare a light snack."
+  },
+  {
+    "activity_id": "act_007",
+    "start_time": "2026-02-09T18:01:00",
+    "end_time": "2026-02-09T18:04:00",
+    "room_id": "kitchen",
+    "target_object_ids": [
+      "smart_fridge_001"
+    ],
+    "action_type": "interact",
+    "description": "Open the refrigerator to retrieve ingredients."
+  },
+  {
+    "activity_id": "act_007",
+    "start_time": "2026-02-09T18:04:00",
+    "end_time": "2026-02-09T18:07:00",
+    "room_id": "kitchen",
+    "target_object_ids": [
+      "dining_table_001"
+    ],
+    "action_type": "interact",
+    "description": "Place ingredients on the dining table."
+  },
+  {
+    "activity_id": "act_007",
+    "start_time": "2026-02-09T18:07:00",
+    "end_time": "2026-02-09T18:10:00",
+    "room_id": "kitchen",
+    "target_object_ids": [
+      "dining_table_001"
+    ],
+    "action_type": "interact",
+    "description": "Clean up and organize the workspace."
+  },
+  {
+    "activity_id": "act_007",
+    "start_time": "2026-02-09T18:10:00",
+    "end_time": "2026-02-09T18:30:00",
+    "room_id": "kitchen",
+    "target_object_ids": [],
+    "action_type": "idle",
+    "description": "Sit idle for a moment, enjoying the snack."
+  },
+  {
+    "activity_id": "act_008",
+    "start_time": "2026-02-09T18:30:00",
+    "end_time": "2026-02-09T20:00:00",
+    "room_id": "Outside",
+    "target_object_ids": [],
+    "action_type": "outside",
+    "description": "Participated in a gym session for fitness training."
+  },
+  {
+    "activity_id": "act_009",
+    "start_time": "2026-02-09T20:00:00",
+    "end_time": "2026-02-09T20:03:00",
+    "room_id": "kitchen",
+    "target_object_ids": [
+      "smart_fridge_001"
+    ],
+    "action_type": "interact",
+    "description": "Opened the smart fridge to retrieve ingredients for dinner."
+  },
+  {
+    "activity_id": "act_009",
+    "start_time": "2026-02-09T20:03:00",
+    "end_time": "2026-02-09T20:05:00",
+    "room_id": "kitchen",
+    "target_object_ids": [
+      "kitchen_cabinet_001"
+    ],
+    "action_type": "interact",
+    "description": "Opened the kitchen cabinet to retrieve necessary utensils."
+  },
+  {
+    "activity_id": "act_009",
+    "start_time": "2026-02-09T20:05:00",
+    "end_time": "2026-02-09T20:10:00",
+    "room_id": "kitchen",
+    "target_object_ids": [
+      "dining_table_001"
+    ],
+    "action_type": "interact",
+    "description": "Placed ingredients and utensils on the dining table to arrange for cooking."
+  },
+  {
+    "activity_id": "act_009",
+    "start_time": "2026-02-09T20:10:00",
+    "end_time": "2026-02-09T20:15:00",
+    "room_id": "kitchen",
+    "target_object_ids": [
+      "microwave_001"
+    ],
+    "action_type": "interact",
+    "description": "Used the microwave oven to heat certain prepared dishes."
+  },
+  {
+    "activity_id": "act_009",
+    "start_time": "2026-02-09T20:15:00",
+    "end_time": "2026-02-09T20:30:00",
+    "room_id": "kitchen",
+    "target_object_ids": [
+      "dining_table_001"
+    ],
+    "action_type": "interact",
+    "description": "Enjoyed the prepared dinner while seated at the dining table."
+  },
+  {
+    "activity_id": "act_010",
+    "start_time": "2026-02-09T20:30:00",
+    "end_time": "2026-02-09T20:35:00",
+    "room_id": "living_room",
+    "target_object_ids": [
+      "smart_tv_001"
+    ],
+    "action_type": "interact",
+    "description": "Turned on the smart TV in the living room to watch a science documentary."
+  },
+  {
+    "activity_id": "act_010",
+    "start_time": "2026-02-09T20:35:00",
+    "end_time": "2026-02-09T21:30:00",
+    "room_id": "living_room",
+    "target_object_ids": [
+      "smart_tv_001",
+      "sofa_001"
+    ],
+    "action_type": "interact",
+    "description": "Watched a science documentary on the smart TV while seated on the sofa."
+  },
+  {
+    "activity_id": "act_010",
+    "start_time": "2026-02-09T21:30:00",
+    "end_time": "2026-02-09T21:35:00",
+    "room_id": "living_room",
+    "target_object_ids": [
+      "smart_tv_001",
+      "game_console_001"
+    ],
+    "action_type": "interact",
+    "description": "Turned off the smart TV and prepared the game console for use."
+  },
+  {
+    "activity_id": "act_010",
+    "start_time": "2026-02-09T21:35:00",
+    "end_time": "2026-02-09T22:50:00",
+    "room_id": "living_room",
+    "target_object_ids": [
+      "game_console_001",
+      "sofa_001"
+    ],
+    "action_type": "interact",
+    "description": "Played a video game on the game console while seated on the sofa."
+  },
+  {
+    "activity_id": "act_010",
+    "start_time": "2026-02-09T22:50:00",
+    "end_time": "2026-02-09T23:00:00",
+    "room_id": "living_room",
+    "target_object_ids": [
+      "game_console_001",
+      "coffee_table_001"
+    ],
+    "action_type": "interact",
+    "description": "Turned off the game console and organized the living room."
+  },
+  {
+    "activity_id": "act_011",
+    "start_time": "2026-02-09T23:00:00",
+    "end_time": "2026-02-09T23:05:00",
+    "room_id": "master_bedroom",
+    "target_object_ids": [],
+    "action_type": "move",
+    "description": "Entered the master bedroom to prepare for sleep."
+  },
+  {
+    "activity_id": "act_011",
+    "start_time": "2026-02-09T23:05:00",
+    "end_time": "2026-02-09T23:10:00",
+    "room_id": "master_bedroom",
+    "target_object_ids": [
+      "smart_lamp_001"
+    ],
+    "action_type": "interact",
+    "description": "Turned on the smart lamp and adjusted its brightness for a relaxing ambiance."
+  },
+  {
+    "activity_id": "act_011",
+    "start_time": "2026-02-09T23:10:00",
+    "end_time": "2026-02-09T23:15:00",
+    "room_id": "master_bedroom",
+    "target_object_ids": [
+      "blackout_curtain_001"
+    ],
+    "action_type": "interact",
+    "description": "Closed the blackout curtains to block external light."
+  },
+  {
+    "activity_id": "act_011",
+    "start_time": "2026-02-09T23:15:00",
+    "end_time": "2026-02-09T23:25:00",
+    "room_id": "master_bedroom",
+    "target_object_ids": [
+      "nightstand_001"
+    ],
+    "action_type": "interact",
+    "description": "Organized the bedside table to maintain tidiness."
+  },
+  {
+    "activity_id": "act_011",
+    "start_time": "2026-02-09T23:25:00",
+    "end_time": "2026-02-09T23:35:00",
+    "room_id": "master_bedroom",
+    "target_object_ids": [
+      "air_purifier_001"
+    ],
+    "action_type": "interact",
+    "description": "Set the air purifier to sleep mode for a comfortable environment."
+  },
+  {
+    "activity_id": "act_011",
+    "start_time": "2026-02-09T23:35:00",
+    "end_time": "2026-02-10T00:00:00",
+    "room_id": "master_bedroom",
+    "target_object_ids": [
+      "bed_001"
+    ],
+    "action_type": "interact",
+    "description": "Laid down on the bed and prepared to sleep."
+  },
+  {
+    "activity_id": "act_012",
+    "start_time": "2026-02-10T00:00:00",
+    "end_time": "2026-02-10T07:00:00",
+    "room_id": "master_bedroom",
+    "target_object_ids": [
+      "bed_001"
+    ],
+    "action_type": "interact",
+    "description": "Positioned comfortably on the bed for restful sleep."
+  }
+]

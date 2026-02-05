@@ -76,6 +76,12 @@ See requirements above; ensure output matches the EventDeviceState schema.
 
 _thread_local = threading.local()
 
+def _estimate_prompt_chars(template: str, variables: Dict[str, Any]) -> int:
+    total = len(template or "")
+    for val in variables.values():
+        total += len(str(val))
+    return total
+
 def get_max_workers(total: int, env_name: str = "MAX_WORKERS", default: int = 12) -> int:
     """Decide parallelism based on workload and env settings."""
     if total <= 1:
@@ -220,13 +226,19 @@ def run_event_chain_generation():
         prompt = ChatPromptTemplate.from_template(DEVICE_STATE_GEN_PROMPT)
         chain = prompt | get_thread_structured_llm()
         try:
-            result = chain.invoke({
+            payload = {
                 "description": event.get("description"),
                 "start_time": event.get("start_time"),
                 "end_time": event.get("end_time"),
                 "target_devices": ", ".join(target_ids),
                 "device_details": device_context
-            })
+            }
+            try:
+                chars = _estimate_prompt_chars(DEVICE_STATE_GEN_PROMPT, payload)
+                logger.info(f"LLM input size (device): ~{chars} chars (~{chars//4} tokens)")
+            except Exception:
+                pass
+            result = chain.invoke(payload)
             
             start_patches = [convert_patch_to_dict(p) for p in result.patch_on_start]
             end_patches = [convert_patch_to_dict(p) for p in result.patch_on_end]
