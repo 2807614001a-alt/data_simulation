@@ -19,144 +19,24 @@ load_dotenv(dotenv_path=dotenv_path)
 project_root = current_dir.parent
 if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
-from settings.llm_utils import create_chat_llm
+from llm_utils import create_fast_llm
+from prompt import (
+    EVENT_REQUIREMENTS,
+    EVENT_GENERATION_PROMPT_TEMPLATE,
+    EVENT_VALIDATION_PROMPT_TEMPLATE,
+    EVENT_CORRECTION_PROMPT_TEMPLATE,
+)
+from agent_config import (
+    DEFAULT_MODEL,
+    EVENT_TEMPERATURE,
+    EVENT_USE_RESPONSES_API,
+    SKIP_EVENT_VALIDATION,
+    MAX_EVENT_REVISIONS,
+)
+
 # 配置日志
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
-
-# ==========================================
-# 1. 提示词常量 (保持不变)
-# ==========================================
-
-EVENT_REQUIREMENTS = """
-## 事件定义 (Event Definition)
-事件是连接宏观“活动”与微观“动作”的中间层。它是用户在特定房间内，利用特定设施完成的一个具体子目标。
-核心特征：
-1. **物体依赖性**：绝大多数居家事件都必须与至少一个家具或设备交互。
-2. **物理可行性**：选用的物品必须支持该动作（参考 `support_actions`）。
-3. **性格时间观**：事件的耗时应反映居民性格。
-
-## 分解原则
-1. **宏观拆解**：将一个 Activity 拆解为逻辑连贯的 Event 序列。
-2. **空间一致性**：切换房间必须生成独立的“移动(Move)”事件。
-3. **外出闭环**：外出活动（Work, Shopping等）**不进行分解**，保持为一个单独的事件，`room` 设为 "Outside"，`target_objects` 为空。
-
-## 输出格式要求 (JSON List)
-每个事件对象包含：
-- `activity_id`: 所属父活动的ID
-- `start_time`: ISO格式 (YYYY-MM-DDTHH:MM:SS)
-- `end_time`: ISO格式 (YYYY-MM-DDTHH:MM:SS)
-- `room_id`: 发生的房间ID (必须存在于 layout 中，外出则为 "Outside")
-- `target_object_ids`: 关键字段。涉及的家具/设备ID列表。
-- `action_type`: ["interact", "move", "idle", "outside"]
-- `description`: 详细描述。
-
-## 约束条件
-1. **物品功能校验 (Affordance)**：target_object_ids 必须在当前 room_id 内且支持该动作。
-2. **时间严丝合缝**：子事件时间加总必须严格等于父 Activity 的时间段。
-3. **随机性注入**：基于 Profile 插入合理的微小随机事件。
-"""
-
-EVENT_GENERATION_PROMPT_TEMPLATE = """
-你是一个具备物理常识和心理学洞察的行为仿真引擎。
-请根据【居民档案】的性格特征，将【当前活动】递归拆解为一系列具体的【事件】。
-
-{event_requirements}
-
-## 输入数据 context
-
-### 1. 居民档案 (Agent Profile)
-{resident_profile_json}
-
-### 1.1 Agent State (Real-time)
-{agent_state_json}
-
-### 2. 物理环境 (Physical Environment)
-**房间列表:**
-{room_list_json}
-**家具与设备详情 (已过滤为当前相关区域):**
-{furniture_details_json}
-
-### 3. 待拆解的父活动 (Parent Activity)
-{current_activity_json}
-
-### 4. 上下文 (Context)
-**前序事件 (最近{context_size}条):**
-{previous_events_context}
-
-## 任务指令
-1. **分析意图**：理解父活动 `{current_activity_json}` 的目标。
-2. **资源匹配**：在 `room_id` 中寻找最适合完成该目标的 `furniture` 或 `device`。
-3. **性格渲染**：根据 Big Five 调整粒度。
-4. **生成序列**：输出符合 JSON 格式的事件列表，确保时间连续且填满父活动时段。
-"""
-
-EVENT_VALIDATION_PROMPT_TEMPLATE = """
-请作为“物理与逻辑审核员”，对以下生成的事件序列进行严格审查。
-
-{event_requirements}
-
-## 待审核数据
-**环境数据:**
-{house_layout_summary}
-
-**父活动:**
-{current_activity_json}
-
-**Agent State (Real-time):**
-{agent_state_json}
-
-**生成的事件序列:**
-{events_json}
-
-## 验证维度
-1. **房间合法性 (强校验)**:
-   - `room_id` 必须出现在环境数据的房间列表中，否则判定不通过。
-   - `room_id = "Outside"` 时，`target_object_ids` 必须为空，`action_type` 必须为 "outside"。
-2. **物品归属 (强校验)**:
-   - `target_object_ids` 必须全部属于对应 `room_id` 的家具/设备清单。
-   - 任一物品不在该房间，判定为不通过，并指出具体物品与房间。
-3. **物理可供性**: 物品是否存在且支持该动作（参考 support_actions）。
-4. **时间完整性 (强校验)**:
-   - 子事件时间必须无缝衔接、无重叠、无空洞。
-   - 子事件总时长必须严格覆盖父 Activity 时间段。
-5. **行为逻辑**: 顺序是否合理？房间切换是否有 Move？
-6. **性格一致性**: 是否违背性格设定？
-
-## 返回结果
-- Pass: is_valid: true
-- Fail: is_valid: false, 并在 correction_content 中列出“必须修正”的具体点（房间/物品/时间/动作）。
-"""
-
-EVENT_CORRECTION_PROMPT_TEMPLATE = """
-你是一个专业的行为修正模块。上一次生成的事件序列存在逻辑或物理错误。
-请根据验证反馈，重新生成修正后的事件序列。
-
-{event_requirements}
-
-## 参考数据
-**居民档案:** {resident_profile_json}
-**可用环境物品:** {furniture_details_json}
-**父活动:** {current_activity_json}
-**Agent State (Real-time):** {agent_state_json}
-
-## 错误现场
-**原始错误规划:**
-{original_events_json}
-
-**验证反馈 (必须解决的问题):**
-{correction_content}
-
-## 修正指令
-1. 定位错误。
-2. **房间/物品修正 (强制)**:
-   - 如果 `room_id` 不在环境数据中，必须改为合法房间或 "Outside"。
-   - 如果改为 "Outside"，`target_object_ids` 必须清空，`action_type` 设为 "outside"。
-   - 如果 `target_object_ids` 含有不在该房间的物品，必须替换为该房间内的合法物品；若无合适物品，改为 `target_object_ids = []` 并调整描述为非物品交互事件。
-3. **时间修正 (强制)**：确保子事件无重叠、无空洞，且严格覆盖父活动时段。
-4. **行为逻辑**：房间切换补充 Move 事件，保持时序合理。
-5. **保持风格**：尽量保持原有叙事风格与性格一致性。
-"""
 
 # ==========================================
 # 2. 数据结构定义 (Pydantic Models)
@@ -277,7 +157,12 @@ class EventState(TypedDict):
     validation_result: Optional[ValidationResult]
     revision_count: int
 
-llm = create_chat_llm(model="gpt-4o", temperature=0.7)
+# 极速 LLM，use_responses_api=False 以兼容 with_structured_output（与 settings/details2interaction 一致）
+llm = create_fast_llm(
+    model=DEFAULT_MODEL,
+    temperature=EVENT_TEMPERATURE,
+    use_responses_api=EVENT_USE_RESPONSES_API,
+)
 
 def _estimate_prompt_chars(template: str, variables: Dict[str, Any]) -> int:
     total = len(template or "")
@@ -322,7 +207,7 @@ def generate_events_node(state: EventState):
     
     # 2. 调用 LLM
     prompt = ChatPromptTemplate.from_template(EVENT_GENERATION_PROMPT_TEMPLATE)
-    structured_llm = llm.with_structured_output(EventSequence)
+    structured_llm = llm.with_structured_output(EventSequence, method="json_schema", strict=True)
     chain = prompt | structured_llm
     
     activity_str = json.dumps(state["current_activity"], ensure_ascii=False)
@@ -367,7 +252,7 @@ def generate_events_node(state: EventState):
 def validate_events_node(state: EventState):
     logger.info(" [Step 2] Validating Events...")
     prompt = ChatPromptTemplate.from_template(EVENT_VALIDATION_PROMPT_TEMPLATE)
-    structured_llm = llm.with_structured_output(ValidationResult)
+    structured_llm = llm.with_structured_output(ValidationResult, method="json_schema", strict=True)
     chain = prompt | structured_llm
     
     events_json = state["current_events"].model_dump_json()
@@ -405,7 +290,7 @@ def validate_events_node(state: EventState):
 def correct_events_node(state: EventState):
     logger.info(f"️ [Step 3] Correcting Events (Attempt {state['revision_count'] + 1})...")
     prompt = ChatPromptTemplate.from_template(EVENT_CORRECTION_PROMPT_TEMPLATE)
-    structured_llm = llm.with_structured_output(EventSequence)
+    structured_llm = llm.with_structured_output(EventSequence, method="json_schema", strict=True)
     chain = prompt | structured_llm
     
     events_json = state["current_events"].model_dump_json()
@@ -445,7 +330,7 @@ def correct_events_node(state: EventState):
 def router(state: EventState):
     if state["validation_result"].is_valid:
         return "end"
-    if state["revision_count"] >= 3:
+    if state["revision_count"] >= MAX_EVENT_REVISIONS:
         logger.error("⚠️ Max revisions reached. Skipping this activity.")
         return "end"
     return "correct"
@@ -465,12 +350,18 @@ app = workflow.compile()
 # 5. 主程序运行 (批量处理 Loop)
 # ==========================================
 
-def run_batch_processing(activities_list: Optional[List[Dict]] = None):
+def run_batch_processing(
+    activities_list: Optional[List[Dict]] = None,
+    cached_settings: Optional[Dict[str, Any]] = None,
+):
     project_root = Path(__file__).resolve().parent.parent
-    
-    # 1. 加载 Settings
-    settings = load_settings_data(project_root)
-    if not settings["house_details_map"]:
+
+    # 1. 加载 Settings（优先用缓存，避免 14 天循环内重复读盘）
+    if cached_settings is not None:
+        settings = cached_settings
+    else:
+        settings = load_settings_data(project_root)
+    if not settings.get("house_details_map"):
         logger.warning("⚠️ House Details is empty!")
     agent_state_json = "{}"
     sim_context_path = project_root / "data" / "simulation_context.json"
@@ -495,6 +386,8 @@ def run_batch_processing(activities_list: Optional[List[Dict]] = None):
             activities_list = activity_data.get("activities", [])
 
     print(f"\n Starting Batch Processing for {len(activities_list)} activities...\n")
+    if SKIP_EVENT_VALIDATION:
+        print("[FAST] SIM_SKIP_EVENT_VALIDATION=1: 跳过校验/修正，每活动仅 1 次生成，提速明显。\n")
 
     all_generated_events = []
     # 使用 buffer 保持上下文连贯，但避免 token 爆炸
@@ -515,6 +408,13 @@ def run_batch_processing(activities_list: Optional[List[Dict]] = None):
             "agent_state_json": agent_state_json,
             "revision_count": 0
         }
+
+        if SKIP_EVENT_VALIDATION:
+            gen_result = generate_events_node(state)
+            if gen_result.get("current_events"):
+                new_events = gen_result["current_events"].model_dump()["events"]
+                return index, activity, new_events, None
+            return index, activity, None, "no_events"
 
         final_state = app.invoke(state)
         if final_state.get("current_events"):

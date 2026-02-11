@@ -1,20 +1,27 @@
+import sys
+from pathlib import Path
+
+# 先加入 data_simulation 到 path，否则下面 import llm_utils / agent_config 会报错
+_current_dir = Path(__file__).resolve().parent
+_project_root = _current_dir.parent
+if str(_project_root) not in sys.path:
+    sys.path.insert(0, str(_project_root))
+
 import json
 import os
-import sys
 import random
-from pathlib import Path
 from dotenv import load_dotenv
 from typing import List, Dict, Optional
 
-from llm_utils import create_chat_llm
+from llm_utils import create_fast_llm
+from agent_config import DEFAULT_MODEL, SETTINGS_DEFAULT_TEMPERATURE
+from prompt import PROFILE_GENERATOR_PROMPT_TEMPLATE, ROLE_DICE_BRAINSTORM_PROMPT
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.output_parsers import JsonOutputParser
 from pydantic import BaseModel, Field
 
 # --- 环境配置 ---
 load_dotenv()
-current_dir = Path(__file__).resolve().parent
-dotenv_path = current_dir.parent / '.env'
+dotenv_path = _project_root / ".env"
 load_dotenv(dotenv_path=dotenv_path)
 
 # ==========================================
@@ -72,12 +79,20 @@ class WeeklyActivity(BaseModel):
     location: str = Field(description="地点")
     frequency: str = Field(description="频率描述")
 
+
+class WeeklyScheduleEntry(BaseModel):
+    """单日条目，用于满足 OpenAI strict schema（不接受 Dict 动态 key）"""
+    day: str = Field(description="星期几，英文小写，如 monday, tuesday")
+    activity: WeeklyActivity = Field(description="该日的典型活动")
+
+
 class Routines(BaseModel):
     sleep_schedule: SleepSchedule
     meal_habits: MealHabits
     exercise: Exercise
-    weekly_schedule: Dict[str, WeeklyActivity] = Field(
-        description="典型的一周日程安排，Key为星期几(英文小写，如 'tuesday')，挑选3-5个典型活动即可"
+    weekly_schedule: List[WeeklyScheduleEntry] = Field(
+        default_factory=list,
+        description="典型的一周日程安排，3-5个典型活动即可，每项含 day 与 activity",
     )
 
 class UserPreferences(BaseModel):
@@ -98,89 +113,96 @@ class UserProfile(BaseModel):
     random_event_config: RandomEventConfig = Field(description="随机事件数量分布参数配置")
 
 # ==========================================
-# 2. 生成器核心逻辑
+# 2. 角色骰子 (Role Dice)：头脑风暴 5 个反差角色，固定取第 4 个
 # ==========================================
 
-def generate_profile(seed_instruction: str = None):
+class RoleDiceOutput(BaseModel):
+    """角色骰子输出：5 个候选职业/身份，调用方取第 4 个 (role_4)。"""
+    role_1: str = Field(description="第1个候选角色，一句简短中文描述")
+    role_2: str = Field(description="第2个候选角色，一句简短中文描述")
+    role_3: str = Field(description="第3个候选角色，一句简短中文描述")
+    role_4: str = Field(description="第4个候选角色，一句简短中文描述")
+    role_5: str = Field(description="第5个候选角色，一句简短中文描述")
+
+
+def roll_role_dice(llm) -> str:
+    """
+    后台头脑风暴 5 个反差大的职业/身份，只返回第 4 个，用于增加随机性。
+    """
+    chain = llm.with_structured_output(RoleDiceOutput, method="json_schema", strict=True)
+    prompt = ChatPromptTemplate.from_template(ROLE_DICE_BRAINSTORM_PROMPT)
+    out = (prompt | chain).invoke({})
+    if isinstance(out, RoleDiceOutput):
+        return out.role_4
+    if isinstance(out, dict):
+        return out.get("role_4", "生活在中国的随机成年人，职业与性格不限")
+    return "生活在中国的随机成年人，职业与性格不限"
+
+
+# ==========================================
+# 3. 生成器核心逻辑
+# ==========================================
+
+def generate_profile(seed_instruction: str = None, use_role_dice: bool = True):
     """
     根据种子指令生成用户画像。
-    如果 seed_instruction 为空，则完全随机生成。
+    如果 seed_instruction 为空或为通用随机指令，会先执行「角色骰子」：头脑风暴 5 个反差角色，取第 4 个，再生成画像以增加随机性。
+    use_role_dice=False 可关闭角色骰子。
     """
-    
-    # 初始化模型
-    llm = create_chat_llm(model="gpt-4", temperature=0.8) # 稍微调高温度以增加多样性
-    parser = JsonOutputParser(pydantic_object=UserProfile)
+    # 极速 LLM + 原生结构化输出：必须 use_responses_api=False，否则与 with_structured_output 冲突 (text_format vs text.format)
+    llm = create_fast_llm(
+        model=DEFAULT_MODEL,
+        temperature=SETTINGS_DEFAULT_TEMPERATURE,
+        use_responses_api=False,
+    )
+    # strict=True：weekly_schedule 已改为 List[WeeklyScheduleEntry]，无动态 key，API 接受
+    structured_chain = llm.with_structured_output(
+        UserProfile, method="json_schema", strict=True
+    )
 
-    # 默认指令
+    # 默认指令 或 通用随机指令 时，先掷「角色骰子」再生成
+    _generic_random_instructions = (
+        "生成一个生活在中国的随机成年人，职业和性格不限。",
+        "生成一个随机的中国人",
+    )
     if not seed_instruction:
-        seed_instruction = "生成一个生活在中国的随机成年人，职业和性格不限。"
+        seed_instruction = _generic_random_instructions[0]
+    seed_stripped = seed_instruction.strip()
+    if use_role_dice and (seed_stripped in _generic_random_instructions or not seed_stripped):
+        role = roll_role_dice(llm)
+        seed_instruction = f"生成一个生活在中国的成年人，职业/身份为：{role}。其余性格、作息与生活细节请自由发挥，保持高保真仿真所需的具体度。"
+        print(f"[角色骰子] 已选定第 4 个角色: {role}")
 
-    template = """
-    你是一位兼具社会学洞察力与小说家想象力的**人物侧写专家**。请根据指令生成一个用于高保真家庭生活仿真的用户画像（User Profile）。
-
-    **输入指令:**
-    "{seed_instruction}"
-
-    **生成核心原则 (拒绝平庸)**:
-    1. **身份颗粒度**: 
-       - 拒绝模糊的标签（如“职员”）。
-       - **必须具体**: 例如“在家远程办公的金融分析师，经常需要视频会议”或“刚退休的植物学教授，痴迷于兰花”。
-       - **职业影响**: 职业必须体现在 `routines`（作息）和 `values`（价值观）中。
-
-    2. **性格的物理投射 (重要)**:
-       - **五大性格 (Big Five)**: 请给出精确数值。
-       - **特质 (Traits)**: 基于数值生成 3-5 个具体的、**能影响居住环境**的特质。
-         - *错误示例*: "善良" (对房子没影响)。
-         - *正确示例*: "极简主义" (家里东西少), "囤积症" (储物需求大), "听觉敏感" (需要隔音), "科技发烧友" (设备多)。
-
-    3. **生活方式与怪癖 (Routines & Preferences)**:
-       - **饮食**: 不要只写“随便”。要具体，如“生酮饮食（需要大量肉类储存）”或“手冲咖啡爱好者（需要特定台面）”。
-       - **爱好**: **必须**包含 1-2 个需要**特定物理空间或设备**的爱好。
-         - *例子*: 瑜伽（需瑜伽垫）、电竞（需双屏电脑）、烘焙（需烤箱）、撸猫（需猫爬架）。
-
-    4. **真实感校验**:
-       - 避免完美人格。可以适当加入一些缺点（如“不爱做家务”、“经常熬夜打游戏”），这会让仿真更有趣。
-
-    5. **随机事件参数 (Random Event Config)**:
-       - 需要提供 `random_event_config`，用于控制扰动态/危机态每日事件数量分布。
-       - 参数应基于人物画像与现实生活方式推断（如工作压力、健康状况、社交频率、作息稳定性）。
-       - 每个分布包含: mean, std, max；请给出合理、可解释的数值。
-       - 参考范围: mean 0.5-2.0, std 0.1-1.0, max 1-5（可在合理范围内微调）。
-
-    **语言要求**:
-    - 所有文本内容请使用**中文**。
-
-    **输出格式**:
-    {format_instructions}
-    
-    请严格按照 JSON 格式输出，不要包含任何 Markdown 格式标记（如 ```json）。
-    """
-
-    prompt = ChatPromptTemplate.from_template(template)
-    prompt = prompt.partial(format_instructions=parser.get_format_instructions())
-
-    chain = prompt | llm | parser
+    # 提示词见 prompt.PROFILE_GENERATOR_PROMPT_TEMPLATE
+    prompt = ChatPromptTemplate.from_template(PROFILE_GENERATOR_PROMPT_TEMPLATE)
+    chain = prompt | structured_chain
 
     print("[INFO] Generating profile...")
     try:
         profile = chain.invoke({"seed_instruction": seed_instruction})
+        if isinstance(profile, UserProfile):
+            out = profile.model_dump()
+            # 将 weekly_schedule 从 [{"day": "monday", "activity": {...}}] 转为 {"monday": {...}} 以兼容下游
+            routines = out.get("routines", {})
+            ws = routines.get("weekly_schedule", [])
+            if isinstance(ws, list):
+                routines["weekly_schedule"] = {e["day"]: e["activity"] for e in ws}
+            return out
         if isinstance(profile, dict):
             return UserProfile.model_validate(profile).model_dump()
-        if isinstance(profile, UserProfile):
-            return profile.model_dump()
         raise ValueError(f"Unexpected profile type: {type(profile).__name__}")
     except Exception as e:
         print(f"[ERROR] Profile generation failed: {e}")
         return None
 
 # ==========================================
-# 3. 主程序
+# 4. 主程序
 # ==========================================
 
 if __name__ == "__main__":
     # --- 你可以在这里修改生成要求 ---
     # 场景 A: 随机生成
-    prompt_text = "生成一个生活在上海的随机白领"
+    prompt_text = "生成一个随机的中国人"
     
     # 场景 B: 指定特定类型 (你可以修改这里来测试不同的人设)
     #prompt_text = "生成一个35岁的女性自由插画师，喜欢猫，有点社恐，经常熬夜，住在成都。"

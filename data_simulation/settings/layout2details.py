@@ -1,22 +1,27 @@
+import sys
+from pathlib import Path
+
+_current_dir = Path(__file__).resolve().parent
+_project_root = _current_dir.parent
+if str(_project_root) not in sys.path:
+    sys.path.insert(0, str(_project_root))
+
 import json
 import os
-import sys
 import threading
 from concurrent.futures import ThreadPoolExecutor
-from pathlib import Path
 from dotenv import load_dotenv
 from typing import List, Dict, Any, Union, Optional
 
-from llm_utils import create_chat_llm
+from llm_utils import create_fast_llm
+from agent_config import DEFAULT_MODEL, SETTINGS_DEFAULT_TEMPERATURE, SETTINGS_USE_RESPONSES_API, MAX_WORKERS_DEFAULT
+from prompt import LAYOUT2DETAILS_ROOM_PROMPT_TEMPLATE
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.output_parsers import JsonOutputParser
 from pydantic import BaseModel, Field
 
 # --- 环境配置 ---
 load_dotenv()
-# 确保能找到 .env
-current_dir = Path(__file__).resolve().parent
-dotenv_path = current_dir.parent / '.env'
+dotenv_path = _project_root / ".env"
 load_dotenv(dotenv_path=dotenv_path)
 
 # ==========================================
@@ -61,10 +66,12 @@ class RoomItemsDetail(BaseModel):
 
 _thread_local = threading.local()
 
-def get_max_workers(total: int, env_name: str = "MAX_WORKERS", default: int = 4) -> int:
+def get_max_workers(total: int, env_name: str = "MAX_WORKERS", default: int = None) -> int:
     """
-    鏍规嵁鏁版嵁閲忎笌鐜鍙橀噺鍐冲畾骞惰搴?
+    根据数据量与环境变量决定并行度；未设 MAX_WORKERS 时使用 agent_config.MAX_WORKERS_DEFAULT。
     """
+    if default is None:
+        default = MAX_WORKERS_DEFAULT
     if total <= 1:
         return 1
     env_value = os.getenv(env_name)
@@ -81,7 +88,11 @@ def get_max_workers(total: int, env_name: str = "MAX_WORKERS", default: int = 4)
 def get_thread_llm():
     llm = getattr(_thread_local, "llm", None)
     if llm is None:
-        llm = create_chat_llm(model="gpt-4", temperature=0.7)
+        llm = create_fast_llm(
+            model=DEFAULT_MODEL,
+            temperature=SETTINGS_DEFAULT_TEMPERATURE,
+            use_responses_api=SETTINGS_USE_RESPONSES_API,
+        )
         _thread_local.llm = llm
     return llm
 
@@ -110,9 +121,12 @@ def save_json_file(data, filename="house_details.json"):
 
 def process_single_room(llm, profile_str, room_id, room_data):
     """
-    处理单个房间：接收房间的 ID 列表，生成详细属性
+    处理单个房间：接收房间的 ID 列表，生成详细属性（极速 JSON 模式：with_structured_output）
     """
-    parser = JsonOutputParser(pydantic_object=RoomItemsDetail)
+    # strict=False：items 为 List[Union[FurnitureItem, DeviceItem]]，避免 Union/动态结构触犯 API 校验
+    structured_chain = llm.with_structured_output(
+        RoomItemsDetail, method="json_schema", strict=False
+    )
 
     # 提取上一步生成的 ID 列表
     furniture_ids = room_data.get("furniture", [])
@@ -122,39 +136,8 @@ def process_single_room(llm, profile_str, room_id, room_data):
     if not furniture_ids and not device_ids:
         return []
 
-    template = template = """
-    你是一位高保真的物联网与交互逻辑设计师。请为房间内的物品生成详细的属性定义。
-
-    **输入上下文**:
-    1. **用户画像**: {profile_context}
-    2. **当前房间**: {room_id} ({room_type})
-    3. **待处理物品**: 家具 {furniture_list}, 设备 {device_list}
-
-    **生成核心原则 (必须严格遵守)**:
-    1. **动作闭环 (Action Symmetry)**: 防止仿真逻辑死锁。
-       - 任何“进入/占用”类动作，必须配对“退出/释放”类动作。
-         - `sit` (坐) -> 必须有 `stand_up` (站起)。
-         - `lie_down` (躺) -> 必须有 `get_up` (起床)。
-         - `turn_on` (开) -> 必须有 `turn_off` (关)。
-         - `open` (开门/盖) -> 必须有 `close` (关门/盖)。
-    2. **移动能力 (Navigation)**:
-       - 如果房间内有地毯、地板或空地，请务必添加 `walk_to` 或 `move_to` 动作，作为移动的锚点。
-    3. **人设匹配的状态**:
-       - 查看用户的 `routines`。如果用户现在应该在睡觉，那么床的 `current_state` 应该是 `occupied: true`。
-       - 如果用户很懒（低尽责性），桌子上 (`items_on`) 应该堆满了杂物 (`trash`, `snacks`, `tissues`)。
-       - 如果用户是极简主义者，桌子应该是空的。
-
-    **输出要求**:
-    - 为列表中的**每一个** ID 生成配置。
-    - `support_actions`: 尽可能丰富。例如电视不仅能 `turn_on`，还能 `watch_movie`, `play_game` (如果有游戏机)。
-
-    {format_instructions}
-    """
-
-    prompt = ChatPromptTemplate.from_template(template)
-    prompt = prompt.partial(format_instructions=parser.get_format_instructions())
-
-    chain = prompt | llm | parser
+    prompt = ChatPromptTemplate.from_template(LAYOUT2DETAILS_ROOM_PROMPT_TEMPLATE)
+    chain = prompt | structured_chain
 
     print(f" -> 正在生成详情: {room_id} (包含 {len(furniture_ids)} 家具, {len(device_ids)} 设备)...")
 
@@ -166,19 +149,21 @@ def process_single_room(llm, profile_str, room_id, room_data):
             "furniture_list": json.dumps(furniture_ids),
             "device_list": json.dumps(device_ids)
         })
-        
-        # --- 修复代码开始 ---
-        # 兼容性检查：判断 result 到底是 List 还是 Dict
+        def _to_dict(x):
+            if hasattr(x, "model_dump"):
+                return x.model_dump()
+            return x if isinstance(x, dict) else {}
+
+        if isinstance(result, RoomItemsDetail):
+            items = result.items or []
+            return [_to_dict(it) for it in items]
         if isinstance(result, list):
-            # 如果 LLM 直接返回了列表，直接返回
-            return result
-        elif isinstance(result, dict):
-            # 如果是字典，尝试提取 items，如果 items 也是空的或者不存在，尝试返回整个字典的值（容错）
-            return result.get("items", [])
-        else:
-            print(f"  [警告] {room_id} 返回了无法识别的格式: {type(result)}")
-            return []
-        # --- 修复代码结束 ---
+            return [_to_dict(it) for it in result]
+        if isinstance(result, dict):
+            items = result.get("items", [])
+            return [_to_dict(it) for it in items]
+        print(f"  [警告] {room_id} 返回了无法识别的格式: {type(result)}")
+        return []
         
     except Exception as e:
         # 打印完整的错误栈以便调试（可选）

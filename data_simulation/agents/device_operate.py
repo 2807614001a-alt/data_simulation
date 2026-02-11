@@ -11,7 +11,14 @@ from dotenv import load_dotenv
 project_root = Path(__file__).resolve().parent.parent
 if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
-from settings.llm_utils import create_chat_llm
+from llm_utils import create_fast_llm
+from prompt import DEVICE_STATE_GEN_PROMPT
+from agent_config import (
+    DEFAULT_MODEL,
+    DEVICE_OPERATE_TEMPERATURE,
+    DEVICE_OPERATE_USE_RESPONSES_API,
+    MAX_WORKERS_DEFAULT,
+)
 
 from langchain_core.prompts import ChatPromptTemplate
 from pydantic import BaseModel, Field
@@ -46,29 +53,6 @@ class EventDeviceState(BaseModel):
 # 2. Core prompt
 # ==========================================
 
-DEVICE_STATE_GEN_PROMPT = """
-You are a smart-home behavior analyzer.
-Given a user event, infer what device state changes should happen at the start and end.
-
-## Inputs
-- **Event**: {description}
-- **Time**: {start_time} to {end_time}
-- **Devices**: {target_devices}
-- **Reference**: {device_details}
-
-## Requirements
-1. **Patch on Start**: device changes at event start (e.g., power on, set mode).
-2. **Patch on End**: device changes at event end (e.g., power off). If no change needed, return empty.
-3. **Timestamps**:
-   - Start Patch timestamp must equal {start_time}
-   - End Patch timestamp must equal {end_time}
-4. **Format**:
-   - Provide changes as a list of key/value items (patch_items).
-   - Example: {{"key": "power", "value": "on"}}
-
-## Example Output
-See requirements above; ensure output matches the EventDeviceState schema.
-"""
 
 # ==========================================
 # 3. Helpers
@@ -82,8 +66,10 @@ def _estimate_prompt_chars(template: str, variables: Dict[str, Any]) -> int:
         total += len(str(val))
     return total
 
-def get_max_workers(total: int, env_name: str = "MAX_WORKERS", default: int = 12) -> int:
+def get_max_workers(total: int, env_name: str = "MAX_WORKERS", default: int = None) -> int:
     """Decide parallelism based on workload and env settings."""
+    if default is None:
+        default = MAX_WORKERS_DEFAULT
     if total <= 1:
         return 1
     env_value = os.getenv(env_name)
@@ -100,8 +86,13 @@ def get_max_workers(total: int, env_name: str = "MAX_WORKERS", default: int = 12
 def get_thread_structured_llm():
     structured_llm = getattr(_thread_local, "structured_llm", None)
     if structured_llm is None:
-        llm = create_chat_llm(model="gpt-4o", temperature=0.3)
-        structured_llm = llm.with_structured_output(EventDeviceState)
+        # 极速 LLM，use_responses_api=False 以兼容 with_structured_output
+        llm = create_fast_llm(
+            model=DEFAULT_MODEL,
+            temperature=DEVICE_OPERATE_TEMPERATURE,
+            use_responses_api=DEVICE_OPERATE_USE_RESPONSES_API,
+        )
+        structured_llm = llm.with_structured_output(EventDeviceState, method="json_schema", strict=True)
         _thread_local.structured_llm = structured_llm
     return structured_llm
 
@@ -173,10 +164,13 @@ def convert_patch_to_dict(patch_obj: DevicePatch) -> Dict:
 # ==========================================
 # ==========================================
 
-def run_event_chain_generation():
+def run_event_chain_generation(cached_settings: Optional[Dict[str, Any]] = None):
     project_root = Path(__file__).resolve().parent.parent
-    
-    settings = load_settings_data(project_root)
+
+    if cached_settings is not None:
+        settings = cached_settings
+    else:
+        settings = load_settings_data(project_root)
     events_file = project_root / "data" / "final_events_full_day.json"
     
     if not events_file.exists():
@@ -271,12 +265,14 @@ def run_event_chain_generation():
 
     output_data = {"action_event_chain": final_chain}
     output_path = project_root / "data" / "action_event_chain.json"
-    
+
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(output_data, f, indent=2, ensure_ascii=False)
 
     logger.info(f"Generated {len(final_chain)} event chains.")
     logger.info(f"Result saved to: {output_path}")
+    return final_chain
+
 
 if __name__ == "__main__":
     run_event_chain_generation()

@@ -1,20 +1,25 @@
+import sys
+from pathlib import Path
+
+_current_dir = Path(__file__).resolve().parent
+_project_root = _current_dir.parent
+if str(_project_root) not in sys.path:
+    sys.path.insert(0, str(_project_root))
 
 import json
 import os
-import sys
-from pathlib import Path
 from dotenv import load_dotenv
 from typing import List, Dict, Any
 
-from llm_utils import create_chat_llm
+from llm_utils import create_fast_llm
+from agent_config import DEFAULT_MODEL, SETTINGS_DEFAULT_TEMPERATURE, SETTINGS_USE_RESPONSES_API
+from prompt import LAYOUT_CHECK_PROMPT_TEMPLATE
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.output_parsers import JsonOutputParser
 from pydantic import BaseModel, Field
 
 # --- 环境配置 ---
 load_dotenv()
-current_dir = Path(__file__).resolve().parent
-dotenv_path = current_dir.parent / '.env'
+dotenv_path = _project_root / ".env"
 load_dotenv(dotenv_path=dotenv_path)
 
 # ==========================================
@@ -34,9 +39,14 @@ class RoomInfo(BaseModel):
     devices: List[str]
     environment_state: EnvironmentState
 
-# 包装类，用于提示 Parser 输出结构，但最后我们会剥离 root key
+# 用列表避免 Dict 动态 key，与 profile2layout 一致
+class RoomEntry(BaseModel):
+    room_id: str = Field(description="房间英文ID")
+    room_info: RoomInfo = Field(description="该房间的详情")
+
+
 class HouseSnapshot(BaseModel):
-    rooms: Dict[str, RoomInfo]
+    rooms: List[RoomEntry] = Field(default_factory=list, description="房间列表，每项含 room_id 与 room_info")
 
 # ==========================================
 # 2. 辅助函数
@@ -70,81 +80,33 @@ def run_logic_fixer_agent():
     profile_str = json.dumps(profile, ensure_ascii=False)
     layout_str = json.dumps(layout, ensure_ascii=False)
 
-    # 2. 初始化 LLM (使用 GPT-4 保证逻辑推理能力)
-    llm = create_chat_llm(model="gpt-4", temperature=0.3) # 低温，由发散转为严谨
-    parser = JsonOutputParser(pydantic_object=HouseSnapshot)
+    # strict=True：rooms 为 List[RoomEntry]，无动态 key
+    llm = create_fast_llm(
+        model=DEFAULT_MODEL,
+        temperature=SETTINGS_DEFAULT_TEMPERATURE,
+        use_responses_api=SETTINGS_USE_RESPONSES_API,
+    )
+    structured_chain = llm.with_structured_output(
+        HouseSnapshot, method="json_schema", strict=True
+    )
 
-    # 3. 定义“找茬” Prompt
-    template = template = """
-    你是一位**具有极强常识推理能力的仿真逻辑审查官 (Simulation Logic Auditor)**。
-    你的核心任务是进行**逻辑闭环检查**：确保用户画像中的每一个特征、动作和需求，在物理空间中都有对应的物体作为支撑。
-
-    **输入上下文**:
-    1. **用户画像 (Profile)**: 
-    {profile_context}
-    
-    2. **当前生成的户型数据 (Draft Layout)**: 
-    {layout_context}
-
-    **审查思维链 (Chain of Thought) - 请遵循以下原则进行广义修正**:
-
-    1. **“无对象，不行为”原则 (职业与爱好检查)**:
-       - 遍历用户的 `occupation` (职业)、`routines` (日程) 和 `preferences` (爱好)。
-       - **核心逻辑**: 如果用户需要执行某个动作，房间里必须有对应的工具。
-       - *推理示例*: 
-         - 是“音乐家”？-> 必须有乐器（钢琴/吉他/小提琴）。
-         - 是“健身教练”？-> 必须有哑铃、深蹲架或跑步机。
-         - 爱“喝茶”？-> 必须有茶具套装。
-         - 爱“打游戏”？-> 必须有游戏主机或高配PC。
-       - **执行**: 发现缺失的工具，立即添加到最合适的房间（如书房、客厅或卧室）。
-
-    2. **生命体依存原则 (宠物与特殊住户)**:
-       - 检查 Profile 中提及的任何**非人类生命体**（猫、狗、鸟、爬宠等）。
-       - **核心逻辑**: 任何生命体都需要“吃、喝、拉、睡”的物理容器。
-       - **执行**: 
-         - 有猫 -> 补全猫砂盆、猫碗、猫抓板。
-         - 有狗 -> 补全狗窝、喂食器。
-         - 有鱼 -> 补全鱼缸。
-         - (如果没有提及宠物，忽略此项)。
-
-    3. **人类生存底线原则 (通用基础设施)**:
-       - 无论用户人设多么特殊（哪怕是极简主义者），现代人类生活必须包含以下设施，**缺一不可，强制补全**：
-         - **卫生/衣物**: `washing_machine_001` (洗衣机)、`laundry_rack_001` (晾衣架)。
-         - **废弃物处理**: `trash_can_001` (必须在厨房和主要活动区域出现)。
-         - **入口收纳**: `shoe_cabinet_001` (鞋柜)。
-
-    4. **性格-环境一致性微调**:
-       - 检查 `personality` 数值。
-       - 如果“尽责性”极高且有洁癖 -> 确保有 `vacuum_cleaner` (吸尘器) 或 `cleaning_tools`。
-       - 如果“神经质”极高 -> 确保卧室有 `blackout_curtain` (遮光窗帘) 或 `soundproofing_panel` (隔音板)。
-
-    **输出要求**:
-    - 输出修正后的**完整 JSON 对象**。
-    - **严格保持原有的 Schema 结构** (Key为房间ID，Value为房间详情)。
-    - **ID命名规范**: 使用具体的英文单词 + 编号 (如 `grand_piano_001`, `easel_001`)。
-    - 仅进行必要的**增量修正**，不要删除原有合理物品。
-
-    {format_instructions}
-    """
-
-    prompt = ChatPromptTemplate.from_template(template)
-    prompt = prompt.partial(format_instructions=parser.get_format_instructions())
-
-    chain = prompt | llm | parser
+    prompt = ChatPromptTemplate.from_template(LAYOUT_CHECK_PROMPT_TEMPLATE)
+    chain = prompt | structured_chain
 
     print(">>> 2. 正在进行逻辑审查与修正 (Logic Inspection)...")
     print("    正在检查：职业工具、宠物用品、生存设施...")
     
     try:
-        fixed_layout = chain.invoke({
+        fixed = chain.invoke({
             "profile_context": profile_str,
             "layout_context": layout_str
         })
-        
-        # 数据清洗：处理可能存在的根节点包裹
-        if "rooms" in fixed_layout and isinstance(fixed_layout["rooms"], dict):
-            return fixed_layout["rooms"]
-        return fixed_layout
+        rooms_val = fixed.rooms if hasattr(fixed, "rooms") else getattr(fixed, "rooms", layout)
+        if isinstance(rooms_val, dict):
+            return rooms_val
+        if isinstance(rooms_val, list):
+            return {e.room_id: e.room_info.model_dump() if hasattr(e.room_info, "model_dump") else e.room_info for e in rooms_val}
+        return layout
 
     except Exception as e:
         print(f"修正过程出错: {e}")

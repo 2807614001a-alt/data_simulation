@@ -1,21 +1,32 @@
+import sys
+from pathlib import Path
+
+_current_dir = Path(__file__).resolve().parent
+_project_root = _current_dir.parent
+if str(_project_root) not in sys.path:
+    sys.path.insert(0, str(_project_root))
+
 import json
 import os
-import sys
 import time
 import threading
 from concurrent.futures import ThreadPoolExecutor
-from pathlib import Path
 from typing import List, Dict, Any, Union, Optional
 
-from llm_utils import create_chat_llm
+from llm_utils import create_fast_llm
+from agent_config import (
+    DEFAULT_MODEL,
+    SETTINGS_DETAILS2INTERACTION_TEMPERATURE,
+    SETTINGS_DETAILS2INTERACTION_USE_RESPONSES_API,
+    MAX_WORKERS_DEFAULT,
+)
+from prompt import DETAILS2INTERACTION_ACTION_PROMPT_TEMPLATE
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.output_parsers import JsonOutputParser
 from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 
 load_dotenv()
-current_dir = Path(__file__).resolve().parent
-dotenv_path = current_dir.parent / '.env'
+dotenv_path = _project_root / ".env"
 load_dotenv(dotenv_path=dotenv_path)
 
 # ==========================================
@@ -52,10 +63,12 @@ class InteractionRule(BaseModel):
 
 _thread_local = threading.local()
 
-def get_max_workers(total: int, env_name: str = "MAX_WORKERS", default: int = 4) -> int:
+def get_max_workers(total: int, env_name: str = "MAX_WORKERS", default: int = None) -> int:
     """
-    鏍规嵁鏁版嵁閲忎笌鐜鍙橀噺鍐冲畾骞惰搴?
+    根据数据量与环境变量决定并行度；未设 MAX_WORKERS 时使用 agent_config.MAX_WORKERS_DEFAULT。
     """
+    if default is None:
+        default = MAX_WORKERS_DEFAULT
     if total <= 1:
         return 1
     env_value = os.getenv(env_name)
@@ -72,7 +85,12 @@ def get_max_workers(total: int, env_name: str = "MAX_WORKERS", default: int = 4)
 def get_thread_llm():
     llm = getattr(_thread_local, "llm", None)
     if llm is None:
-        llm = create_chat_llm(model="gpt-4", temperature=0.7)
+        # 极速配置（minimal reasoning + low verbosity），但关闭 use_responses_api 以兼容 with_structured_output，避免 text.format vs text_format 冲突
+        llm = create_fast_llm(
+            model=DEFAULT_MODEL,
+            temperature=SETTINGS_DETAILS2INTERACTION_TEMPERATURE,
+            use_responses_api=SETTINGS_DETAILS2INTERACTION_USE_RESPONSES_API,
+        )
         _thread_local.llm = llm
     return llm
 
@@ -116,37 +134,14 @@ def aggregate_actions(items_data: List[Dict]) -> Dict[str, List[str]]:
 
 def process_single_action_rule(llm, action_name: str, objects: List[str]):
     """
-    针对单个动作调用 LLM 生成规则
+    针对单个动作调用 LLM 生成规则（极速 JSON 模式：with_structured_output）
     """
-    # 这里我们只需要解析出一个 Rule 对象，而不是列表
-    parser = JsonOutputParser(pydantic_object=InteractionRule)
-    
-    template = """
-    你是一个仿真系统逻辑引擎。请为**单个动作**定义详细的交互规则。
-
-    **目标动作**: {action_name}
-    **适用物品**: {object_list}
-
-    **逻辑定义要求**:
-    1. **Preconditions (前置条件)**: 
-       - 用户必须在哪里？(例如 location: same_room)
-       - 物品必须处于什么状态？(例如 'open' 动作通常要求物品当前是 'closed')
-    2. **Effects (影响)**: 
-       - 对用户属性的影响 (energy_level, hygiene, hunger, stress等)。
-       - 对物品状态的影响 (state变成occupied/open/on等)。
-       - 尽量使用数值 delta (变化量) 而不是绝对值，除非是状态切换。
-    3. **Duration (耗时)**:
-       - 给出符合现实逻辑的最小和最大分钟数。
-
-    **输出格式**:
-    必须严格按照 JSON 格式输出单个对象。
-    {format_instructions}
-    """
-
-    prompt = ChatPromptTemplate.from_template(template)
-    prompt = prompt.partial(format_instructions=parser.get_format_instructions())
-    
-    chain = prompt | llm | parser
+    # strict=False：避免嵌套 List/Dict 触犯 API schema 校验
+    structured_chain = llm.with_structured_output(
+        InteractionRule, method="json_schema", strict=False
+    )
+    prompt = ChatPromptTemplate.from_template(DETAILS2INTERACTION_ACTION_PROMPT_TEMPLATE)
+    chain = prompt | structured_chain
 
     print(f"  -> 正在生成规则: [{action_name}] (涉及 {len(objects)} 个物品)...")
     
@@ -155,10 +150,10 @@ def process_single_action_rule(llm, action_name: str, objects: List[str]):
             "action_name": action_name,
             "object_list": json.dumps(objects, ensure_ascii=False)
         })
-        
-        # 容错处理：如果 LLM 返回了列表 [Rule]，取第一个；如果是字典 Rule，直接返回
+        if isinstance(result, InteractionRule):
+            return result.model_dump()
         if isinstance(result, list) and len(result) > 0:
-            return result[0]
+            return result[0] if not isinstance(result[0], InteractionRule) else result[0].model_dump()
         return result
         
     except Exception as e:
