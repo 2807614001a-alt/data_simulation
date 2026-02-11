@@ -1,0 +1,37 @@
+============================================================
+仿真数据合理性检查报告 (validate_simulation_data.py)
+============================================================
+
+一、当前 layout 合法房间（settings/house_layout.json）
+  living_room, study_room, master_bedroom, kitchen, bathroom, Outside
+
+二、发现的问题汇总（共 418 项）
+
+1) invalid_room（293 条）
+   - activity 的 main_rooms 或 events/chain 的 room_id 使用了 layout 中不存在的房间：
+     如 garden, fish_room, fish_room_001, entrance_hall, outdoor_area, dining_area 等。
+   - 原因：规划/事件生成时引用了“花园、鱼缸房、玄关、户外区、用餐区”等，但 house_layout 里未定义这些房间。
+   - 建议：
+     A) 若需要这些场景：在 house_layout.json 中补全 garden、fish_room、entrance_hall、dining_area 等及其 furniture/devices；
+     B) 若不需要：在 planning/event 的 prompt 中约束“仅使用 layout 中列出的房间”，并在生成后做 room_id 的 sanitize（未知房间改为 Outside 或映射到最近房间）。
+
+2) item_mismatch（65 条）
+   - 事件的 target_object_ids 中出现了“不属于该 room_id 所在房间”的物品（按 layout 的 furniture/devices 校验）。
+   - 例如：kitchen 中出现 water_bottle_001；living_room 中出现 smart_plug_001（实际在 study_room）；study_room 中出现 refrigerator_001 等。
+   - 原因：LLM 自由发挥或 details 与 layout 不一致，未严格按“房间-物品”归属生成。
+   - 建议：event 生成后保留/加强 _sanitize_events（按 layout 过滤 target_object_ids）；或在 prompt 中明确“target_object_ids 必须来自当前 room 的 furniture+devices 列表”。
+
+3) time（60 条）
+   - 部分 activity：end_time <= start_time（如 act_008 等）。
+   - 部分 event：end_time <= start_time，或事件 start_time 早于上一事件的 end_time（时间倒挂/重叠）。
+   - 原因：规划或事件分解时时间未严格校验/对齐。
+   - 建议：planning 校验时强制 start_time < end_time；event 校验时强制子事件时间连续、无重叠、覆盖父活动时段，且 end_time > start_time。
+
+三、结论与建议
+
+- 数据“可跑”，但存在明显不合理：房间与 layout 不一致、物品归属错误、时间倒挂或重叠。建议：
+  1) 统一“房间集合”：以 house_layout 为准，要么补全 layout，要么在生成与校验中只允许 layout 中的 room_id。
+  2) 事件层：保留并强化按 layout 的 target_object_ids 过滤（已有 _sanitize_events 可加强）。
+  3) 时间：在 planning 与 event 的 validation 中增加/强化“start < end”与“事件时间连续、无重叠”的校验与修正。
+
+重新跑完验证：python data/validate_simulation_data.py

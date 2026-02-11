@@ -1,0 +1,111 @@
+{
+  "user_id": "user_062海园",
+  "name": "林海晖",
+  "age": 62,
+  "gender": "male",
+  "occupation": "退休潜水员转型家庭园丁",
+  "personality": {
+    "big_five": {
+      "openness": 0.75,
+      "conscientiousness": 0.68,
+      "extraversion": 0.4,
+      "agreeableness": 0.72,
+      "neuroticism": 0.28
+    },
+    "traits": [
+      "自然主义者",
+      "极简主义",
+      "爱好者级养鱼与花卉收藏",
+      "低科技依赖但务实的工具控",
+      "喜欢低调的社交，享受独处的海边清晨"
+    ]
+  },
+  "values": {
+    "work_life_balance": 0.9,
+    "health_consciousness": 0.85,
+    "social_interaction": 0.42,
+    "personal_growth": 0.68,
+    "financial_security": 0.72
+  },
+  "routines": {
+    "sleep_schedule": {
+      "weekday_bedtime": "22:30",
+      "weekday_wakeup": "06:30",
+      "weekend_bedtime": "23:00",
+      "weekend_wakeup": "07:30"
+    },
+    "meal_habits": {
+      "breakfast_time": "07:00",
+      "lunch_time": "12:30",
+      "dinner_time": "19:30",
+      "cooking_frequency": 0.9,
+      "diet_preference": [
+        "地中海风味",
+        "低糖高蛋白"
+      ]
+    },
+    "exercise": {
+      "frequency": "3-4次/周",
+      "preferred_time": "清晨7:00-7:30",
+      "type": [
+        "散步",
+        "轻量抗阻训练"
+      ]
+    },
+    "weekly_schedule": {
+      "monday": {
+        "activity": "海边养鱼与水族缸维护",
+        "time": "07:00-09:00",
+        "location": "海边小屋前院与鱼缸房",
+        "frequency": "每日"
+      },
+      "tuesday": {
+        "activity": "玫瑰花园护理、修剪",
+        "time": "09:30-11:30",
+        "location": "花园",
+        "frequency": "每日"
+      },
+      "wednesday": {
+        "activity": "鱼缸水质与设备检查",
+        "time": "15:00-16:00",
+        "location": "鱼缸房",
+        "frequency": "每日"
+      },
+      "thursday": {
+        "activity": "海边传记式散步+记录日记",
+        "time": "17:30-18:30",
+        "location": "海滩",
+        "frequency": "每日"
+      },
+      "friday": {
+        "activity": "家庭修缮与木工",
+        "time": "09:00-11:00",
+        "location": "小屋内外",
+        "frequency": "周两次"
+      }
+    }
+  },
+  "preferences": {
+    "entertainment": [
+      "海洋纪录片",
+      "手作木工节目"
+    ],
+    "music_genre": [
+      "轻音乐",
+      "海风声样本混音"
+    ],
+    "home_temperature": 22
+  },
+  "random_event_config": {
+    "perturbed": {
+      "mean": 0.9,
+      "std": 0.3,
+      "max": 3
+    },
+    "crisis": {
+      "mean": 1.0,
+      "std": 0.4,
+      "max": 4
+    }
+  }
+}
