@@ -1,0 +1,2615 @@
+{
+  "action_event_chain": [
+    {
+      "event_id": "act_001",
+      "room_id": "Outside",
+      "start_time": "2026-02-14T07:30:00",
+      "end_time": "2026-02-14T07:32:00",
+      "description": "从主卧出发，前往书房区域就座，进入日程准备区以开启书房日程（Outside阶段表述为移动，非交互）",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_001",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T07:32:00",
+      "end_time": "2026-02-14T07:32:45",
+      "description": "向书房移动至书房区域，完成房间切换",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 20.88,
+        "humidity": 0.36,
+        "hygiene": 0.64,
+        "air_freshness": 0.64,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_001",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T07:32:45",
+      "end_time": "2026-02-14T07:34:00",
+      "description": "在书房书桌前就座，人体工学椅与显示设备就位，准备进行简短日程确认与目标设定，确保安静环境以降低对听觉刺激",
+      "use_devices": true,
+      "devices": [
+        "desk_001",
+        "ergonomic_chair_001",
+        "dual_monitor_001",
+        "smart_speaker_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T07:32:45",
+            "device_id": "ergonomic_chair_001",
+            "patch": {
+              "sit": "down"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T07:32:45",
+            "device_id": "desk_001",
+            "patch": {
+              "sit": "on"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T07:32:45",
+            "device_id": "dual_monitor_001",
+            "patch": {
+              "turn_on": "on"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T07:32:45",
+            "device_id": "smart_speaker_001",
+            "patch": {
+              "play_music": "calm"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 20.88,
+        "humidity": 0.36,
+        "hygiene": 0.64,
+        "air_freshness": 0.64,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_001",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T07:34:00",
+      "end_time": "2026-02-14T07:34:30",
+      "description": "短暂休息并进行颈肩放松，环境保持安静以降低听觉刺激，准备进入日程确认",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 20.88,
+        "humidity": 0.36,
+        "hygiene": 0.64,
+        "air_freshness": 0.64,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_001",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T07:34:30",
+      "end_time": "2026-02-14T07:55:00",
+      "description": "书房光线稳定后，进行日程确认，书房智能音箱提供语音汇报与时间提示",
+      "use_devices": true,
+      "devices": [
+        "smart_speaker_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T07:34:30",
+            "device_id": "smart_speaker_001",
+            "patch": {
+              "tell_time": "report"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 20.88,
+        "humidity": 0.36,
+        "hygiene": 0.64,
+        "air_freshness": 0.64,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_002",
+      "room_id": "kitchen",
+      "start_time": "2026-02-14T07:55:30",
+      "end_time": "2026-02-14T07:56:00",
+      "description": "从起始区移动到厨房，进入早餐准备阶段",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 30.0,
+        "humidity": 0.85,
+        "hygiene": 0.65,
+        "air_freshness": 0.0,
+        "light_level": 0.75
+      }
+    },
+    {
+      "event_id": "act_002",
+      "room_id": "kitchen",
+      "start_time": "2026-02-14T07:56:00",
+      "end_time": "2026-02-14T08:00:00",
+      "description": "在厨房内打开冰箱取出高蛋白食材，打开橱柜拿出餐具，准备放入锅中并与灶台搭配烹煮",
+      "use_devices": true,
+      "devices": [
+        "refrigerator_001",
+        "kitchen_counter_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T07:56:00",
+            "device_id": "refrigerator_001",
+            "patch": {
+              "turn_on": "on"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T07:56:00",
+            "device_id": "kitchen_counter_001",
+            "patch": {
+              "clear": "clear"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 30.0,
+        "humidity": 0.85,
+        "hygiene": 0.65,
+        "air_freshness": 0.0,
+        "light_level": 0.75
+      }
+    },
+    {
+      "event_id": "act_002",
+      "room_id": "kitchen",
+      "start_time": "2026-02-14T08:00:00",
+      "end_time": "2026-02-14T08:04:00",
+      "description": "在厨房灶台上使用 induction_hob_001 将食材加热并开始煮制，期间控制火力与时间以确保口感",
+      "use_devices": true,
+      "devices": [
+        "induction_hob_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T08:00:00",
+            "device_id": "induction_hob_001",
+            "patch": {
+              "turn_on": "on",
+              "set_temp": "medium"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 30.0,
+        "humidity": 0.85,
+        "hygiene": 0.65,
+        "air_freshness": 0.0,
+        "light_level": 0.75
+      }
+    },
+    {
+      "event_id": "act_002",
+      "room_id": "kitchen",
+      "start_time": "2026-02-14T08:04:00",
+      "end_time": "2026-02-14T08:08:00",
+      "description": "将食材继续烹煮并进行简单摆盘，准备将早餐带到客厅前室用餐",
+      "use_devices": true,
+      "devices": [
+        "kitchen_counter_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T08:04:00",
+            "device_id": "kitchen_counter_001",
+            "patch": {
+              "place": "plate"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 30.0,
+        "humidity": 0.85,
+        "hygiene": 0.65,
+        "air_freshness": 0.0,
+        "light_level": 0.75
+      }
+    },
+    {
+      "event_id": "act_002",
+      "room_id": "living_room",
+      "start_time": "2026-02-14T08:08:00",
+      "end_time": "2026-02-14T08:10:00",
+      "description": "从厨房移动至客厅前室，准备在客厅内用餐并放松",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 21.31,
+        "humidity": 0.42,
+        "hygiene": 0.65,
+        "air_freshness": 1.0,
+        "light_level": 0.65
+      }
+    },
+    {
+      "event_id": "act_002",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-14T08:10:00",
+      "end_time": "2026-02-14T08:12:00",
+      "description": "从客厅前室移动至主卧室，进行餐后放松与简短休息",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 21.28,
+        "humidity": 0.47,
+        "hygiene": 0.65,
+        "air_freshness": 1.0,
+        "light_level": 0.25
+      }
+    },
+    {
+      "event_id": "act_002",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-14T08:12:00",
+      "end_time": "2026-02-14T08:15:00",
+      "description": "在主卧室内短时放松、清点能量与情绪，等待进入修复工作前的轻松调整",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 21.28,
+        "humidity": 0.47,
+        "hygiene": 0.65,
+        "air_freshness": 1.0,
+        "light_level": 0.25
+      }
+    },
+    {
+      "event_id": "act_003",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T08:15:00",
+      "end_time": "2026-02-14T08:15:50",
+      "description": "从书房入口移动至书房内的工作区，准备使用 desk_001、dual_monitor_001、whiteboard_001 进行工具材料初步核对与清单整理",
+      "use_devices": true,
+      "devices": [
+        "desk_001",
+        "dual_monitor_001",
+        "whiteboard_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T08:15:00",
+            "device_id": "desk_001",
+            "patch": {}
+          },
+          {
+            "timestamp": "2026-02-14T08:15:00",
+            "device_id": "dual_monitor_001",
+            "patch": {}
+          },
+          {
+            "timestamp": "2026-02-14T08:15:00",
+            "device_id": "whiteboard_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-14T08:15:50",
+            "device_id": "desk_001",
+            "patch": {}
+          }
+        ]
+      },
+      "room_environment": {
+        "temperature": 20.91,
+        "humidity": 0.36,
+        "hygiene": 0.65,
+        "air_freshness": 0.65,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_003",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T08:15:50",
+      "end_time": "2026-02-14T08:24:00",
+      "description": "在书房使用 desk_001 进行材料核对，完成基本清单梳理并清理桌面，随后对 whiteboard_001 进行要点梳理",
+      "use_devices": true,
+      "devices": [
+        "desk_001",
+        "whiteboard_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T08:15:50",
+            "device_id": "desk_001",
+            "patch": {
+              "turn_on": "on"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T08:15:50",
+            "device_id": "whiteboard_001",
+            "patch": {
+              "erase": "none"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 20.91,
+        "humidity": 0.36,
+        "hygiene": 0.65,
+        "air_freshness": 0.65,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_003",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T08:24:00",
+      "end_time": "2026-02-14T08:32:00",
+      "description": "在 dual_monitor_001 上开启显示器，调整输入信号，开启辅助文档查看以整理清单",
+      "use_devices": true,
+      "devices": [
+        "dual_monitor_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T08:24:00",
+            "device_id": "dual_monitor_001",
+            "patch": {
+              "turn_on": "on"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 20.91,
+        "humidity": 0.36,
+        "hygiene": 0.65,
+        "air_freshness": 0.65,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_003",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T08:32:00",
+      "end_time": "2026-02-14T08:36:00",
+      "description": "进行短暂放松休息（3–5分钟）以缓解疲劳，维持专注度",
+      "use_devices": true,
+      "devices": [
+        "smart_speaker_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T08:32:00",
+            "device_id": "smart_speaker_001",
+            "patch": {
+              "set_timer": "PT3M"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 20.91,
+        "humidity": 0.36,
+        "hygiene": 0.65,
+        "air_freshness": 0.65,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_003",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T08:36:00",
+      "end_time": "2026-02-14T08:40:00",
+      "description": "通过 smart_speaker_001 播放安静音乐/白噪音帮助集中，及通过 window_sr_001 调整窗户以改善通风若感到闷热",
+      "use_devices": true,
+      "devices": [
+        "smart_speaker_001",
+        "window_sr_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T08:36:00",
+            "device_id": "smart_speaker_001",
+            "patch": {
+              "play_music": "soft_instrumental"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T08:36:00",
+            "device_id": "window_sr_001",
+            "patch": {
+              "open": "on"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 20.91,
+        "humidity": 0.36,
+        "hygiene": 0.65,
+        "air_freshness": 0.65,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_003",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T08:40:00",
+      "end_time": "2026-02-14T08:41:00",
+      "description": "短暂从工作区移动至书桌旁边的操作准备区，确保落座姿势舒适",
+      "use_devices": true,
+      "devices": [
+        "desk_001",
+        "ergonomic_chair_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T08:40:00",
+            "device_id": "desk_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-14T08:41:00",
+            "device_id": "ergonomic_chair_001",
+            "patch": {}
+          }
+        ]
+      },
+      "room_environment": {
+        "temperature": 20.91,
+        "humidity": 0.36,
+        "hygiene": 0.65,
+        "air_freshness": 0.65,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_003",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T08:41:00",
+      "end_time": "2026-02-14T08:45:00",
+      "description": "坐下并就位于 ergonomic_chair_001，调整姿势以进入正式核对清单阶段",
+      "use_devices": true,
+      "devices": [
+        "ergonomic_chair_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T08:41:00",
+            "device_id": "ergonomic_chair_001",
+            "patch": {
+              "adjust_position": "default"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 20.91,
+        "humidity": 0.36,
+        "hygiene": 0.65,
+        "air_freshness": 0.65,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_004",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T08:46:00",
+      "end_time": "2026-02-14T08:52:00",
+      "description": "从书房外部工作区移动至书房修复工作区，进入初步纹理评估与抛光准备的站位",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.0,
+        "humidity": 0.15,
+        "hygiene": 0.2,
+        "air_freshness": 0.31,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_004",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T08:52:00",
+      "end_time": "2026-02-14T08:53:30",
+      "description": "在书房修复工作区进行静态观察，确认桌面工具与修复材料就位，准备进入正式核对清单阶段",
+      "use_devices": true,
+      "devices": [
+        "desk_001",
+        "ergonomic_chair_001",
+        "bookshelf_002",
+        "filing_cabinet_001",
+        "whiteboard_001",
+        "dual_monitor_001",
+        "keyboard_001",
+        "mouse_001",
+        "webcam_001",
+        "smart_speaker_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T08:52:00",
+            "device_id": "desk_001",
+            "patch": {
+              "power": "on"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-14T08:53:30",
+            "device_id": "desk_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      },
+      "room_environment": {
+        "temperature": 18.0,
+        "humidity": 0.15,
+        "hygiene": 0.2,
+        "air_freshness": 0.31,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_004",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T08:53:30",
+      "end_time": "2026-02-14T09:10:00",
+      "description": "在书房工作区域开始纹理评估，使用工具对盒子表面进行初步抛光准备，关注纹理与漆面的细节",
+      "use_devices": true,
+      "devices": [
+        "desk_001",
+        "dual_monitor_001",
+        "keyboard_001",
+        "mouse_001",
+        "webcam_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T08:53:30",
+            "device_id": "dual_monitor_001",
+            "patch": {
+              "turn_on": "on"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T08:53:30",
+            "device_id": "keyboard_001",
+            "patch": {
+              "turn_on": "on"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T08:53:30",
+            "device_id": "mouse_001",
+            "patch": {
+              "turn_on": "on"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T08:53:30",
+            "device_id": "webcam_001",
+            "patch": {
+              "turn_on": "on"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.0,
+        "humidity": 0.15,
+        "hygiene": 0.2,
+        "air_freshness": 0.31,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_004",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T09:10:00",
+      "end_time": "2026-02-14T09:25:00",
+      "description": "调整桌面工作站光线与显示设置，准备进入文本/图像核对阶段",
+      "use_devices": true,
+      "devices": [
+        "dual_monitor_001",
+        "webcam_001",
+        "mouse_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T09:10:00",
+            "device_id": "dual_monitor_001",
+            "patch": {
+              "adjust_brightness": "high"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T09:10:00",
+            "device_id": "webcam_001",
+            "patch": {
+              "start_recording": "false"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T09:10:00",
+            "device_id": "mouse_001",
+            "patch": {
+              "navigate": "idle"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.03,
+        "humidity": 0.15,
+        "hygiene": 0.21,
+        "air_freshness": 0.31,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_004",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T09:25:00",
+      "end_time": "2026-02-14T09:40:00",
+      "description": "使用白板/书桌材料对盒子纹理进行抛光评估，记录初步结果与需要后续处理的区域",
+      "use_devices": true,
+      "devices": [
+        "whiteboard_001",
+        "desk_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T09:25:00",
+            "device_id": "whiteboard_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-14T09:40:00",
+            "device_id": "whiteboard_001",
+            "patch": {}
+          }
+        ]
+      },
+      "room_environment": {
+        "temperature": 18.08,
+        "humidity": 0.15,
+        "hygiene": 0.22,
+        "air_freshness": 0.31,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_004",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T09:40:00",
+      "end_time": "2026-02-14T09:50:00",
+      "description": "在书房内移动至窗帘与窗户区域，准备评估环境与光线对工作影响",
+      "use_devices": true,
+      "devices": [
+        "curtain_sr_001",
+        "window_sr_001",
+        "window_sr_002",
+        "window_sr_003"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T09:40:00",
+            "device_id": "curtain_sr_001",
+            "patch": {
+              "power": "on"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T09:40:00",
+            "device_id": "window_sr_001",
+            "patch": {
+              "power": "on"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T09:40:00",
+            "device_id": "window_sr_002",
+            "patch": {
+              "power": "on"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T09:40:00",
+            "device_id": "window_sr_003",
+            "patch": {
+              "power": "on"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-14T09:50:00",
+            "device_id": "curtain_sr_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      },
+      "room_environment": {
+        "temperature": 18.14,
+        "humidity": 0.15,
+        "hygiene": 0.23,
+        "air_freshness": 0.31,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_004",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T09:50:00",
+      "end_time": "2026-02-14T09:55:00",
+      "description": "短暂休整，等待后续抛光材料成熟与环境稳定",
+      "use_devices": true,
+      "devices": [
+        "curtain_sr_001",
+        "window_sr_001",
+        "window_sr_002",
+        "window_sr_003"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T09:50:00",
+            "device_id": "curtain_sr_001",
+            "patch": {
+              "state": "open"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T09:50:00",
+            "device_id": "window_sr_001",
+            "patch": {
+              "state": "open"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T09:50:00",
+            "device_id": "window_sr_002",
+            "patch": {
+              "state": "open"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T09:50:00",
+            "device_id": "window_sr_003",
+            "patch": {
+              "state": "open"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-14T09:55:00",
+            "device_id": "curtain_sr_001",
+            "patch": {
+              "state": "open"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T09:55:00",
+            "device_id": "window_sr_001",
+            "patch": {
+              "state": "open"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T09:55:00",
+            "device_id": "window_sr_002",
+            "patch": {
+              "state": "open"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T09:55:00",
+            "device_id": "window_sr_003",
+            "patch": {
+              "state": "open"
+            }
+          }
+        ]
+      },
+      "room_environment": {
+        "temperature": 18.18,
+        "humidity": 0.15,
+        "hygiene": 0.23,
+        "air_freshness": 0.31,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_004",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T09:55:00",
+      "end_time": "2026-02-14T10:00:00",
+      "description": "继续抛光与纹理比对，准备进入最后阶段的清理与收尾",
+      "use_devices": true,
+      "devices": [
+        "desk_001",
+        "whiteboard_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T09:55:00",
+            "device_id": "desk_001",
+            "patch": {}
+          },
+          {
+            "timestamp": "2026-02-14T09:55:00",
+            "device_id": "whiteboard_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-14T10:00:00",
+            "device_id": "desk_001",
+            "patch": {
+              "power": "off"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T10:00:00",
+            "device_id": "whiteboard_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      },
+      "room_environment": {
+        "temperature": 18.2,
+        "humidity": 0.15,
+        "hygiene": 0.23,
+        "air_freshness": 0.31,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_005",
+      "room_id": "living_room",
+      "start_time": "2026-02-14T10:00:00",
+      "end_time": "2026-02-14T10:00:30",
+      "description": "李铭老人从书房出发，沿走廊向客厅边界移动，准备进入沙发区进行短时休息与进食准备",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 21.4,
+        "humidity": 0.41,
+        "hygiene": 0.64,
+        "air_freshness": 1.0,
+        "light_level": 0.65
+      }
+    },
+    {
+      "event_id": "act_005",
+      "room_id": "living_room",
+      "start_time": "2026-02-14T10:00:30",
+      "end_time": "2026-02-14T10:01:30",
+      "description": "到达客厅边界后，进入沙发区并坐定，调整姿态以便开始轻餐及休息，同时让空气环境逐步变得舒适",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 21.4,
+        "humidity": 0.41,
+        "hygiene": 0.64,
+        "air_freshness": 1.0,
+        "light_level": 0.65
+      }
+    },
+    {
+      "event_id": "act_005",
+      "room_id": "living_room",
+      "start_time": "2026-02-14T10:01:30",
+      "end_time": "2026-02-14T10:02:30",
+      "description": "在沙发区进行休息前的安静等待，环境监控数据稳定并等待接下来的用餐动作",
+      "use_devices": true,
+      "devices": [
+        "sofa_001",
+        "coffee_table_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T10:01:30",
+            "device_id": "sofa_001",
+            "patch": {}
+          },
+          {
+            "timestamp": "2026-02-14T10:01:30",
+            "device_id": "coffee_table_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-14T10:02:30",
+            "device_id": "sofa_001",
+            "patch": {}
+          },
+          {
+            "timestamp": "2026-02-14T10:02:30",
+            "device_id": "coffee_table_001",
+            "patch": {}
+          }
+        ]
+      },
+      "room_environment": {
+        "temperature": 21.4,
+        "humidity": 0.41,
+        "hygiene": 0.64,
+        "air_freshness": 1.0,
+        "light_level": 0.65
+      }
+    },
+    {
+      "event_id": "act_005",
+      "room_id": "living_room",
+      "start_time": "2026-02-14T10:02:30",
+      "end_time": "2026-02-14T10:04:30",
+      "description": "在客厅沙发区轻餐，开启空气净化器并调整照明，保持温度在22°C以提升舒适度",
+      "use_devices": true,
+      "devices": [
+        "air_purifier_001",
+        "lighting_panel_001",
+        "cooling_fan_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T10:02:30",
+            "device_id": "air_purifier_001",
+            "patch": {
+              "power": "on",
+              "set_fan": "auto"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T10:02:30",
+            "device_id": "lighting_panel_001",
+            "patch": {
+              "turn_on": "on",
+              "dim": "0"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T10:02:30",
+            "device_id": "cooling_fan_001",
+            "patch": {
+              "power": "on",
+              "mode": "auto"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 21.4,
+        "humidity": 0.41,
+        "hygiene": 0.64,
+        "air_freshness": 1.0,
+        "light_level": 0.65
+      }
+    },
+    {
+      "event_id": "act_005",
+      "room_id": "kitchen",
+      "start_time": "2026-02-14T10:04:30",
+      "end_time": "2026-02-14T10:06:00",
+      "description": "离开沙发区并前往厨房边界，准备进入厨房进行简便点心的取用与温控设置",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 30.0,
+        "humidity": 0.85,
+        "hygiene": 0.64,
+        "air_freshness": 0.0,
+        "light_level": 0.75
+      }
+    },
+    {
+      "event_id": "act_005",
+      "room_id": "kitchen",
+      "start_time": "2026-02-14T10:06:00",
+      "end_time": "2026-02-14T10:07:00",
+      "description": "从厨房边界进入厨房工作区，取用简便点心并短时调整 Induction Hob 的工作状态以 warming 温度",
+      "use_devices": true,
+      "devices": [
+        "induction_hob_001",
+        "kitchen_counter_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T10:06:00",
+            "device_id": "induction_hob_001",
+            "patch": {
+              "power": "on",
+              "set_temp": "low"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 30.0,
+        "humidity": 0.85,
+        "hygiene": 0.64,
+        "air_freshness": 0.0,
+        "light_level": 0.75
+      }
+    },
+    {
+      "event_id": "act_005",
+      "room_id": "kitchen",
+      "start_time": "2026-02-14T10:07:00",
+      "end_time": "2026-02-14T10:07:30",
+      "description": "在厨房完成点心取用后，关闭诱导灶并确认附近环境温度维持在22°C，确保设备在离开后关闭",
+      "use_devices": true,
+      "devices": [
+        "induction_hob_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T10:07:00",
+            "device_id": "induction_hob_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-14T10:07:30",
+            "device_id": "induction_hob_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      },
+      "room_environment": {
+        "temperature": 30.0,
+        "humidity": 0.85,
+        "hygiene": 0.64,
+        "air_freshness": 0.0,
+        "light_level": 0.75
+      }
+    },
+    {
+      "event_id": "act_005",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T10:07:30",
+      "end_time": "2026-02-14T10:09:00",
+      "description": "从厨房返回书房区域边界，整理桌面与准备结束本阶段休息",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 21.26,
+        "humidity": 0.37,
+        "hygiene": 0.64,
+        "air_freshness": 0.65,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_005",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T10:09:00",
+      "end_time": "2026-02-14T10:10:30",
+      "description": "回到书房边界区域，观察环境温湿度并等待下一阶段安排",
+      "use_devices": true,
+      "devices": [
+        "desk_001",
+        "whiteboard_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T10:09:00",
+            "device_id": "desk_001",
+            "patch": {}
+          },
+          {
+            "timestamp": "2026-02-14T10:09:00",
+            "device_id": "whiteboard_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-14T10:10:30",
+            "device_id": "desk_001",
+            "patch": {}
+          }
+        ]
+      },
+      "room_environment": {
+        "temperature": 21.26,
+        "humidity": 0.37,
+        "hygiene": 0.64,
+        "air_freshness": 0.65,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_005",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T10:10:30",
+      "end_time": "2026-02-14T10:12:00",
+      "description": "在书房整理桌面与白板，清点点心装盘，结束本轮短休，继续进入下阶段工作或休息",
+      "use_devices": true,
+      "devices": [
+        "desk_001",
+        "whiteboard_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T10:10:30",
+            "device_id": "desk_001",
+            "patch": {}
+          },
+          {
+            "timestamp": "2026-02-14T10:10:30",
+            "device_id": "whiteboard_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-14T10:12:00",
+            "device_id": "desk_001",
+            "patch": {}
+          }
+        ]
+      },
+      "room_environment": {
+        "temperature": 21.26,
+        "humidity": 0.37,
+        "hygiene": 0.64,
+        "air_freshness": 0.65,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_006",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T10:25:00",
+      "end_time": "2026-02-14T10:25:40",
+      "description": "从书房入口进入书房工作区，进入桌前就座，准备进行半日文献评估与修复研讨的工作区切换与就位。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.4,
+        "humidity": 0.15,
+        "hygiene": 0.2,
+        "air_freshness": 0.33,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_006",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T10:25:40",
+      "end_time": "2026-02-14T10:28:00",
+      "description": "在书房内开启显示设备以查看文献资料与线索，并打开键盘与鼠标准备输入。",
+      "use_devices": true,
+      "devices": [
+        "dual_monitor_001",
+        "keyboard_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T10:25:40",
+            "device_id": "dual_monitor_001",
+            "patch": {
+              "power": "on",
+              "mode": "default",
+              "brightness": "increase"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T10:25:40",
+            "device_id": "keyboard_001",
+            "patch": {
+              "power": "on",
+              "brightness": "default"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.4,
+        "humidity": 0.15,
+        "hygiene": 0.2,
+        "air_freshness": 0.33,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_006",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T10:28:00",
+      "end_time": "2026-02-14T10:38:00",
+      "description": "使用白板记录要点，整理两页修复要点草案与文献线索。",
+      "use_devices": true,
+      "devices": [
+        "whiteboard_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T10:28:00",
+            "device_id": "whiteboard_001",
+            "patch": {
+              "write": "start"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.41,
+        "humidity": 0.15,
+        "hygiene": 0.2,
+        "air_freshness": 0.33,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_006",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T10:38:00",
+      "end_time": "2026-02-14T10:40:00",
+      "description": "短暂休息，补充水分，监测身体状态，准备进入第二阶段工作。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.45,
+        "humidity": 0.15,
+        "hygiene": 0.2,
+        "air_freshness": 0.33,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_006",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T10:40:00",
+      "end_time": "2026-02-14T10:52:00",
+      "description": "再次唤醒工作区，打开智能音箱，设置定时提醒与播放轻音乐，帮助专注。",
+      "use_devices": true,
+      "devices": [
+        "smart_speaker_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T10:40:00",
+            "device_id": "smart_speaker_001",
+            "patch": {
+              "power": "on",
+              "mode": "music",
+              "set_timer": "short_work_cycle"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.46,
+        "humidity": 0.15,
+        "hygiene": 0.2,
+        "air_freshness": 0.33,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_006",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T10:52:00",
+      "end_time": "2026-02-14T11:00:00",
+      "description": "在书房内微调灯光与窗帘，确保光线与噪声水平适宜，维持安静工作环境。",
+      "use_devices": true,
+      "devices": [
+        "curtain_sr_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T10:52:00",
+            "device_id": "curtain_sr_001",
+            "patch": {
+              "open": "open"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.51,
+        "humidity": 0.15,
+        "hygiene": 0.2,
+        "air_freshness": 0.33,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_006",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T11:00:00",
+      "end_time": "2026-02-14T12:40:00",
+      "description": "检查室内温湿度与空气质量，确认需要无额外环境调节。房间温度21.26°C、湿度37%、清洁度0.64、空气清新度0.65，环境在舒适区间内。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.54,
+        "humidity": 0.15,
+        "hygiene": 0.2,
+        "air_freshness": 0.33,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_007",
+      "room_id": "living_room",
+      "start_time": "2026-02-14T12:40:00",
+      "end_time": "2026-02-14T12:45:00",
+      "description": "从厨房进入客厅，继续午餐与休息阶段的准备与进展，确保时间连续性。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.0,
+        "humidity": 0.15,
+        "hygiene": 0.2,
+        "air_freshness": 1.0,
+        "light_level": 0.65
+      }
+    },
+    {
+      "event_id": "act_007",
+      "room_id": "living_room",
+      "start_time": "2026-02-14T12:45:00",
+      "end_time": "2026-02-14T12:46:30",
+      "description": "在客厅就坐，整理餐桌周边环境，调暗灯光，准备用餐，同时开启空气净化器以维持安静舒适环境（属于隐式/通用交互，合法）。",
+      "use_devices": true,
+      "devices": [
+        "coffee_table_001",
+        "armchair_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T12:45:00",
+            "device_id": "lighting_panel_001",
+            "patch": {
+              "power": "on",
+              "dim": "30"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T12:45:00",
+            "device_id": "air_purifier_001",
+            "patch": {
+              "power": "on"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.0,
+        "humidity": 0.15,
+        "hygiene": 0.2,
+        "air_freshness": 1.0,
+        "light_level": 0.65
+      }
+    },
+    {
+      "event_id": "act_007",
+      "room_id": "kitchen",
+      "start_time": "2026-02-14T12:46:30",
+      "end_time": "2026-02-14T12:55:00",
+      "description": "在厨房整理用餐材料，准备午餐食材，符合高蛋白、清淡饮食的目标，并确保厨房设备为就绪状态。",
+      "use_devices": true,
+      "devices": [
+        "refrigerator_001",
+        "induction_hob_001",
+        "oven_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T12:46:30",
+            "device_id": "refrigerator_001",
+            "patch": {
+              "power": "on"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T12:46:30",
+            "device_id": "induction_hob_001",
+            "patch": {
+              "turn_on": "on",
+              "set_temp": "medium"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T12:46:30",
+            "device_id": "oven_001",
+            "patch": {
+              "turn_on": "on"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 30.0,
+        "humidity": 0.85,
+        "hygiene": 0.2,
+        "air_freshness": 0.76,
+        "light_level": 0.75
+      }
+    },
+    {
+      "event_id": "act_007",
+      "room_id": "living_room",
+      "start_time": "2026-02-14T12:55:00",
+      "end_time": "2026-02-14T13:04:00",
+      "description": "从厨房前往客厅，完成食材整理后回到休息区，继续餐后准备与轻度散步的序列。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.0,
+        "humidity": 0.15,
+        "hygiene": 0.2,
+        "air_freshness": 1.0,
+        "light_level": 0.65
+      }
+    },
+    {
+      "event_id": "act_007",
+      "room_id": "living_room",
+      "start_time": "2026-02-14T13:04:00",
+      "end_time": "2026-02-14T13:09:00",
+      "description": "在客厅进行短暂休息，轻度活动，准备散步前的放松，保持安静环境。",
+      "use_devices": true,
+      "devices": [
+        "curtain_lr_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T13:04:00",
+            "device_id": "lighting_panel_001",
+            "patch": {
+              "turn_off": "on",
+              "dim": "0"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.0,
+        "humidity": 0.15,
+        "hygiene": 0.2,
+        "air_freshness": 1.0,
+        "light_level": 0.65
+      }
+    },
+    {
+      "event_id": "act_007",
+      "room_id": "Outside",
+      "start_time": "2026-02-14T13:09:00",
+      "end_time": "2026-02-14T13:15:00",
+      "description": "从客厅向门厅/走廊进行短时散步，穿过走廊在外部环境中进行短距移动与呼吸调整，完成外出散步阶段。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_007",
+      "room_id": "Outside",
+      "start_time": "2026-02-14T13:10:00",
+      "end_time": "2026-02-14T13:11:00",
+      "description": "在走廊短暂停留，调整呼吸，准备返回客厅继续结束散步。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      }
+    },
+    {
+      "event_id": "act_007",
+      "room_id": "living_room",
+      "start_time": "2026-02-14T13:11:00",
+      "end_time": "2026-02-14T13:12:00",
+      "description": "返回客厅，结束散步，回到坐卧区继续收尾。",
+      "use_devices": true,
+      "devices": [
+        "sofa_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T13:11:00",
+            "device_id": "air_purifier_001",
+            "patch": {
+              "power": "on"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.0,
+        "humidity": 0.15,
+        "hygiene": 0.2,
+        "air_freshness": 1.0,
+        "light_level": 0.65
+      }
+    },
+    {
+      "event_id": "act_007",
+      "room_id": "living_room",
+      "start_time": "2026-02-14T13:12:00",
+      "end_time": "2026-02-14T13:15:00",
+      "description": "在客厅进行餐后整理，收拾餐具并降低环境音量与灯光，保持安静的氛围。",
+      "use_devices": true,
+      "devices": [
+        "coffee_table_001",
+        "sofa_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T13:12:00",
+            "device_id": "lighting_panel_001",
+            "patch": {
+              "turn_off": "on",
+              "dim": "0"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T13:12:00",
+            "device_id": "smart_tv_001",
+            "patch": {
+              "turn_off": "on"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.0,
+        "humidity": 0.15,
+        "hygiene": 0.2,
+        "air_freshness": 1.0,
+        "light_level": 0.65
+      }
+    },
+    {
+      "event_id": "act_008",
+      "room_id": "living_room",
+      "start_time": "2026-02-14T13:15:00",
+      "end_time": "2026-02-14T13:16:00",
+      "description": "从书房进入客厅，完成房间切换，进入轻度社交与叙事区。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 20.71,
+        "humidity": 0.38,
+        "hygiene": 0.64,
+        "air_freshness": 1.0,
+        "light_level": 0.65
+      }
+    },
+    {
+      "event_id": "act_008",
+      "room_id": "living_room",
+      "start_time": "2026-02-14T13:16:00",
+      "end_time": "2026-02-14T13:21:00",
+      "description": "在客厅与家人进行简短对话，分享修复进展，维持安静环境以便聆听对话，随后回到书房继续记录情感与体力感受。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 20.71,
+        "humidity": 0.38,
+        "hygiene": 0.64,
+        "air_freshness": 1.0,
+        "light_level": 0.65
+      }
+    },
+    {
+      "event_id": "act_008",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T13:21:00",
+      "end_time": "2026-02-14T13:21:30",
+      "description": "结束对话后返回书房继续记录情感与体力感受，回到原来记录区域。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 20.55,
+        "humidity": 0.36,
+        "hygiene": 0.64,
+        "air_freshness": 0.65,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_008",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T13:21:30",
+      "end_time": "2026-02-14T13:25:00",
+      "description": "在书房/客厅混合区域进行简短对话记录，确保环境安静，准备继续记录情感与体力感受。",
+      "use_devices": true,
+      "devices": [
+        "smart_speaker_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T13:21:30",
+            "device_id": "lighting_panel_001",
+            "patch": {
+              "dim": "20"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T13:21:30",
+            "device_id": "smart_tv_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-14T13:25:00",
+            "device_id": "smart_tv_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      },
+      "room_environment": {
+        "temperature": 20.55,
+        "humidity": 0.36,
+        "hygiene": 0.64,
+        "air_freshness": 0.65,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_008",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T13:25:00",
+      "end_time": "2026-02-14T13:27:00",
+      "description": "继续关注环境舒适度，必要时调整空气质量，确保无干扰。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 20.55,
+        "humidity": 0.36,
+        "hygiene": 0.64,
+        "air_freshness": 0.65,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_008",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T13:27:00",
+      "end_time": "2026-02-14T13:29:00",
+      "description": "对话结束后回到书房继续记录情感与体力感受，保持设备状态一致性。",
+      "use_devices": true,
+      "devices": [
+        "smart_speaker_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T13:27:00",
+            "device_id": "smart_speaker_001",
+            "patch": {
+              "power": "on"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T13:27:00",
+            "device_id": "smart_speaker_001",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 20.55,
+        "humidity": 0.36,
+        "hygiene": 0.64,
+        "air_freshness": 0.65,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_008",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T13:29:00",
+      "end_time": "2026-02-14T13:35:00",
+      "description": "返回书房后继续记录情感与体力感受，整理并降低不再使用的设备以维持安静与专注环境。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 20.55,
+        "humidity": 0.36,
+        "hygiene": 0.64,
+        "air_freshness": 0.65,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_008",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T13:35:00",
+      "end_time": "2026-02-14T13:55:00",
+      "description": "结束段落，整理仪器与盒子，准备进入下一阶段活动。",
+      "use_devices": true,
+      "devices": [
+        "desk_001",
+        "bookshelf_002"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T13:35:00",
+            "device_id": "desk_001",
+            "patch": {}
+          },
+          {
+            "timestamp": "2026-02-14T13:35:00",
+            "device_id": "bookshelf_002",
+            "patch": {}
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 20.55,
+        "humidity": 0.36,
+        "hygiene": 0.64,
+        "air_freshness": 0.65,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_009",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T16:00:00",
+      "end_time": "2026-02-14T16:02:00",
+      "description": "从起始点出发，李铭老人向书房移动以进行室内替代活动的材料整理与在线学习回顾，确保房间切换合规并与主活动一致。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.0,
+        "humidity": 0.3,
+        "hygiene": 0.58,
+        "air_freshness": 0.62,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_009",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T16:02:00",
+      "end_time": "2026-02-14T16:02:30",
+      "description": "在书房打开笔记本与文献记录工具，启动在线讲座回顾的准备工作。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.0,
+        "humidity": 0.3,
+        "hygiene": 0.58,
+        "air_freshness": 0.62,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_009",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T16:02:30",
+      "end_time": "2026-02-14T16:03:30",
+      "description": "调高书房灯光并降低背景噪音，确保修复工作环境安静且专注。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.0,
+        "humidity": 0.3,
+        "hygiene": 0.58,
+        "air_freshness": 0.62,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_009",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T16:03:30",
+      "end_time": "2026-02-14T16:05:30",
+      "description": "开启屏幕投影，回顾收藏讲座的录像片段，记录要点。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.0,
+        "humidity": 0.3,
+        "hygiene": 0.58,
+        "air_freshness": 0.62,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_009",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T16:05:30",
+      "end_time": "2026-02-14T16:06:30",
+      "description": "检查书房环境，确认温度适宜；如偏冷，主动开启暖气以保持舒适。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.0,
+        "humidity": 0.3,
+        "hygiene": 0.58,
+        "air_freshness": 0.62,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_009",
+      "room_id": "living_room",
+      "start_time": "2026-02-14T16:06:30",
+      "end_time": "2026-02-14T16:08:30",
+      "description": "从书房返回至起居区，进行下一阶段材料整理的转场。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.0,
+        "humidity": 0.31,
+        "hygiene": 0.58,
+        "air_freshness": 1.0,
+        "light_level": 0.65
+      }
+    },
+    {
+      "event_id": "act_009",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T16:08:30",
+      "end_time": "2026-02-14T16:12:30",
+      "description": "在书房整理盒子与文献，记录要点，完成室内替代活动的核心整理工作。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.0,
+        "humidity": 0.3,
+        "hygiene": 0.58,
+        "air_freshness": 0.62,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_009",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T16:12:30",
+      "end_time": "2026-02-14T16:14:30",
+      "description": "短暂休息，回顾自身情绪与体力，继续保持专注与耐心。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.0,
+        "humidity": 0.3,
+        "hygiene": 0.58,
+        "air_freshness": 0.62,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_009",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T16:14:30",
+      "end_time": "2026-02-14T16:15:00",
+      "description": "返回书房准备进入线上互动阶段，继续在线交流记录要点。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.0,
+        "humidity": 0.3,
+        "hygiene": 0.58,
+        "air_freshness": 0.62,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_009",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T16:15:00",
+      "end_time": "2026-02-14T16:15:30",
+      "description": "进入线上互动平台，准备与收藏爱好者在线交流，记录要点与反馈。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.0,
+        "humidity": 0.3,
+        "hygiene": 0.58,
+        "air_freshness": 0.62,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_009",
+      "room_id": "study_room",
+      "start_time": "2026-02-14T16:15:30",
+      "end_time": "2026-02-14T17:30:00",
+      "description": "查看在线互动平台，与收藏爱好者在线交流，记录要点与反馈。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.0,
+        "humidity": 0.3,
+        "hygiene": 0.58,
+        "air_freshness": 0.62,
+        "light_level": 0.6
+      }
+    },
+    {
+      "event_id": "act_010",
+      "room_id": "kitchen",
+      "start_time": "2026-02-14T17:40:00",
+      "end_time": "2026-02-14T17:45:00",
+      "description": "从书房/前区安静移动至厨房，准备在安静环境下进行晚餐前的材料准备，确保与后续烹饪动作衔接顺畅",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 30.0,
+        "humidity": 0.85,
+        "hygiene": 0.2,
+        "air_freshness": 0.0,
+        "light_level": 0.75
+      }
+    },
+    {
+      "event_id": "act_010",
+      "room_id": "kitchen",
+      "start_time": "2026-02-14T17:45:00",
+      "end_time": "2026-02-14T17:55:00",
+      "description": "在厨房对冰箱进行取材，检查并准备晚餐清淡高蛋白食材，同时开启灶具前的低噪音温控，确保环境安静",
+      "use_devices": true,
+      "devices": [
+        "refrigerator_001",
+        "induction_hob_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T17:45:00",
+            "device_id": "refrigerator_001",
+            "patch": {
+              "power": "on"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T17:45:00",
+            "device_id": "induction_hob_001",
+            "patch": {
+              "power": "on"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 30.0,
+        "humidity": 0.85,
+        "hygiene": 0.2,
+        "air_freshness": 0.6,
+        "light_level": 0.75
+      }
+    },
+    {
+      "event_id": "act_010",
+      "room_id": "kitchen",
+      "start_time": "2026-02-14T17:55:00",
+      "end_time": "2026-02-14T18:05:00",
+      "description": "继续在厨房准备餐点，观察材料与盒内细节，保持安静与专注",
+      "use_devices": true,
+      "devices": [
+        "kitchen_counter_001",
+        "oven_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T17:55:00",
+            "device_id": "oven_001",
+            "patch": {
+              "power": "on"
+            }
+          }
+        ],
+        "patch_on_end": [
+          {
+            "timestamp": "2026-02-14T18:05:00",
+            "device_id": "oven_001",
+            "patch": {
+              "power": "off"
+            }
+          }
+        ]
+      },
+      "room_environment": {
+        "temperature": 30.0,
+        "humidity": 0.85,
+        "hygiene": 0.2,
+        "air_freshness": 0.2,
+        "light_level": 0.75
+      }
+    },
+    {
+      "event_id": "act_010",
+      "room_id": "living_room",
+      "start_time": "2026-02-14T18:05:00",
+      "end_time": "2026-02-14T18:07:00",
+      "description": "从厨房安静移动至客厅，转入餐后休息与放松阶段，保持低噪音环境",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.0,
+        "humidity": 0.15,
+        "hygiene": 0.2,
+        "air_freshness": 1.0,
+        "light_level": 0.65
+      }
+    },
+    {
+      "event_id": "act_010",
+      "room_id": "living_room",
+      "start_time": "2026-02-14T18:07:00",
+      "end_time": "2026-02-14T18:15:00",
+      "description": "在客厅开启空气净化器以改善室内空气品质，按偏好保持安静低速运行",
+      "use_devices": true,
+      "devices": [
+        "air_purifier_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T18:07:00",
+            "device_id": "air_purifier_001",
+            "patch": {
+              "power": "on"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.0,
+        "humidity": 0.15,
+        "hygiene": 0.2,
+        "air_freshness": 1.0,
+        "light_level": 0.65
+      }
+    },
+    {
+      "event_id": "act_010",
+      "room_id": "living_room",
+      "start_time": "2026-02-14T18:15:00",
+      "end_time": "2026-02-14T18:25:00",
+      "description": "继续在客厅放松，进行短时阅读与音乐聆听，灯光保持柔和",
+      "use_devices": true,
+      "devices": [
+        "lighting_panel_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T18:15:00",
+            "device_id": "lighting_panel_001",
+            "patch": {
+              "dim": "low"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.0,
+        "humidity": 0.16,
+        "hygiene": 0.2,
+        "air_freshness": 1.0,
+        "light_level": 0.65
+      }
+    },
+    {
+      "event_id": "act_010",
+      "room_id": "living_room",
+      "start_time": "2026-02-14T18:25:00",
+      "end_time": "2026-02-14T19:00:00",
+      "description": "结束放松阶段，准备进入就寝前的收尾与休息时间，确保环境安静",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 18.0,
+        "humidity": 0.17,
+        "hygiene": 0.2,
+        "air_freshness": 1.0,
+        "light_level": 0.65
+      }
+    },
+    {
+      "event_id": "act_011",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-14T19:00:00",
+      "end_time": "2026-02-14T19:00:30",
+      "description": "睡前准备开始：在主卧室内整理今日记录，逐步降低光线与噪声，以进入睡眠前状态。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 30.0,
+        "humidity": 0.81,
+        "hygiene": 0.44,
+        "air_freshness": 1.0,
+        "light_level": 0.25
+      }
+    },
+    {
+      "event_id": "act_011",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-14T19:00:30",
+      "end_time": "2026-02-14T19:01:00",
+      "description": "从客厅移动到主卧室，安静移动以减少干扰，完成房间切换。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 29.8,
+        "humidity": 0.81,
+        "hygiene": 0.44,
+        "air_freshness": 1.0,
+        "light_level": 0.25
+      }
+    },
+    {
+      "event_id": "act_011",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-14T19:01:00",
+      "end_time": "2026-02-14T19:04:00",
+      "description": "进入主卧室，环境静默，继续睡前放松准备。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 29.6,
+        "humidity": 0.81,
+        "hygiene": 0.44,
+        "air_freshness": 1.0,
+        "light_level": 0.25
+      }
+    },
+    {
+      "event_id": "act_011",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-14T19:04:00",
+      "end_time": "2026-02-14T19:10:00",
+      "description": "开启卧室空气净化器，开启灯光并进入低光状态，同时继续观察环境指标的舒适度。",
+      "use_devices": true,
+      "devices": [
+        "air_purifier_bedroom_001",
+        "lighting_control_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T19:04:00",
+            "device_id": "air_purifier_bedroom_001",
+            "patch": {
+              "turn_on": "on",
+              "adjust_speed": "low"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T19:04:00",
+            "device_id": "lighting_control_001",
+            "patch": {
+              "dim": "low"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 28.48,
+        "humidity": 0.8,
+        "hygiene": 0.44,
+        "air_freshness": 1.0,
+        "light_level": 0.25
+      }
+    },
+    {
+      "event_id": "act_011",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-14T19:10:00",
+      "end_time": "2026-02-14T19:12:00",
+      "description": "观察环境，确认温度与湿度趋于舒适区间的下降趋势。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 26.58,
+        "humidity": 0.79,
+        "hygiene": 0.44,
+        "air_freshness": 1.0,
+        "light_level": 0.25
+      }
+    },
+    {
+      "event_id": "act_011",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-14T19:12:00",
+      "end_time": "2026-02-14T19:20:00",
+      "description": "根据当前环境偏差，继续调节室内光线与温湿度：保持低光，并略微调整窗户与空气净化器以优化舒适度。",
+      "use_devices": true,
+      "devices": [
+        "window_mb_001",
+        "air_purifier_bedroom_001",
+        "heater_001",
+        "lighting_control_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T19:12:00",
+            "device_id": "window_mb_001",
+            "patch": {
+              "open": "open"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T19:12:00",
+            "device_id": "air_purifier_bedroom_001",
+            "patch": {
+              "adjust_speed": "medium"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T19:12:00",
+            "device_id": "heater_001",
+            "patch": {
+              "turn_off": "off"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T19:12:00",
+            "device_id": "lighting_control_001",
+            "patch": {
+              "dim": "low"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 26.05,
+        "humidity": 0.79,
+        "hygiene": 0.44,
+        "air_freshness": 1.0,
+        "light_level": 0.25
+      }
+    },
+    {
+      "event_id": "act_011",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-14T19:20:00",
+      "end_time": "2026-02-14T19:26:00",
+      "description": "环境逐步回到舒适区，准备执行最终就寝前步骤。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 24.27,
+        "humidity": 0.77,
+        "hygiene": 0.44,
+        "air_freshness": 1.0,
+        "light_level": 0.25
+      }
+    },
+    {
+      "event_id": "act_011",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-14T19:26:00",
+      "end_time": "2026-02-14T19:30:00",
+      "description": "继续进入深度放松阶段，静默伴随低光，整理睡前记录。",
+      "use_devices": false,
+      "devices": [],
+      "layer5_device_state": {
+        "patch_on_start": [],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 23.27,
+        "humidity": 0.76,
+        "hygiene": 0.44,
+        "air_freshness": 1.0,
+        "light_level": 0.25
+      }
+    },
+    {
+      "event_id": "act_011",
+      "room_id": "master_bedroom",
+      "start_time": "2026-02-14T19:30:00",
+      "end_time": "2026-02-14T19:31:00",
+      "description": "睡前准备结束，进入最终睡眠阶段，窗帘/灯光进入极简状态，准备就寝。",
+      "use_devices": true,
+      "devices": [
+        "curtain_mb_001",
+        "lighting_control_001"
+      ],
+      "layer5_device_state": {
+        "patch_on_start": [
+          {
+            "timestamp": "2026-02-14T19:30:00",
+            "device_id": "curtain_mb_001",
+            "patch": {
+              "open": "open"
+            }
+          },
+          {
+            "timestamp": "2026-02-14T19:30:00",
+            "device_id": "lighting_control_001",
+            "patch": {
+              "dim": "min"
+            }
+          }
+        ],
+        "patch_on_end": []
+      },
+      "room_environment": {
+        "temperature": 22.72,
+        "humidity": 0.75,
+        "hygiene": 0.44,
+        "air_freshness": 1.0,
+        "light_level": 0.25
+      }
+    }
+  ]
+}

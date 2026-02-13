@@ -1,0 +1,118 @@
+{
+  "current_date": "2026-02-16",
+  "day_of_week": "Monday",
+  "day_type": "workday",
+  "simulation_state": "Perturbed",
+  "previous_day_summary": "李铭老人昨日总体维持稳健节奏，虽凌晨睡眠以周末模式，实际起床因前日疲劳出现短暂调整并于07:30–08:00间完成唤醒，午后和晚间以低强度修复、静态休息及安静娱乐为主，未见高强度运动、饮酒或药物使用；若干活动显示睡眠后疲劳滞后效应，未出现突发扰动或危机事件。",
+  "previous_day_snapshot": {
+    "agent_location": "master_bedroom",
+    "device_states": {
+      "curtain_mb_001": {
+        "power": "unknown"
+      },
+      "lighting_control_001": {
+        "power": "on"
+      },
+      "air_purifier_bedroom_001": {
+        "power": "on"
+      },
+      "desk_001": {
+        "power": "off"
+      },
+      "ergonomic_chair_001": {
+        "power": "off"
+      },
+      "whiteboard_001": {
+        "power": "off"
+      },
+      "window_sr_001": {
+        "power": "unknown"
+      },
+      "curtain_sr_001": {
+        "power": "unknown"
+      },
+      "refrigerator_001": {
+        "power": "on"
+      },
+      "induction_hob_001": {
+        "power": "on"
+      },
+      "kitchen_hood_001": {
+        "power": "off"
+      },
+      "dishwasher_001": {
+        "power": "off"
+      },
+      "kitchen_counter_001": {
+        "power": "unknown"
+      },
+      "dual_monitor_001": {
+        "power": "on"
+      },
+      "window_lr_001": {
+        "power": "unknown"
+      },
+      "window_lr_002": {
+        "power": "unknown"
+      },
+      "air_purifier_001": {
+        "power": "on"
+      },
+      "lighting_panel_001": {
+        "power": "unknown"
+      },
+      "sofa_001": {
+        "power": "unknown"
+      },
+      "coffee_table_001": {
+        "power": "unknown"
+      },
+      "smart_speaker_001": {
+        "power": "on"
+      },
+      "filing_cabinet_001": {
+        "power": "unknown"
+      },
+      "oven_001": {
+        "power": "on"
+      },
+      "smart_tv_001": {
+        "power": "on"
+      },
+      "heater_001": {
+        "power": "on"
+      },
+      "window_mb_001": {
+        "power": "unknown"
+      },
+      "curtains_mb_001": {
+        "power": "unknown"
+      }
+    },
+    "physiology": {
+      "fatigue": 1.0,
+      "hunger": 0.8999999999999999
+    }
+  },
+  "agent_state": {
+    "mood": "low",
+    "energy": 0.0,
+    "stress": 0.4,
+    "hunger": 0.9,
+    "health": "unwell",
+    "notes": ""
+  },
+  "agent_state_stage": "after_planning",
+  "day_start_time": "2026-02-16T06:30:00",
+  "day_end_time": "2026-02-17T06:30:00",
+  "random_event": "",
+  "emergency_event": "",
+  "random_event_count": 2,
+  "emergency_event_count": 0,
+  "outdoor_weather": {
+    "temperature_min": 7.9399999999999995,
+    "temperature_max": 19.939999999999998,
+    "humidity_min": 0.2,
+    "humidity_max": 0.38
+  }
+}

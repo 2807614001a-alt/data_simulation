@@ -1,0 +1,29 @@
+{
+  "current_date": "2026-02-13",
+  "day_of_week": "Friday",
+  "day_type": "workday",
+  "simulation_state": "Normal",
+  "previous_day_summary": "N/A",
+  "previous_day_snapshot": {},
+  "agent_state": {
+    "mood": "neutral",
+    "energy": 1.0,
+    "stress": 0.0,
+    "hunger": 0.3,
+    "health": "ok",
+    "notes": ""
+  },
+  "agent_state_stage": "after_events",
+  "day_start_time": "2026-02-13T06:30:00",
+  "day_end_time": "2026-02-14T07:30:00",
+  "random_event": "",
+  "emergency_event": "",
+  "random_event_count": 0,
+  "emergency_event_count": 0,
+  "outdoor_weather": {
+    "temperature_min": 6.9399999999999995,
+    "temperature_max": 18.939999999999998,
+    "humidity_min": 0.2,
+    "humidity_max": 0.38
+  }
+}
