@@ -1,0 +1,116 @@
+{
+  "activities": [
+    {
+      "activity_id": "act_001",
+      "activity_name": "起床与晨间启动",
+      "start_time": "2026-02-13T06:30:00",
+      "end_time": "2026-02-13T07:00:00",
+      "description": "起床时间严格对齐日程起点，06:30-06:50 进行晨间唤醒与床铺整理，打开窗帘与环境灯以建立安静的工作氛围，随后进入简单的床边清醒与桌面整理，确保06:50-07:00完成起床至进入工作区的过渡。使用家具/设备：smart_alarm_001、lighting_control_001、window_mb_001、mb_sound_masker_001、curtain_mb_001。状态体现：agent_state energy 0.7，health ok，体现高尽责性与对睡眠节律的尊重。main_rooms：master_bedroom, study_room",
+      "main_rooms": [
+        "master_bedroom",
+        "study_room"
+      ]
+    },
+    {
+      "activity_id": "act_002",
+      "activity_name": "晨间拉伸与手部保养",
+      "start_time": "2026-02-13T06:50:00",
+      "end_time": "2026-02-13T07:10:00",
+      "description": "06:50-07:10 在书房前区进行手腕与指关节拉伸运动，确保与起床后进入书房工作区无缝衔接。若感到轻微疲劳，进行2分钟短休息；使用家具/设备：rug_mb_001、desk_001、window_sr_001，mb_sound_masker_001 以维持安静环境，帮助专注。体现性格：高度尽责、稳健耐心。main_rooms：master_bedroom, study_room",
+      "main_rooms": [
+        "master_bedroom",
+        "study_room"
+      ]
+    },
+    {
+      "activity_id": "act_003",
+      "activity_name": "早餐与能量补给",
+      "start_time": "2026-02-13T07:10:00",
+      "end_time": "2026-02-13T07:30:00",
+      "description": "07:10-07:30 早餐准备与用餐，遵循高蛋白、低糖与静音环境，室内温度约22℃，音乐以古典乐背景。完成后进入书房工作区；若早餐调整，解释原因（如前一活动稍有延长）。使用家具/设备：kitchen、lighting_panel_001、window_sr_001、mb_sound_masker_001。main_rooms：kitchen",
+      "main_rooms": [
+        "kitchen"
+      ]
+    },
+    {
+      "activity_id": "act_004",
+      "activity_name": "书房环境整理与工作启动",
+      "start_time": "2026-02-13T07:40:00",
+      "end_time": "2026-02-13T07:40:00",
+      "description": "07:30-07:40 清理书房桌面，检查双显示器、网络设备，开启专注模式并进入文献回顾/修复任务状态。使用家具/设备：desk_001、dual_monitor_001、webcam_001、curtain_sr_001、smart_speaker_001。状态体现：conscientiousness高，确保不产生干扰，准备进入高强度工作阶段。main_rooms：study_room",
+      "main_rooms": [
+        "study_room"
+      ]
+    },
+    {
+      "activity_id": "act_005",
+      "activity_name": "周五固定任务：盒子文献回顾与设计评估",
+      "start_time": "2026-02-13T07:40:00",
+      "end_time": "2026-02-13T09:00:00",
+      "description": "07:40-09:00 在书房进行盒子文献回顾与纹理评估，使用放大镜、白板记录要点，保持极简安静环境以减少干扰。若energy下降，安排2-3分钟休息。该任务符合 Profile 的周五固定安排，确保按计划推进；使用家具/设备：desk_001、ergonomic_chair_001、whiteboard_001、curtain_sr_001。main_rooms：study_room",
+      "main_rooms": [
+        "study_room"
+      ]
+    },
+    {
+      "activity_id": "act_006",
+      "activity_name": "短时休息与能量维持",
+      "start_time": "2026-02-13T09:00:00",
+      "end_time": "2026-02-13T09:03:00",
+      "description": "09:00-09:03 短时间休息，进行放松练习与深呼吸，使用 mb_sound_masker_001 与 curtain_sr_001，确保下午工作有持续能量。此休息为常态化安排，符合能量管理与记忆性强、稳定耐心的性格。main_rooms：study_room",
+      "main_rooms": [
+        "study_room"
+      ]
+    },
+    {
+      "activity_id": "act_007",
+      "activity_name": "午餐与午后休憩",
+      "start_time": "2026-02-13T12:00:00",
+      "end_time": "2026-02-13T12:30:00",
+      "description": "12:00-12:30 午餐在客厅/餐区就餐，保持安静与舒适氛围，饭后进行15分钟静默或轻度冥想以恢复能量，使用家具/设备：kitchen、living_room（多功能区域）、smart_speaker_001、mb_sound_masker_001，确保午后状态平稳。main_rooms：kitchen",
+      "main_rooms": [
+        "kitchen"
+      ]
+    },
+    {
+      "activity_id": "act_008",
+      "activity_name": "盒子修复工作/文献记录",
+      "start_time": "2026-02-13T13:00:00",
+      "end_time": "2026-02-13T15:30:00",
+      "description": "13:00-15:30 书房进行高精度修复与记录，使用放大镜、手工工具，保持安静环境；若疲劳，安排2-3分钟休息。遵循80/20工作法推进，确保细节考究与耐心。使用家具/设备：desk_001、ergonomic_chair_001、whiteboard_001、curtain_sr_001。main_rooms：study_room",
+      "main_rooms": [
+        "study_room"
+      ]
+    },
+    {
+      "activity_id": "act_009",
+      "activity_name": "晚间社交/历史故事分享",
+      "start_time": "2026-02-13T16:45:00",
+      "end_time": "2026-02-13T17:30:00",
+      "description": "16:45-17:30 在客厅与邻里进行简短社交，分享古董盒子历史故事，使用沙发、茶几与音乐背景，保持静音灯光与温和氛围。互动对象：邻里友人，若有扰动则采用低强度对话与安静灯光。main_rooms：living_room",
+      "main_rooms": [
+        "living_room"
+      ]
+    },
+    {
+      "activity_id": "act_010",
+      "activity_name": "晚餐与放松",
+      "start_time": "2026-02-13T17:30:00",
+      "end_time": "2026-02-13T19:00:00",
+      "description": "17:30-19:00 晚餐烹饪与用餐，维持清淡易消化，餐后在客厅观看纪录片/音乐欣赏，使用厨房、smart_tv_001、lighting_panel_001、窗帘_sr_001，确保睡眠节律协同。energy略有下降，进入放松阶段，未对睡眠节律造成冲击。main_rooms：kitchen",
+      "main_rooms": [
+        "kitchen"
+      ]
+    },
+    {
+      "activity_id": "act_011",
+      "activity_name": "晚间就寝准备与入睡",
+      "start_time": "2026-02-13T19:00:00",
+      "end_time": "2026-02-14T07:30:00",
+      "description": "19:00-07:30 落实慢速就寝前准备（清洁、整理、拉窗帘、检查窗感应器、使用空气净化器与床头声遮设备），确保日程跨日延续至次日07:30，最终在07:30前仍处于睡眠窗口状态，进入深度睡眠直至次日醒来。该活动作为日内最后一项，且覆盖 day_end_time，确保以入睡/睡眠收尾。main_rooms：master_bedroom",
+      "main_rooms": [
+        "master_bedroom"
+      ]
+    }
+  ]
+}
