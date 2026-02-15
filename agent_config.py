@@ -48,11 +48,19 @@ def _env_int(key: str, default: int) -> int:
 # create_fast_llm 相关（模型、温度、推理、API 方式、调试）
 # =============================================================================
 
-# 模型，环境变量 OPENAI_MODEL 覆盖
+# 模型，环境变量 OPENAI_MODEL 覆盖（用于 planning、device_operate 等未单独指定模型的模块）
 DEFAULT_MODEL = _env("OPENAI_MODEL", "gpt-5-nano") or "gpt-5-nano"
 
-# 推理强度：minimal | low | medium | high，部分 API 支持 none。OPENAI_REASONING_EFFORT 覆盖（minimal 最快）
+# Details 生成（layout2details：房间物品详情、校验、修正），SIM_DETAILS_MODEL 覆盖，默认 nano
+DETAILS_MODEL = _env("SIM_DETAILS_MODEL", "gpt-5-mini") or "gpt-5-mini"
+
+# Event 层（事件生成、校验、修正），SIM_EVENT_MODEL 覆盖，默认 mini 以提升质量
+EVENT_MODEL = _env("SIM_EVENT_MODEL", "gpt-5-mini") or "gpt-5-mini"
+
+# 推理强度：minimal | low | medium | high，部分 API 支持 none。OPENAI_REASONING_EFFORT 覆盖；event/planning/device_operate 等均用此默认
 REASONING_EFFORT = _env("OPENAI_REASONING_EFFORT", "minimal").lower() or "minimal"
+# Details 管线（layout2details 生成/校验/修正）单独推理强度，SIM_DETAILS_REASONING_EFFORT 覆盖，默认 medium 以提升详情质量
+DETAILS_REASONING_EFFORT = _env("SIM_DETAILS_REASONING_EFFORT", "minimal").lower() or "minimal"
 
 # 输出冗长度：low | medium | high，部分 API 支持。OPENAI_VERBOSITY 覆盖（low 最快）
 VERBOSITY = _env("OPENAI_VERBOSITY", "low").lower() or "low"
@@ -91,9 +99,10 @@ DEVICE_OPERATE_USE_RESPONSES_API = False
 # --- Settings 脚本 ---
 SETTINGS_DEFAULT_TEMPERATURE = _env_float("SIM_SETTINGS_TEMPERATURE", 0.0)
 SETTINGS_USE_RESPONSES_API = True
-SETTINGS_DETAILS2INTERACTION_USE_RESPONSES_API = False
-SETTINGS_DETAILS2INTERACTION_TEMPERATURE = _env_float("SIM_SETTINGS_DETAILS2INTERACTION_TEMPERATURE", 0.0)
-
+# Details 单次 HTTP 请求超时（秒），房间生成负载大，默认 300；SIM_DETAILS_REQUEST_TIMEOUT 覆盖
+DETAILS_REQUEST_TIMEOUT = max(60, _env_int("SIM_DETAILS_REQUEST_TIMEOUT", 300))
+# Details 单房间生成失败时重试次数（不含首次），默认 2（共 3 次尝试）；SIM_DETAILS_ROOM_RETRY 覆盖
+DETAILS_ROOM_RETRY_COUNT = max(0, _env_int("SIM_DETAILS_ROOM_RETRY", 2))
 # =============================================================================
 # 仿真 / n天与单日（固定数据操作参数）
 # =============================================================================
@@ -160,5 +169,5 @@ MAX_EVENT_REVISIONS = max(0, _env_int("SIM_MAX_EVENT_REVISIONS", 3))
 # 并发：Settings / Device 等脚本里线程池默认 worker 数
 # =============================================================================
 
-# MAX_WORKERS 环境变量未设时用的默认值；device_operate / details2interaction / layout2details 会参考
+# MAX_WORKERS 环境变量未设时用的默认值；device_operate / layout2details 会参考
 MAX_WORKERS_DEFAULT = max(1, _env_int("SIM_MAX_WORKERS_DEFAULT", 12))

@@ -29,6 +29,7 @@ from prompt import (
     PLANNING_VALIDATION_PROMPT_TEMPLATE,
     PLANNING_CORRECTION_PROMPT_TEMPLATE,
     SUMMARIZATION_PROMPT_TEMPLATE,
+    VALUES_INTERPRETATION_GUIDE,
 )
 from agent_config import (
     DEFAULT_MODEL,
@@ -214,7 +215,7 @@ class AgentState(TypedDict):
 # 5. Nodes
 # ==========================================
 
-# 极速 LLM，use_responses_api=False 以兼容 with_structured_output（与 settings/details2interaction 一致）
+# 极速 LLM，use_responses_api=False 以兼容 with_structured_output
 llm = create_fast_llm(
     model=DEFAULT_MODEL,
     temperature=PLANNING_TEMPERATURE,
@@ -235,10 +236,11 @@ def generate_node(state: AgentState):
 
     result = chain.invoke({
         "activity_planning_requirements": ACTIVITY_PLANNING_REQUIREMENTS,
+        "values_interpretation_guide": VALUES_INTERPRETATION_GUIDE,
         **state["inputs"],
     })
     try:
-        vars_for_count = {"activity_planning_requirements": ACTIVITY_PLANNING_REQUIREMENTS, **state["inputs"]}
+        vars_for_count = {"activity_planning_requirements": ACTIVITY_PLANNING_REQUIREMENTS, "values_interpretation_guide": VALUES_INTERPRETATION_GUIDE, **state["inputs"]}
         chars = _estimate_prompt_chars(PLANNING_PROMPT_TEMPLATE, vars_for_count)
         print(f"[INFO] LLM input size (planning generate): ~{chars} chars (~{chars//4} tokens)")
     except Exception:
@@ -488,21 +490,26 @@ def run_planning(
     return None
 
 
-def generate_previous_day_summary(profile_json: str, activity_logs: List[Dict]) -> str:
+def generate_previous_day_summary(profile_json: str, activity_logs: List[Dict], execution_log: str = "") -> str:
     prompt = ChatPromptTemplate.from_template(SUMMARIZATION_PROMPT_TEMPLATE)
     structured_llm = llm.with_structured_output(PreviousDaySummary, method="json_schema", strict=True)
     chain = prompt | structured_llm
 
-    activity_payload = {"activity_logs": activity_logs}
+    activity_payload = {
+        "activity_logs": activity_logs,
+        "actual_execution_records": execution_log,
+    }
 
     result = chain.invoke({
         "profile_json": profile_json,
         "activity_logs_json": json.dumps(activity_payload, ensure_ascii=False, indent=2),
+        "values_interpretation_guide": VALUES_INTERPRETATION_GUIDE,
     })
     try:
         vars_for_count = {
             "profile_json": profile_json,
             "activity_logs_json": json.dumps(activity_payload, ensure_ascii=False, indent=2),
+            "values_interpretation_guide": VALUES_INTERPRETATION_GUIDE,
         }
         chars = _estimate_prompt_chars(SUMMARIZATION_PROMPT_TEMPLATE, vars_for_count)
         print(f"[INFO] LLM input size (summary): ~{chars} chars (~{chars//4} tokens)")

@@ -8,25 +8,26 @@
 from typing import Dict, Any, List, Optional
 from datetime import datetime, timedelta
 
-# 自然衰减系数（每分钟）：房间温度/湿度向室外趋近的速率
+# 自然衰减系数（关窗极慢保温）
 K_TEMPERATURE = 0.008
 K_HUMIDITY = 0.005
-# 清洁度自然衰减（无人打扫时缓慢下降），趋向 0.4；下限避免不现实的 0.01
+# 开窗状态下的高速收敛系数（极快趋近室外）
+K_TEMPERATURE_OPEN = 0.15
+K_HUMIDITY_OPEN = 0.10
+K_AIR_FRESHNESS_OPEN = 0.15
+
 K_HYGIENE_DECAY = 0.002
 HYGIENE_FLOOR = 0.4
 HYGIENE_MIN = 0.2
 
-# 室内温度合理范围（摄氏度），避免极端值；设备效应在该范围内渐变
-TEMPERATURE_MIN = 18.0
-TEMPERATURE_MAX = 30.0
+# 室内温度合理范围（解除绝对天花板，允许酷暑严寒）
+TEMPERATURE_MIN = 5.0
+TEMPERATURE_MAX = 45.0
 
-# 温控设备：房间温度向设备设定值（temperature_set）趋近的速率（/分钟）
 K_TEMPERATURE_SETPOINT = 0.03
-# 空气清新度：无通风时自然衰减趋向值及衰减系数；下限避免长期为 0
 AIR_FRESHNESS_DECAY = 0.001
 AIR_FRESHNESS_FLOOR = 0.4
 AIR_FRESHNESS_DEFAULT = 0.7
-# 湿度合理范围，避免 3% 或 100% 等不现实波动
 HUMIDITY_MIN = 0.15
 HUMIDITY_MAX = 0.85
 
@@ -81,12 +82,13 @@ def get_outdoor_weather_at_time(
 
 
 def _matches_condition(device_state: Dict[str, Any], working_condition: Dict[str, str]) -> bool:
-    """设备当前 state 是否满足 working_condition。空字符串或缺失的条件键视为「任意值」，避免 mode=="" 导致 power=on 的设备不生效。"""
+    """设备当前 state 是否满足 working_condition。空字符串或缺失的条件键视为「任意值」；键名大小写不敏感（兼容 LLM 输出 Power/Temperature）。"""
+    state_norm = {str(key).strip().lower(): val for key, val in (device_state or {}).items()}
     for k, v in (working_condition or {}).items():
         v_str = str(v).strip() if v is not None else ""
         if v_str == "":
             continue  # 不要求该键，任意值均可
-        state_val = device_state.get(k)
+        state_val = state_norm.get(str(k).strip().lower()) if k else None
         if state_val is None:
             return False
         if str(state_val).lower() != v_str.lower():
@@ -135,19 +137,37 @@ def calculate_room_state(
     T_out = outdoor.get("temperature", T)
     H_out = outdoor.get("humidity", H)
 
-    # 1. 自然衰减
-    T = T + K_TEMPERATURE * (T_out - T) * dt
-    H = H + K_HUMIDITY * (H_out - H) * dt
+    # --- 探测当前房间是否有敞开的窗户 ---
+    is_window_open = False
+    for dev in active_devices:
+        did = str(dev.get("device_id") or dev.get("furniture_id") or "").lower()
+        state_dict = dev.get("state") or dev.get("current_state") or {}
+        if "window" in did and str(state_dict.get("open")).lower() == "open":
+            is_window_open = True
+            break
+
+    # 动态赋予当前时间切片的收敛系数
+    current_k_temp = K_TEMPERATURE_OPEN if is_window_open else K_TEMPERATURE
+    current_k_hum = K_HUMIDITY_OPEN if is_window_open else K_HUMIDITY
+
+    # 1. 自然衰减（动态边界）
+    T = T + current_k_temp * (T_out - T) * dt
+    H = H + current_k_hum * (H_out - H) * dt
     Hy = Hy - K_HYGIENE_DECAY * (Hy - HYGIENE_FLOOR) * dt
     Hy = max(HYGIENE_MIN, min(1.0, Hy))
-    Af = Af - AIR_FRESHNESS_DECAY * (Af - AIR_FRESHNESS_FLOOR) * dt
-    Af = max(0.0, min(1.0, Af))
+    # 空气清新度逻辑
+    if is_window_open:
+        Af = Af + K_AIR_FRESHNESS_OPEN * (0.9 - Af) * dt
+    else:
+        Af = Af - AIR_FRESHNESS_DECAY * (Af - AIR_FRESHNESS_FLOOR) * dt
+    Af_before_devices = Af
 
     # 2. 设备干预：温控设备有 temperature_set 时房间温度向设定值趋近，否则按 delta 变化；其余属性按 delta
     for dev in active_devices:
         device_id = dev.get("device_id") or dev.get("furniture_id")
         device_state = dev.get("state") or dev.get("current_state") or {}
-        item = details_map.get(device_id) if details_map else None
+        did = (device_id or "").strip() if isinstance(device_id, str) else device_id
+        item = (details_map.get(did) or details_map.get(device_id)) if details_map else None
         if not item:
             continue
         regs = item.get("environmental_regulation") or []
@@ -157,16 +177,17 @@ def calculate_room_state(
             cond = reg.get("working_condition") or {}
             if not _matches_condition(device_state, cond):
                 continue
-            attr = reg.get("target_attribute")
+            attr = (reg.get("target_attribute") or "").strip().lower()  # 兼容 LLM 输出大写 Temperature/Humidity
             delta = reg.get("delta_per_minute", 0.0)
             if attr == "temperature":
-                # 优先用目标值做指数趋近，避免线性 delta 导致 1h 升 90°C 等不合理
+                # 优先用目标值做指数趋近。室温目标必须钳在室内合理范围，否则烤箱/灶台的烹饪温度(180/200°C)会误把室温推到荒谬值
                 T_target = None
                 if isinstance(reg.get("target_value"), (int, float)):
                     T_target = float(reg["target_value"])
                 if T_target is None and isinstance(device_state.get("temperature_set"), (int, float)):
                     T_target = float(device_state["temperature_set"])
                 if T_target is not None:
+                    T_target = max(TEMPERATURE_MIN, min(TEMPERATURE_MAX, T_target))
                     T = T + K_TEMPERATURE_SETPOINT * (T_target - T) * dt
                 else:
                     T = T + delta * dt
@@ -178,6 +199,11 @@ def calculate_room_state(
             elif attr == "air_freshness":
                 Af = Af + delta * dt
                 Af = max(0.0, min(1.0, Af))
+
+    # 无显著通风/净化贡献时，高 air_freshness 缓慢衰减，避免密闭房间无人开窗/开净化器却自动升到 1.0
+    if Af > 0.9 and (Af - Af_before_devices) < 0.01:
+        Af = Af - 0.004 * (Af - 0.85) * dt
+        Af = max(0.0, min(1.0, Af))
 
     # 3. 活动类型带来的额外影响（烹饪、淋浴等）
     act_d = activity_deltas_per_minute or {}

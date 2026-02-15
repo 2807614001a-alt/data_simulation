@@ -1,90 +1,96 @@
 {
-  "user_id": "user_liu_ming_72",
-  "name": "李铭老人",
-  "age": 72,
-  "gender": "male",
-  "occupation": "古董修复师，专修清单里尘封已久的盒子（以手工、细密修复为主，常在家进行高精度木漆和嵌饰工作）",
+  "user_id": "user_XXX",
+  "name": "方海平",
+  "age": 62,
+  "gender": "male/n/a",
+  "occupation": "夜市摊位的年迈修鞋匠",
   "personality": {
     "big_five": {
-      "openness": 0.74,
-      "conscientiousness": 0.88,
-      "extraversion": 0.18,
-      "agreeableness": 0.62,
-      "neuroticism": 0.42
+      "openness": 0.65,
+      "conscientiousness": 0.72,
+      "extraversion": 0.38,
+      "agreeableness": 0.74,
+      "neuroticism": 0.28
     },
     "traits": [
-      "极简主义（家中物件极少但珍贵，优先保留最具历史意义的盒子和工具）",
-      "听觉敏感（对持续的噪声有较高不适感，需要安静的工作与生活环境）",
-      "手工精细癖（偏好细节处理，修复盒子时对纹理和漆面的微小差异极度在意）",
-      "记忆性强（对过去的物件与故事有强烈的情感连接，家里常有旧物叙事的回忆）",
-      "稳定耐心（修复工作需要长期、持续的专注力，日常作息稳健）"
+      "务实但温情",
+      "敬业但有些固执",
+      "极简主义（家中物件简约，偏爱只保留必需品）",
+      "听觉略微敏感（偏好安静工作环境）"
     ]
   },
   "values": {
-    "work_life_balance": 0.68,
-    "health_consciousness": 0.78,
-    "social_interaction": 0.55,
-    "personal_growth": 0.72,
-    "financial_security": 0.65
+    "work_life_balance": 0.74,
+    "health_consciousness": 0.72,
+    "social_interaction": 0.42,
+    "personal_growth": 0.58,
+    "financial_security": 0.68
   },
   "routines": {
     "sleep_schedule": {
       "weekday_bedtime": "22:30",
-      "weekday_wakeup": "06:30",
-      "weekend_bedtime": "23:00",
-      "weekend_wakeup": "07:30"
+      "weekday_wakeup": "06:00",
+      "weekend_bedtime": "23:30",
+      "weekend_wakeup": "06:30"
     },
     "meal_habits": {
-      "breakfast_time": "07:30",
+      "breakfast_time": "07:00",
       "lunch_time": "12:30",
-      "dinner_time": "18:30",
+      "dinner_time": "19:00",
       "cooking_frequency": 0.8,
       "diet_preference": [
-        "高蛋白、低糖",
-        "清淡易消化"
+        "杂粮",
+        "海鲜"
       ]
     },
     "exercise": {
-      "frequency": "每日轻度拉伸运动（晨间5-10分钟，强调手腕、指关节柔韧性）",
-      "preferred_time": "早晨7:00-7:20",
+      "frequency": "3次/周",
+      "preferred_time": "清晨或傍晚沿海岸线散步",
       "type": [
-        "瑜伽前置拉伸",
-        "手部操"
+        "散步",
+        "太极的缓慢动作（自学自练，需空旷的海边场地）"
       ]
     },
     "weekly_schedule": {
       "monday": {
-        "activity": "盒子清单研究与文献回顾",
-        "time": "13:30-15:00",
-        "location": "书房",
-        "frequency": "每日"
+        "activity": "修鞋与零活",
+        "time": "08:00-12:00",
+        "location": "海边小镇的修鞋铺旁",
+        "frequency": "日常"
       },
-      "saturday": {
-        "activity": "与当地收藏爱好者交流（线下小型讲座/交流）",
-        "time": "16:00-17:30",
-        "location": "城市博物馆/小型馆内",
-        "frequency": "每周"
+      "tuesday": {
+        "activity": "脚底按摩与自制鞋油",
+        "time": "14:00-17:00",
+        "location": "铺前木桌",
+        "frequency": "日常"
+      },
+      "wednesday": {
+        "activity": "海边散步、翻看旧鞋样本",
+        "time": "18:00-20:00",
+        "location": "海堤与小书摊",
+        "frequency": "日常"
       }
     }
   },
   "preferences": {
     "entertainment": [
-      "慢综艺、古典音乐记录片"
+      "地方戏曲收藏与偶尔观赏",
+      "海边散步的写生文学"
     ],
     "music_genre": [
-      "古典乐",
-      "民乐"
+      "老式民歌",
+      "轻音乐"
     ],
     "home_temperature": 22
   },
   "random_event_config": {
     "perturbed": {
-      "mean": 1.4,
-      "std": 0.5,
+      "mean": 1.6,
+      "std": 0.6,
       "max": 4
     },
     "crisis": {
-      "mean": 1.2,
+      "mean": 1.1,
       "std": 0.4,
       "max": 3
     }

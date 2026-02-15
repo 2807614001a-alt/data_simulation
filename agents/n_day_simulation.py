@@ -123,7 +123,24 @@ def _copy_json(src: Path, dst: Path) -> None:
 
 
 def _parse_iso(dt_str: str) -> datetime:
-    return datetime.fromisoformat(dt_str)
+    """解析 ISO 时间字符串；对 LLM 可能输出的截断格式（如 2026-02-15T）补全为当日 00:00:00。拒绝 Schema 幻觉（如 :string、:number）。"""
+    if not dt_str or not isinstance(dt_str, str):
+        raise ValueError("empty or invalid dt_str")
+    s = dt_str.strip()
+    # 拒绝大模型把 JSON Schema 类型声明吐出来的情况（如 "2026-02-14T17-:string"）
+    for artifact in (":string", ":number", ":integer", ":boolean", ":array", ":object"):
+        if artifact in s:
+            raise ValueError(f"Invalid ISO: schema artifact in value (e.g. {artifact})")
+    # 截断的 ISO：仅日期或以 T 结尾无时分秒，补全为 00:00:00
+    if s.endswith("T") or (("T" in s) and ":" not in s.split("T")[-1]):
+        s = s.rstrip("T").rstrip()
+        if "T" in s:
+            s = s + "T00:00:00"
+        else:
+            s = s + "T00:00:00"
+    elif len(s) == 10 and s[4] == "-" and s[7] == "-":  # YYYY-MM-DD only
+        s = s + "T00:00:00"
+    return datetime.fromisoformat(s)
 
 
 def _format_iso(dt_obj: datetime) -> str:
@@ -388,6 +405,7 @@ def run_multi_day_simulation() -> None:
     previous_day_env_snapshot: Optional[Dict] = None
     previous_day_device_states: Optional[Dict] = None
 
+    action_chain = None
     for day_index in range(1, DAYS + 1):
         print(f"\n=== Day {day_index}/{DAYS} ===", flush=True)
         current_date = base_date + timedelta(days=day_index - 1)
@@ -471,6 +489,7 @@ def run_multi_day_simulation() -> None:
                 cached_settings=event_settings,
                 initial_environment_snapshot=previous_day_env_snapshot,
                 initial_device_states=previous_day_device_states,
+                day_index=day_index,
             )
             _copy_json(DATA_DIR / "events.json", DATA_DIR / f"events_day{day_index}.json")
             if isinstance(event_result, dict):
@@ -488,7 +507,18 @@ def run_multi_day_simulation() -> None:
 
         activities = activity_plan.get("activities", [])
         if activities:
-            previous_day_summary = planning.generate_previous_day_summary(profile_json, activities)
+            execution_log = ""
+            if RUN_EVENTS and action_chain is not None:
+                logs = []
+                for ev in action_chain:
+                    desc = ev.get("description", "")
+                    rid = ev.get("room_id", "")
+                    st = ev.get("start_time", "")
+                    time_str = st[11:16] if len(st) >= 16 else ""
+                    if desc:
+                        logs.append(f"[{time_str} - {rid}] {desc}")
+                execution_log = "\n".join(logs)
+            previous_day_summary = planning.generate_previous_day_summary(profile_json, activities, execution_log)
             _write_json(
                 DATA_DIR / f"previous_day_summary_day{day_index}.json",
                 {"previous_day_summary": previous_day_summary},

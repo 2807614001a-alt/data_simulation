@@ -234,7 +234,7 @@ def create_fast_llm(
         REASONING_EFFORT = (os.getenv("OPENAI_REASONING_EFFORT") or "minimal").strip().lower() or "minimal"
         VERBOSITY = (os.getenv("OPENAI_VERBOSITY") or "low").strip().lower() or "low"
         LLM_DEBUG = os.getenv("OPENAI_LLM_DEBUG", "").strip().lower() in ("1", "true", "yes")
-    reasoning_effort = REASONING_EFFORT
+    reasoning_effort = kwargs.pop("reasoning_effort", REASONING_EFFORT)
     # verbosity 仅用于 Responses API；Completions API 传 model_kwargs.text 会导致 parse() 报 unexpected 'text'
     model_kwargs = {"text": {"verbosity": VERBOSITY}} if use_responses_api else {}
     resolved_model = _resolve_model(model)

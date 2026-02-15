@@ -28,8 +28,6 @@ def main():
         "profile2layout.py",
         "layout_check.py",
         "layout2details.py",
-        "details2interaction.py",
-        "final_validation.py",
     ]
 
     current_dir = os.path.dirname(os.path.abspath(__file__))

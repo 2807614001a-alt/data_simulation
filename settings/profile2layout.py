@@ -30,6 +30,8 @@ class EnvironmentState(BaseModel):
     humidity: float = Field(description="湿度 (0.0 - 1.0)")
     light_level: float = Field(description="光照强度 (0.0 - 1.0)")
     noise_level: float = Field(description="噪音水平 (0.0 - 1.0)")
+    hygiene: float = Field(description="清洁度 (0.0 - 1.0)")
+    air_freshness: float = Field(description="空气清新度 (0.0 - 1.0)")
 
 # 1.2 房间详细信息
 class RoomInfo(BaseModel):

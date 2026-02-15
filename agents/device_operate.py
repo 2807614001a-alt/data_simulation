@@ -197,6 +197,17 @@ def _event_patches_to_layer5(event: Dict) -> tuple:
     return patch_on_start, patch_on_end
 
 
+def _dedupe_layer5_patches(start_list: List[Dict], end_list: List[Dict]) -> tuple:
+    """若 patch_on_end 中某条与 patch_on_start 中 (device_id, patch) 完全相同，则从 end 中移除，避免冗余。"""
+    start_keys = set()
+    for p in start_list:
+        did = p.get("device_id") or ""
+        patch = p.get("patch") or {}
+        start_keys.add((did, json.dumps(patch, sort_keys=True)))
+    end_deduped = [p for p in end_list if (p.get("device_id") or "", json.dumps(p.get("patch") or {}, sort_keys=True)) not in start_keys]
+    return start_list, end_deduped
+
+
 # ==========================================
 # ==========================================
 
@@ -231,7 +242,7 @@ def run_event_chain_generation(cached_settings: Optional[Dict[str, Any]] = None)
         use_devices = len(target_ids) > 0 and not is_outside
         
         event_output = {
-            "event_id": event.get("activity_id", f"evt_{index:03d}"),
+            "event_id": f"evt_{index:03d}",
             "room_id": event.get("room_id"),
             "start_time": event.get("start_time"),
             "end_time": event.get("end_time"),
@@ -251,6 +262,7 @@ def run_event_chain_generation(cached_settings: Optional[Dict[str, Any]] = None)
         device_patches = event.get("device_patches") or []
         if use_devices and device_patches and len(device_patches) > 0:
             start_list, end_list = _event_patches_to_layer5(event)
+            start_list, end_list = _dedupe_layer5_patches(start_list, end_list)
             event_output["layer5_device_state"] = {
                 "patch_on_start": start_list,
                 "patch_on_end": end_list
@@ -300,6 +312,7 @@ def run_event_chain_generation(cached_settings: Optional[Dict[str, Any]] = None)
                         logger.error(f"LLM error on event {index}: {error}")
                         continue
                     if start_patches is not None and end_patches is not None:
+                        start_patches, end_patches = _dedupe_layer5_patches(start_patches, end_patches)
                         final_chain[index]["layer5_device_state"] = {
                             "patch_on_start": start_patches,
                             "patch_on_end": end_patches
@@ -311,6 +324,7 @@ def run_event_chain_generation(cached_settings: Optional[Dict[str, Any]] = None)
                     logger.error(f"LLM error on event {index}: {error}")
                     continue
                 if start_patches is not None and end_patches is not None:
+                    start_patches, end_patches = _dedupe_layer5_patches(start_patches, end_patches)
                     final_chain[index]["layer5_device_state"] = {
                         "patch_on_start": start_patches,
                         "patch_on_end": end_patches

@@ -1,0 +1,65 @@
+================================================================================
+layout2details 修正日志：校验反馈 + 改错前/后内容
+================================================================================
+
+--------------------------------------------------------------------------------
+【1】房间: bathroom  轮次: 1  物品ID: mirror_001  名称: Mirror Mirror
+--------------------------------------------------------------------------------
+
+>>> 校验反馈 (correction_content)
+
+镜子（mirror_001）中的 physics_capabilities 不应包含任何热控相关标签。请改为 []。
+镜子（mirror_001）中的 environmental_regulation 不应包含任何环境调节标签。请改为 []。
+
+>>> 改错前 (before)
+
+{
+  "furniture_id": "mirror_001",
+  "name": "Mirror Mirror",
+  "room": "bathroom",
+  "support_actions": [
+    "open",
+    "close",
+    "turn_on",
+    "turn_off",
+    "set_mode",
+    "set_fan_speed",
+    "set_temp",
+    "set_humidity"
+  ],
+  "comfort_level": 0.0,
+  "current_state": {
+    "occupied": null,
+    "open": null
+  },
+  "physics_capabilities": [],
+  "environmental_regulation": []
+}
+
+>>> 改错后 (after)
+
+{
+  "furniture_id": "mirror_001",
+  "name": "Mirror Mirror",
+  "room": "bathroom",
+  "support_actions": [
+    "open",
+    "close",
+    "turn_on",
+    "turn_off",
+    "set_mode",
+    "set_fan_speed",
+    "set_temp",
+    "set_humidity"
+  ],
+  "comfort_level": 0.0,
+  "current_state": {
+    "occupied": null,
+    "open": null
+  },
+  "physics_capabilities": [],
+  "environmental_regulation": []
+}
+
+================================================================================
+共 1 条修正记录
